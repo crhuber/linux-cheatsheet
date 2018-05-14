@@ -113,6 +113,54 @@ Boot Process
 		
 		shutdown -h +10
 
+* Process States
+
+	Init process is the first process when linux boots up 
+			
+			pidof systemd
+			>1
+	There are 4 states for a process
+
+			- Running: running or waiting to be assigned to CPU
+			- Waiting: : iowait - waiting for io, or just waiting for an event to occur. uninterruptible are ones waiting on hardware
+			- Zombie: process is dead but its still in process table
+
+	Background Jobs
+		
+			 & or ctrl+z
+	
+	Foreground Jobs
+	
+			jobs
+			fg %1
+
+* Signals
+
+	Signals notify an process of an event. Similar to how a hardware sends kernel interupts. Programs only recognize signals if they are programmed to do so.
+	
+	Shows all available signals
+		
+		kill -l 
+	
+	Signal Types:
+	
+		SIGINT - interupprt
+		SIGHUP - when controlling terminal is closed without closing. The OS sends sighup
+		SIGINIT2 - sent when user hits control+c
+		SIGQUIT - sent when quit signal Ctrl + D
+		SIGKIll9 - terminates immediately and without out cleaning up
+		SIGTERM15 - kill uses this by default. Clean shutdown. 
+		SIGTSTP2- - Control z
+		
+* System Calls
+
+When a program does open, fork, read, write its doing a system call. Its how a program enters the kernel. it instructs the kernel to do something on its behalf. Why doesn’t the user application run itself? Because of ring levels. Users are ring3, kernel is ring0.
+ 
+Userspace and Kernel space
+Processes in user space only have access to small part of memory. Kernel has all. Cannot do io or have a hardware access.  Access to kernel space by system calls. 
+Sends an interupt to kernel if it wasn’t to write a file. Rings are so programs dont interfere with eachother
+
+
 User Admin
 -----------
 
@@ -163,6 +211,15 @@ are specified in /etc/sudoers, which is edited with the visudo utility. By defau
 * Define default attributes for new users (UID, Password Expiriny, HomeDir)
 
         nano /etc/login.defs
+
+* Kill a process
+
+		1       HUP (hang up)
+		2       INT (interrupt)
+		3       QUIT (quit)
+		6       ABRT (abort)
+		9       KILL (non-catchable, non-ignorable kill)
+		Each process is supplied with a set of standard signal handlers by the operating system in order to deal with incoming signals. When no signal is explicitly included in the command, signal 15, named SIGTERM, is sent by default. If this fails, the stronger signal 9, called SIGKILL
 
 * Kill all users processes
 
@@ -368,6 +425,14 @@ Hardware
 		sudo service ntp stop
 		sudo ntpdate -s time.nist.gov
 		sudo service ntp start
+		
+* Show Memory information
+
+		cat /proc/meminfo
+
+* Show number of cores 
+
+		lscpu 
 
 File System
 ------------
@@ -456,6 +521,28 @@ File System
         sudo mkfs -t ext4 /dev/xvdf #makes file system on /dev/xvdf
         sudo mkdir /mnt/my-data #make a mount point
         sudo mount /dev/xvdf /mnt/my-data #mount device
+
+* Show Physical Volumes
+		
+		 pvdisplay
+		
+* Create Volume Group
+
+	A group of physical volumes or disks are combined together into a single storage file which is referred to as the LVM volume group.
+
+		sudo vgcreate <volume-name> <device-1> <device-2> <device-3>
+
+* Create Logical Volumes
+
+		sudo lvcreate –name <logical-volume-name> –size <size-of-volume> <volume-group-name>
+
+* Display Logical Volumes
+
+		sudo lvdisplay
+
+* Format Logical Volume
+
+		mkfs -t ext4 /dev/<lvm-name>
 
 * Zero Out all blocks for performance
 
@@ -724,6 +811,7 @@ wtmp					User logins and logouts
 		openssl sha -sha256 <filename> (mac)
         
 * Symbolic Links
+
 ```
 ┌── ln(1) link, ln -- make links
 │   ┌── Create a symbolic link.
@@ -747,7 +835,7 @@ Performance
         On a dual-core CPU, I won't even think about it until load gets and stays above 1.7 or so
         Which average should I be observing? One, five, or 15 minute?, you should be looking at the five or 15-minute averages. Frankly, if your box spikes above 1.0 on the one-minute average, you're still fine. It's when the 15-minute average goes north of 1.0 and stays there that you need to snap to.
         how do I know how many cores my system has? grep 'model name' /proc/cpuinfo | wc -l
-
+        
 
 * Show running services with their ports
 
@@ -775,6 +863,17 @@ Performance
     * User Time - if idle time is low, you can expect this to be high. Find process taking up cpu
     *  Memory usage: don't look at the "free" memory -- it's misleading. To get the actual memory available, subtract the "cached" memory from the "used" memory. This is because Linux caches things liberally, and often the memory can be freed up when it's needed
     * Stealtime = virtual machines are competing for resources. If %st increases on all VM's, means your VM is using too much cpu. elif %st increases on just one VM = Physical is oversold
+    * cpu: usertime (time spent on processor running your program). System is the time spent in operating system kernel
+	* iowait: time cpu waiting for disk or network io. 
+	* load: is how many processes are waiting to run
+    	- < 0.7 = healthy (on single core machine)
+    	- 1.0 = system is fully used (on single core machine)
+		- 1.0 on single core, 4.0 on quad core 
+		- broken down by one minute, 5 minutes, 15 minutes
+		- lscpu: shows how many cores
+	* Memory: true memory usage is memory used - swap cached
+	* swap: cached: caches files in the filesystem in memory for better performance. Uses spare memory
+	* SwapTotal, SwapFree. If they are equal there is no swapping going on
     
     ```
 
@@ -817,6 +916,10 @@ Performance
 		ps –ax
 		ps –eaf
 		pstree
+		ps aux 
+		a = show processes for all users
+		u = display the process's user/owner
+		x = also show processes not attached to a terminal
 
 
 * Like top, but with a better, cleaner interface:
@@ -848,6 +951,10 @@ Performance
 * How much memory is left
 
 		free -m
+		
+		Free: memory that is currently not used for anything. It should be small since memory shouldn’t be wasted
+		Available: amount available for allocation to new process. Modern operating systems go out of their way to keep as little memory free as possible. Memory that is free is actually harder to use because it has to be transitioned from free to in use. Memory that is already in use, that is, memory that is available but not free, can easily be switched to another use.
+		The "buffers" and "cached" will be released by the kernal if they are needed.
 
 * Are we swapping
 
@@ -958,9 +1065,23 @@ Items marked with a * are network services. It is particularly important to disa
 Command Line
 -------------
 
-* Get input from a pipe and run a command for each argument
+* Xargs: Get input from a pipe and run a command for each argument. takes strings separated by whitespace and passes them into the command specficied
+		
+		ls |xargs -n 2 echo   #-n2 means how many arguments to supply at a given time
 
-		xargs
+* Awk
+
+	find positional parameters 
+			
+			ls -la | awk '{ print $ 5}’
+		
+* Tail, Sort, Head
+
+		ps -aux | tail -n +2 | sort -rnk 4
+		tail = starting from 2 lines below otp
+		sort = - reverse , numeric sort, by column 4
+		head = output the first 10 lines
+		uniq = with -c counts how many times a string shows up in a document uniquely
 
 * run jobs in parallel easily:
 
@@ -2564,7 +2685,7 @@ DROP DATABASE test;
     ctrl+r - redo
     ctrl-b / ctrl-f - Move Backwards/Forward by Page
 
-# SystemD (Prometheus)
+# SystemD
 
 ```
 wget https://github.com/prometheus/node_exporter/releases/download/0.11.0/node_exporter-0.11.0.linux-amd64.tar.gz
@@ -2597,9 +2718,9 @@ sudo systemctl start node_exporter.service
 
 * Create a service
 
-	sudo nano /etc/systemd/system/my.service
-	sudo systemctl enable /etc/systemd/system/my.service
-	sudo systemctl start my.service
+		sudo nano /etc/systemd/system/my.service
+		sudo systemctl enable /etc/systemd/system/my.service
+		sudo systemctl start my.service
 	
 * Edit Service Config
 
