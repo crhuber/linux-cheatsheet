@@ -556,7 +556,13 @@ File System
 
         resize2fs
 
+* Raid Levels
 
+		0 - Striped set without parity or Striping
+		1 - Mirrored set without parity or Mirroring
+		0+1 -  (increased speed) arrays are created and they are each mirrored via an overall RAID 1 (data backup) array. By definition, this configuration requires at least 4 drives.
+		5 - Provides both backup and increased speed. Additionally, a RAID 5 array can continue normally operating if one of its drives fails. The performance speed of the array will be reduced until the failed drive is replaced, but no data loss would occur. This array requires a minimum of 3 drives.
+		1+0 Mirrors two drives together and then creates a striped set with the pair.
 
 * Mount a new file system
 
