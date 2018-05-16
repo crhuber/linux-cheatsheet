@@ -1692,7 +1692,17 @@ from django.conf import settings
 * Create a new user on the server
 	
 	```
-	Generate a SSH key on local machine	ssh-keygen -t rsa -C "your_email@example.com"	Upload the key to the server and add it website user’s authorised keys   scp i secure_keypair.pem ~/.ssh/id_rsa.pub ec2-user@newwebsite.com:/tmp/ 	cd ~/  	mkdir .ssh  	cat /tmp/id_rsa.pub > .ssh/authorized_keys  	chmod 700 .ssh  	chmod 600 .ssh/authorized_keys	sudo rm /tmp/id_rsa.pub
+	Generate a SSH key on local machine
+	ssh-keygen -t rsa -C "your_email@example.com"
+
+	Upload the key to the server and add it website user’s authorised keys
+   scp i secure_keypair.pem ~/.ssh/id_rsa.pub ec2-user@newwebsite.com:/tmp/
+ 	cd ~/
+  	mkdir .ssh
+  	cat /tmp/id_rsa.pub > .ssh/authorized_keys
+  	chmod 700 .ssh
+  	chmod 600 .ssh/authorized_keys
+	sudo rm /tmp/id_rsa.pub
 	
 	Or Upload key to server ussing ssh-copy-id
 	ssh-copy-id [-i [identity_file]] [user@]machine
@@ -2053,6 +2063,40 @@ Restrict /admin website to only canada and australia
 * Create CSR
 
 		openssl req -sha256 -new -key ~/my-private-key.pem -out ~/domain.com.csr
+
+* Create a SAN config
+		
+		```
+		
+		[ req ]
+		prompt = no
+		default_bits       = 2048
+		distinguished_name = req_distinguished_name
+		req_extensions     = req_ext
+		[ req_distinguished_name ]
+		countryName                = CA
+		stateOrProvinceName        = Ontario
+		localityName               = Toronto
+		organizationName           = Company
+		organizationalUnitName     = MyBusinessUnit
+		commonName                 = server.domain.com
+		[ req_ext ]
+		subjectAltName = @alt_names
+		[alt_names]
+		DNS.1   = server1.domain.com
+		DNS.2   = server2.domain.com
+		```
+* Create CSR with SAN config
+
+		openssl req -new -sha256 -key my-private-key.pem -out domain.com.csr -config san.cnf
+
+* Verify SAN on cert
+		
+		openssl req -noout -text -in domain.com.csr | grep DNS
+
+* Convert Cert to PKCS12
+
+		openssl pkcs12 -export -out  domain.com.p12 -inkey my-private-key.pem -in cert.cer
 
 * Install Cert
 
@@ -2415,8 +2459,12 @@ DROP DATABASE test;
 * Git Post-Receive Hook on server
 	
 		```
-	  	cat > hooks/postreceive  	 	#!/bin/sh
-  		GIT_WORK_TREE=/var/www/html		export GIT_WORK_TREE 		do your stuff here		chmod +x hooks/postreceive
+	  	cat > hooks/postreceive
+  	 	#!/bin/sh
+  		GIT_WORK_TREE=/var/www/html
+		export GIT_WORK_TREE
+ 		do your stuff here
+		chmod +x hooks/postreceive
 		```
 
 * Add the remote repository to the local repository
