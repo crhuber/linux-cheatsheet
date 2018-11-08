@@ -2112,8 +2112,11 @@ Restrict /admin website to only canada and australia
 * Create a self-signed certificate
 		
 		openssl x509 -req -days 365 -in my.csr -signkey my-private-key.pem -out my-self-signed.pem
+* Test SSL certificates
 
-#PHP
+		openssl s_client -connect name.server.io:443
+
+# PHP
 
 * Install
 
