@@ -1123,6 +1123,28 @@ Command Line
 		'j.py' http://tiny.cc/62qjow  an incredible substitute to browse directories by name instead of 'cd'
 		- learn to use 'pushd' to save time navigating folders (j.py is better though)
 
+  - `tee`: allows you to pipe output to a file and stdout at the same time  
+  - `awk`: finds patterns in files. most useful for filtering fields seperated by white space
+  - `tr` : translates characters ie: upper to lowercase, removing whitespace, extra characters. 
+  - `cut`: used to select a number of characters or columns from an input.
+  - `tac`: reverse cat. shows last line at the top 
+  - `curl`: used for transferring data. useful for testing web connections.
+  - `wget`: usually used for downloading files from the web
+  - `watch`: used to repeat a command periodically. Useful for watching files or proceses. 
+  - `head`: shows the beginning of a file(s)
+  - `tail`: shows the end of a file(s)
+
+* Explain the following command:
+  `(date ; ps -ef | awk '{print $1}' | sort | uniq | wc -l ) >> Activity.log`
+
+  - Shows the date  
+  - show all processes by users including extra information such as userid 
+  - select the first column (uid)
+  - sort by id 
+  - remove duplicate userid
+  - count number of entries
+  - pip to file
+
 * Bash
 
 ```
