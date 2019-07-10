@@ -44,7 +44,7 @@ Boot Process
 * GRUB
 
     ```
-   
+
     	If you have multiple kernel images installed on your system, you can choose which one to be executed.
     	GRUB displays a splash screen, waits for few seconds, if you don’t enter anything, it loads the default kernel image as specified in the grub configuration file.
     	GRUB has the knowledge of the filesystem (the older Linux loader LILO didn’t understand filesystem).
@@ -61,18 +61,18 @@ Boot Process
     	initrd /boot/initrd-2.6.18-194.el5PAE.img</strong></span>
     	As you notice from the above info, it contains kernel and initrd image.
     	So, in simple terms GRUB just loads and executes Kernel and initrd images.
-    
+
     ```
 
 * Kernel
 
-    
+
     * Mounts the root file system as specified in the “root=” in grub.conf
     * Kernel executes the /sbin/init program
     * Since init was the 1st program to be executed by Linux Kernel, it has the process id (PID) of 1. Do a ‘ps -ef | grep init’ and check the pid.
     * initrd stands for Initial RAM Disk.
     * initrd is used by kernel as temporary root file system until kernel is booted and the real root file system is mounted. It also contains necessary drivers compiled inside, which helps it to access the hard drive partitions, and other hardware.
-    
+
 * Init
 
     ```
@@ -110,13 +110,13 @@ Boot Process
     ```
 
 * Shutdown the system after 10 minutes.
-		
+
 		shutdown -h +10
 
 * Process States
 
-	Init process is the first process when linux boots up 
-			
+	Init process is the first process when linux boots up
+
 			pidof systemd
 			>1
 	There are 4 states for a process
@@ -126,38 +126,38 @@ Boot Process
 			- Zombie: process is dead but its still in process table
 
 	Background Jobs
-		
+
 			 & or ctrl+z
-	
+
 	Foreground Jobs
-	
+
 			jobs
 			fg %1
 
 * Signals
 
 	Signals notify an process of an event. Similar to how a hardware sends kernel interupts. Programs only recognize signals if they are programmed to do so.
-	
+
 	Shows all available signals
-		
-		kill -l 
-	
+
+		kill -l
+
 	Signal Types:
-	
+
 		SIGINT - interupprt
 		SIGHUP - when controlling terminal is closed without closing. The OS sends sighup
 		SIGINIT2 - sent when user hits control+c
 		SIGQUIT - sent when quit signal Ctrl + D
 		SIGKIll9 - terminates immediately and without out cleaning up
-		SIGTERM15 - kill uses this by default. Clean shutdown. 
+		SIGTERM15 - kill uses this by default. Clean shutdown.
 		SIGTSTP2- - Control z
-		
+
 * System Calls
 
 When a program does open, fork, read, write its doing a system call. Its how a program enters the kernel. it instructs the kernel to do something on its behalf. Why doesn’t the user application run itself? Because of ring levels. Users are ring3, kernel is ring0.
- 
+
 Userspace and Kernel space
-Processes in user space only have access to small part of memory. Kernel has all. Cannot do io or have a hardware access.  Access to kernel space by system calls. 
+Processes in user space only have access to small part of memory. Kernel has all. Cannot do io or have a hardware access.  Access to kernel space by system calls.
 Sends an interupt to kernel if it wasn’t to write a file. Rings are so programs dont interfere with eachother
 
 
@@ -180,11 +180,11 @@ are specified in /etc/sudoers, which is edited with the visudo utility. By defau
 
 * Password file syntax
 
-		/etc/passwd 
+		/etc/passwd
 
     ![alt text](passwdfile.jpg "Passwords")
 
-    
+
     * Username: It is used when user logs in. It should be between 1 and 32 characters in length.
     * Password: An x character indicates that encrypted password is stored in /etc/shadow file.
     * User ID (UID): Each user must be assigned a user ID (UID). UID 0 (zero) is reserved for root and UIDs 1-99 are reserved for other predefined accounts. Further UID 100-999 are reserved by system for administrative and system accounts/groups.
@@ -192,7 +192,7 @@ are specified in /etc/sudoers, which is edited with the visudo utility. By defau
     * User ID Info: The comment field. It allow you to add extra information about the users such as user's full name, phone number etc. This field use by finger command.
     * Home directory: The absolute path to the directory the user will be in when they log in. If this directory does not exists then users directory becomes /
     * Command/shell: The absolute path of a command or shell (/bin/bash). Typically, this is a shell. Please note that it does not have to be a shell.
-    
+
 * System User vs Normal User
 
 		System users will be created with no aging information in /etc/shadow, and their numeric identifiers are chosen in the SYS_UID_MIN–SYS_UID_MAX range, defined in /etc/login.defs, instead of UID_MIN–UID_MAX (and their GID counterparts for the creation of groups).On CentOS: Although useradd --system foouser creates no home directory for that user. Service accounts often don't have a "proper" login shell, i.e. they have /usr/sbin/nologin. Moreover, service accounts are typically locked, i.e. it is not possible to login (for traditional /etc/passwd and /etc/shadow this can be achieved by setting the password hash to arbitrary values such as * or x)
@@ -422,20 +422,20 @@ Hardware
         To backup: dd if=/dev/sda of=/tmp/mbr.img_backup bs=512 count=1
         To restore: dd if=/tmp/mbr.img of=/dev/sda bs=512 count=1
         The MBR  is a 512 byte segment on the very first sector of your hard drive composed of three parts: 1) the boot code which is 446 bytes long, 2) the partiton table which is 64 bytes long, and 3) the boot code signature which is 2 bytes long.
-        
+
 * Sync NTP time
 
 		sudo service ntp stop
 		sudo ntpdate -s time.nist.gov
 		sudo service ntp start
-		
+
 * Show Memory information
 
 		cat /proc/meminfo
 
-* Show number of cores 
+* Show number of cores
 
-		lscpu 
+		lscpu
 
 File System
 ------------
@@ -526,9 +526,9 @@ File System
         sudo mount /dev/xvdf /mnt/my-data #mount device
 
 * Show Physical Volumes
-		
+
 		 pvdisplay
-		
+
 * Create Volume Group
 
 	A group of physical volumes or disks are combined together into a single storage file which is referred to as the LVM volume group.
@@ -582,11 +582,11 @@ File System
 * Copy Files from Remote Machine to Local Machine
 
 		scp root@www.server.com:/root/file.sql /home/ec2-user
-        
+
 * Copy Local directory to remote machine
 
         scp -rp sourcedirectory user@dest:/path
-        
+
 * Copy Remote directory to local path
 
         scp -r user@your.server.example.com:/path/to/foo /home/user/Desktop/
@@ -687,7 +687,7 @@ File System
 		1 = Execute
 		0 = All access denied
 		First number is for the owner, second for the group, and third for everyon
-		
+
 		http://permissions-calculator.org/
 
 * Permissions On Folders
@@ -779,7 +779,7 @@ wtmp					User logins and logouts
 * Check for systemd or sysvinit
 
 		pidof /sbin/init && echo "sysvinit" || echo "other"
-		
+
 		pidof systemd && echo "systemd" || echo "other"
 
 
@@ -812,13 +812,13 @@ wtmp					User logins and logouts
         file <filename>
 
 * Generate md5
-		
+
 		md5 <filename>
 
 * Generate sha256
 
 		openssl sha -sha256 <filename> (mac)
-        
+
 * Symbolic Links
 
 ```
@@ -838,13 +838,13 @@ Performance
 
 * Load Average
 
-        The "number of cores = max load" 
+        The "number of cores = max load"
         The three numbers represent averages over progressively longer periods of time (one, five, and fifteen minute averages)
         Rule of Thumb: on a multicore system, your load should not exceed the number of cores available.
         On a dual-core CPU, I won't even think about it until load gets and stays above 1.7 or so
         Which average should I be observing? One, five, or 15 minute?, you should be looking at the five or 15-minute averages. Frankly, if your box spikes above 1.0 on the one-minute average, you're still fine. It's when the 15-minute average goes north of 1.0 and stays there that you need to snap to.
         how do I know how many cores my system has? grep 'model name' /proc/cpuinfo | wc -l
-        
+
 
 * Show running services with their ports
 
@@ -860,36 +860,36 @@ Performance
 * top
 
     ![alt text](topoutput.jpg "Top")
-    
+
 	uppercase M sorts by memory
-    
+
     lowercase c shows full command
 
     ```
-    
+
     * check i/o wait for server slowness - Represents CPU waiting for disk I/O. if it is low then you can rule out disk access. GT > 10% is high means Disk is slow
     * CPU idle. higher the number the more bandwidth available to server. Should be >25%
     * User Time - if idle time is low, you can expect this to be high. Find process taking up cpu
     *  Memory usage: don't look at the "free" memory -- it's misleading. To get the actual memory available, subtract the "cached" memory from the "used" memory. This is because Linux caches things liberally, and often the memory can be freed up when it's needed
     * Stealtime = virtual machines are competing for resources. If %st increases on all VM's, means your VM is using too much cpu. elif %st increases on just one VM = Physical is oversold
     * cpu: usertime (time spent on processor running your program). System is the time spent in operating system kernel
-	* iowait: time cpu waiting for disk or network io. 
+	* iowait: time cpu waiting for disk or network io.
 	* load: is how many processes are waiting to run
     	- < 0.7 = healthy (on single core machine)
     	- 1.0 = system is fully used (on single core machine)
-		- 1.0 on single core, 4.0 on quad core 
+		- 1.0 on single core, 4.0 on quad core
 		- broken down by one minute, 5 minutes, 15 minutes
 		- lscpu: shows how many cores
 	* Memory: true memory usage is memory used - swap cached
 	* swap: cached: caches files in the filesystem in memory for better performance. Uses spare memory
 	* SwapTotal, SwapFree. If they are equal there is no swapping going on
-    
+
     ```
 
 * Show open tcp sockets
 
 		lsof -nPi tcp
-		
+
 		-n	: This option inhibits the conversion  of  network  numbers  to  host  names  for  network  files.
          Inhibiting  conversion may make lsof run faster.  It is also useful when host name lookup is not
          working properly.
@@ -906,11 +906,11 @@ Performance
 * Show Ports listening with thir process id
 
 		netstat -tlnp (show ports listening with their process id)
-		
+
 		-l, --listening : Show only listening sockets.  (These are omitted by default.)
 		-n, --numeric : Show numerical addresses instead of trying to determine symbolic host, port or user names.
 		-p, --program : Show the PID and name of the program to which each socket belongs.
-		-t, --tcp : Show only tcp 
+		-t, --tcp : Show only tcp
 
 * Show Ports listening - Mac only
 
@@ -925,7 +925,7 @@ Performance
 		ps –ax
 		ps –eaf
 		pstree
-		ps aux 
+		ps aux
 		a = show processes for all users
 		u = display the process's user/owner
 		x = also show processes not attached to a terminal
@@ -960,7 +960,7 @@ Performance
 * How much memory is left
 
 		free -m
-		
+
 		Free: memory that is currently not used for anything. It should be small since memory shouldn’t be wasted
 		Available: amount available for allocation to new process. Modern operating systems go out of their way to keep as little memory free as possible. Memory that is free is actually harder to use because it has to be transitioned from free to in use. Memory that is already in use, that is, memory that is available but not free, can easily be switched to another use.
 		The "buffers" and "cached" will be released by the kernal if they are needed.
@@ -985,10 +985,10 @@ Performance
 
 		dstat
 
-* Show every call a program is making 
+* Show every call a program is making
 
 		strace python myprogram.py #dont run on production db
-		
+
 		opensnoop -p pid  #same as strace but won't slow u down
 
 * Show current directory disk size
@@ -1022,7 +1022,7 @@ Performance
 		iperf -s
 
 * Test if a specific TCP/IP port is open with round trip
- 		
+
  		 hping3 www.google.com -S -V -p 443
  		 -S Sets the SYN tcp flag
 
@@ -1069,21 +1069,21 @@ Items marked with a * are network services. It is particularly important to disa
 		kill -HUP 128
 		This causes the program to restart and examine its configuration files.
 
-* 
+*
 
 Command Line
 -------------
 
 * Xargs: Get input from a pipe and run a command for each argument. takes strings separated by whitespace and passes them into the command specficied
-		
+
 		ls |xargs -n 2 echo   #-n2 means how many arguments to supply at a given time
 
 * Awk
 
-	find positional parameters 
-			
+	find positional parameters
+
 			ls -la | awk '{ print $ 5}’
-		
+
 * Tail, Sort, Head
 
 		ps -aux | tail -n +2 | sort -rnk 4
@@ -1123,24 +1123,24 @@ Command Line
 		'j.py' http://tiny.cc/62qjow  an incredible substitute to browse directories by name instead of 'cd'
 		- learn to use 'pushd' to save time navigating folders (j.py is better though)
 
-  - `tee`: allows you to pipe output to a file and stdout at the same time  
+  - `tee`: allows you to pipe output to a file and stdout at the same time
   - `awk`: finds patterns in files. most useful for filtering fields seperated by white space
-  - `tr` : translates characters ie: upper to lowercase, removing whitespace, extra characters. 
+  - `tr` : translates characters ie: upper to lowercase, removing whitespace, extra characters.
   - `cut`: used to select a number of characters or columns from an input.
-  - `tac`: reverse cat. shows last line at the top 
+  - `tac`: reverse cat. shows last line at the top
   - `curl`: used for transferring data. useful for testing web connections.
   - `wget`: usually used for downloading files from the web
-  - `watch`: used to repeat a command periodically. Useful for watching files or proceses. 
+  - `watch`: used to repeat a command periodically. Useful for watching files or proceses.
   - `head`: shows the beginning of a file(s)
   - `tail`: shows the end of a file(s)
 
 * Explain the following command:
   `(date ; ps -ef | awk '{print $1}' | sort | uniq | wc -l ) >> Activity.log`
 
-  - Shows the date  
-  - show all processes by users including extra information such as userid 
+  - Shows the date
+  - show all processes by users including extra information such as userid
   - select the first column (uid)
-  - sort by id 
+  - sort by id
   - remove duplicate userid
   - count number of entries
   - pip to file
@@ -1191,14 +1191,14 @@ Mac:
 		set completion-ignore-case on
 
 * Colorize Bash Prompt
-		
+
 		add to .bash_profile
 		export PS1="[\[\e[32;1m\]\u@\h \[\e[33;1m\]\W\[\033[m\]]\[\e[37;1m\]\$ "
 
 * to run a command from history use exclamation !
 
 		!680
-		
+
 * Prompt for input in a bash script
 
 		read -p “Do you want to continue” variable
@@ -1206,7 +1206,7 @@ Mac:
 * Cut off the first column in a text file
 
 		cat filename | cut -d" " -f1
-		
+
 * Redirection of output
 
 		&> for redirection, it redirects both the standard output and standard error
@@ -1216,14 +1216,27 @@ Mac:
 		whatis
 
 		The whatis command displays a summary line from the man page for the specified command.
-		
+
 * Navigation
-		
+
 		ctrl-w - delete the last word
 		ctrl-u - delete start of the line
 		ctrl-l - clear the screen
 		cd -  : go back to previous working dir
 		option-left/right - move word by word
+
+* Loop through folders
+
+	for d in */ ; do
+    	echo "$d"
+    	cd $d
+    	<<comand here>>
+    	cd ..
+	done
+
+* Base64 Decode
+
+	echo "word" | base64 -d
 
 # Networking
 
@@ -1274,13 +1287,13 @@ Mac:
 * Configure DNS for specific suffix
 
 		 cat /etc/resolver/private
-		 nameserver 192.168.99.100       
+		 nameserver 192.168.99.100
 
 * Query DNS
 
 		dig +short txt 20120113._domainkey.gmail.com @8.8.8.8 #query text records
 		dig -x host #reverse
-		dig +nocmd +noall +answer www.blah.com #shows TTL 
+		dig +nocmd +noall +answer www.blah.com #shows TTL
 
 * Wget
 
@@ -1293,7 +1306,7 @@ Mac:
 
 		curl -I www.server.com			# -I to show headers only, -i to show headers
 		curl -D- www.server.com |less  # shows detailed tcp stuff
-        while true; do curl --write-out " - HTTP Response: %{http_code} - Total time: %{time_total} \n" https://google.com; done #continous 
+        while true; do curl --write-out " - HTTP Response: %{http_code} - Total time: %{time_total} \n" https://google.com; done #continous
 
 * Siege
 
@@ -1306,32 +1319,32 @@ Mac:
 		ngrep -q -W byline "^(GET|POST) .*" # -W byline  preserves linesbreaks, -q  #supresses output about 		non-matching packets
 		ngrep -q -W byline "search" host www.google.com and port 80
 
-		
+
 		* Show packets going to a website on network
-		
-		ngrep -d mywebsite 
-		 
+
+		ngrep -d mywebsite
+
 
 * Netcat
 
 		* Portscan
 		nc -z example.com 20-100 	#scan port 20-100
-		
+
 		* Copy files between two hosts
 		Server: $ nc -l 9090 | tar -xzf -
 		Client: tar -czf dir/ | nc server 9090
-		
+
 		* Expose a shell over port 8080
 		server:
 		$ mkfifo backpipe $ nc -l 8080  0<backpipe | /bin/bash > backpipe
 		Client:
 		nc example.com 8080
-		
+
 		* receive file
 		nc -l 9931 > bigfile
-		
+
 		* send file
-		
+
 		cat bigfile | nc ipaddress 9931
 
 * Sshuttle
@@ -1363,7 +1376,7 @@ Mac:
 
 * Show SYN Flood
 
-		ss -a | grep SYN-RECV | awk '{print $4}' | awk -F":" '{print $1}' | sort | uniq -c | sort -n 
+		ss -a | grep SYN-RECV | awk '{print $4}' | awk -F":" '{print $1}' | sort | uniq -c | sort -n
 		or
 		netstat -antp | grep SYN_RECV|awk '{print $4}'|sort|uniq -c | sort -n
 
@@ -1371,8 +1384,8 @@ Mac:
 
 		nc -l -p 1234 #starts a server on port 1234
 		nc destination_host 1234 # connect to server from client
-		tar cfp - /some/dir | compress -c | nc -w 3 destination_host 1234 # compress file and send to remove 
-		
+		tar cfp - /some/dir | compress -c | nc -w 3 destination_host 1234 # compress file and send to remove
+
 
 # Screen
 * Config File
@@ -1543,7 +1556,7 @@ iptables -A INPUT -p tcp --dport 22 -m recent ! --rcheck --seconds 60 --hitcount
 * Search package repositories
 
 		yum search SEARCHSTRING
-		
+
 * Search particular version of a package
 
 		yum --showduplicates list httpd | expand
@@ -1715,7 +1728,7 @@ from django.conf import settings
 		ssh -f -N tunnel
 
 * Create a new user on the server
-	
+
 	```
 	Generate a SSH key on local machine
 	ssh-keygen -t rsa -C "your_email@example.com"
@@ -1728,7 +1741,7 @@ from django.conf import settings
   	chmod 700 .ssh
   	chmod 600 .ssh/authorized_keys
 	sudo rm /tmp/id_rsa.pub
-	
+
 	Or Upload key to server ussing ssh-copy-id
 	ssh-copy-id [-i [identity_file]] [user@]machine
 	```
@@ -1736,9 +1749,9 @@ from django.conf import settings
 * Configure SSH Login using Keys
 
 		nano /home/deploy/.ssh/authorized_keys
-		
+
 		Add the contents of the id_rsa.pub on your local machine and any other public keys that you want to have access to this server to this file
-		
+
 		chmod 600 .ssh/authorized_keys
 
 
@@ -1771,24 +1784,24 @@ Now you can access http://localhost:8081 and it will be as if you would issue th
 * Prevent Idle SSH sessions being killed
 
 	Client config
-		
-		ServerAliveInterval = 60 
-		
+
+		ServerAliveInterval = 60
+
 	Server config
-		
+
 		ClientAliveInternal = 60
 * Retreive the public key from a private key
 
 		ssh-keygen -y -e -f myfile.pem
-	
+
 * Enable Bastion Host
 
 On local machine enable SSH Agent forwarding
-		
+
 		ssh -A user@bastion
-		
+
 		or
-		
+
 		Host bastion
   			ForwardAgent yes
 
@@ -1804,7 +1817,7 @@ Then configure ProxyCommand setting for the remote instances in your SSH configu
 
 Finally, connect to private instance
 
-		ssh user@private1 
+		ssh user@private1
 
 SSH will establish a connection to the bastion host and then from the bastion host connect to “private1”, using the specified keys at each step along the way.
 
@@ -1822,7 +1835,7 @@ The ControlPath entry specifies where to store the “control socket” for the 
 
 The ControlMaster setting is what activates multiplexing. With the auto setting, SSH will try to use a master connection if one exists, but if one doesn’t exist it will create a new one (this is probably the most flexible approach, but you can refer to ssh-config(5) for more details on the other settings).
 
-Finally, the ControlPersist setting keeps the master connection alive for the specified period of time after it has remained idle (no connections). 
+Finally, the ControlPersist setting keeps the master connection alive for the specified period of time after it has remained idle (no connections).
 
 * Ansible Through Bastion
 
@@ -1832,7 +1845,7 @@ Custom SSH configuration file is useless without explicitly telling Ansible to u
 	[ssh_connection]
 	ssh_args = -F ./ssh.cfg -o ControlMaster=auto -o ControlPersist=30m
 	control_path = ~/.ssh/ansible-%%r@%%h:%%p
-	
+
 
 * Do programs remain running when you disconnect?
 
@@ -2096,9 +2109,9 @@ Restrict /admin website to only canada and australia
 		openssl req -sha256 -new -key ~/my-private-key.pem -out ~/domain.com.csr
 
 * Create a SAN config
-		
+
 		```
-		
+
 		[ req ]
 		prompt = no
 		default_bits       = 2048
@@ -2122,7 +2135,7 @@ Restrict /admin website to only canada and australia
 		openssl req -new -sha256 -key my-private-key.pem -out domain.com.csr -config san.cnf
 
 * Verify SAN on cert
-		
+
 		openssl req -noout -text -in domain.com.csr | grep DNS
 
 * Convert Cert to PKCS12
@@ -2141,16 +2154,16 @@ Restrict /admin website to only canada and australia
 		openssl x509 -in cerfile.cer -noout –text
 
 * Create a self-signed certificate
-		
+
 		openssl x509 -req -days 365 -in my.csr -signkey my-private-key.pem -out my-self-signed.pem
-		
+
 * Installing Root CA
 
 Installing a CA
 
 Copy your certificate in PEM format (the format that has ----BEGIN CERTIFICATE---- in it) into /usr/local/share/ca-certificates and name it with a .crt file extension.
 
-Then run 
+Then run
 
 	sudo update-ca-certificates.
 
@@ -2163,7 +2176,7 @@ You can verify if this worked by looking for the certificate that you just added
 You can also use OpenSSL's s_client by trying to connect to a server that you know is using a certificate signed by the CA that you just installed.
 
 	$ openssl s_client -connect foo.whatever.com:443 -CApath /etc/ssl/certs
-	
+
 	CONNECTED(00000003)
 	depth=1 C = US, ST = Virginia, O = "Whatever, Inc.", CN = whatever.com, emailAddress = admin@whatever.com
 	verify return:1
@@ -2173,9 +2186,9 @@ You can also use OpenSSL's s_client by trying to connect to a server that you kn
 	Certificate chain
 	 0 s:/C=US/ST=Virginia/L=Arlington/O=Whatever, Inc./CN=foo.whatever.com
 	   i:/C=US/ST=Virginia/O=Whatever, Inc./CN=whatever.com/emailAddress=admin@whatever.com
-	
+
 	... snip lots of output ...
-	
+
 	    Key-Arg   : None
 	    PSK identity: None
 	    PSK identity hint: None
@@ -2183,7 +2196,7 @@ You can also use OpenSSL's s_client by trying to connect to a server that you kn
 	    Start Time: 1392837700
 	    Timeout   : 300 (sec)
 	    Verify return code: 0 (ok)
-	    
+
 
 	The first thing to look for is the certificate chain near the top of the output. This should show the CA as the issuer (next to i:). This tells you that the server is presenting a certificate signed by the CA you're installing. Second, look for the verify return code at the end to be set to 0 (ok).
 
@@ -2207,7 +2220,7 @@ A few other formats that show up from time to time:
 .der - A way to encode ASN.1 syntax in binary, a .pem file is just a Base64 encoded .der file. OpenSSL can convert these to .pem (openssl x509 -inform der -in to-convert.der -out converted.pem). Windows sees these as Certificate files. By default, Windows will export certificates as .DER formatted files with a different extension. Like...
 .cert .cer .crt - A .pem (or rarely .der) formatted file with a different extension, one that is recognized by Windows Explorer as a certificate, which .pem is not.
 
-.pub - public key created by openssl. 
+.pub - public key created by openssl.
 
 .p7b .keystore - Defined in RFC 2315 as PKCS number 7, this is a format used by Windows for certificate interchange. Java understands these natively, and often uses .keystore as an extension instead. Unlike .pem style certificates, this format has a defined way to include certification-path certificates.
 
@@ -2284,7 +2297,7 @@ MyISAM is simpler and better optimized for read only operations. It has limited 
 		mysql -u root -pmYPassword
 
 * Create a new Database
-		
+
 		mysqladmin -u root -pmyPassword -v create myDB
 
 * Show databases:
@@ -2328,7 +2341,7 @@ MyISAM is simpler and better optimized for read only operations. It has limited 
 		grant all privileges on *.* to someusr@"%" identified by '[password]';
 
 
-* Give user access to certain database. Only accessable from localhost 
+* Give user access to certain database. Only accessable from localhost
 
 		grant all privileges ON myDB.* TO myUser@localhost IDENTIFIED BY 'myPassword';
 
@@ -2336,9 +2349,9 @@ MyISAM is simpler and better optimized for read only operations. It has limited 
 
 		grant select,insert,update,delete,create,drop on [somedb].* to [someusr]@["%"] identified by '[password]';
 
-* Show all privileges 
+* Show all privileges
 
-		
+
 		select user,host from mysql.user ;
 
 * Tell mysql to use new user priv policies:
@@ -2536,9 +2549,9 @@ DROP DATABASE test;
 * Merge two branches:
 
 		git merge [branchname] [branchname]
-		
+
 * Contributing
-	
+
 	1. Fork it
 	2. Create your feature branch (git checkout -b my-new-feature)
 	3. Commit your changes (git commit -am 'Add some feature')
@@ -2546,9 +2559,9 @@ DROP DATABASE test;
 	5. Create a new Pull Request
 
 * Branches
-	
+
 	1. Create a new branch (git branch my-new-feature)
-	2. Switch to new branch (git checkout my-new-feature)  
+	2. Switch to new branch (git checkout my-new-feature)
 	3. Commit your changes (git commit -am 'Add some feature')
 	4. Push to the branch (git push origin my-new-feature)
 	5. Switch to master (git checkout master)
@@ -2567,7 +2580,7 @@ DROP DATABASE test;
 		git diff
 
 * Git Post-Receive Hook on server
-	
+
 		```
 	  	cat > hooks/postreceive
   	 	#!/bin/sh
@@ -2578,10 +2591,67 @@ DROP DATABASE test;
 		```
 
 * Add the remote repository to the local repository
-	
+
 		git push website+master:refs/heads/master [FIRST TIME ONLY]
 		git push website master                   [ALL OTHER TIMES]
-		
+
+* Add empty commit
+
+		git commit --allow-empty
+
+* List all local branches
+
+		git branch
+
+* List referenced remote branches
+
+		git branch -r
+
+* Find which branches are already merged into master and can be removed
+
+		git checkout master
+		git branch --merged
+
+* Remove all outdated branches with:
+
+		git branch -d old-merged-feature
+
+* Decide what to do with not merged branches
+
+		git branch --no-merged
+
+* Creating a Fork and making Upstream PR
+
+	List the current configured remote repository for your fork.
+
+		git remote -v
+
+	Specify a new remote upstream repository that will be synced with the fork.
+
+		git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
+
+* Sync a fork
+
+	Fetch the branches and their respective commits from the upstream repository. Commits to master will be stored in a local branch, upstream/master
+
+		git fetch upstream
+
+	Check out your fork's local master branch
+
+		git checkout master
+
+	Merge the changes from upstream/master into your local master branch. This brings your fork's master branch into sync with the upstream repository, without losing your local changes
+
+		git merge upstream/master
+
+
+
+
+
+
+
+
+
 # Rsync
 
 * Install
@@ -2781,8 +2851,8 @@ DROP DATABASE test;
 
 * To Enable services through firewall
 
-		sudo firewall-cmd --permanent --zone=public --add-service=http 
-		sudo firewall-cmd --permanent --zone=public --add-service=https 
+		sudo firewall-cmd --permanent --zone=public --add-service=http
+		sudo firewall-cmd --permanent --zone=public --add-service=https
 		sudo firewall-cmd --reload
 
 * Auto start service
@@ -2829,7 +2899,7 @@ DROP DATABASE test;
 
 * Run Playbook locally
     ansible-playbook -i "localhost," -c local
-    
+
 # VIM
     hl - move L/R
     jk - move up down
@@ -2848,6 +2918,11 @@ DROP DATABASE test;
     u - undo
     ctrl+r - redo
     ctrl-b / ctrl-f - Move Backwards/Forward by Page
+	dd - delete/cut line
+	3dd - delete/cut 3 lines
+	4y - yank/copy 4 lines below
+	x - delete character
+	p - paste
 
 # SystemD
 
@@ -2885,7 +2960,7 @@ sudo systemctl start node_exporter.service
 		sudo nano /etc/systemd/system/my.service
 		sudo systemctl enable /etc/systemd/system/my.service
 		sudo systemctl start my.service
-	
+
 * Edit Service Config
 
 ```
@@ -2897,4 +2972,4 @@ TimeoutStartSec=0
 ExecStart=/usr/local/bin/somecommand
 [Install]
 WantedBy=multi-user.target
-```	
+```
