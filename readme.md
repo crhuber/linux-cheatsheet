@@ -2,7 +2,7 @@ Linux Admin Guide
 =================
 ** Guide to administering Linux on RHEL, CentOS, Amazon AMI's **
 
-```
+~~~
 Copyright 2014 Craig H
 
 Licensed under the Apache License, Version 2.0 (the 'License');
@@ -16,7 +16,7 @@ distributed under the License is distributed on an 'AS IS' BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-```
+~~~
 
 Boot Process
 -------------
@@ -43,7 +43,7 @@ Boot Process
 
 * GRUB
 
-    ```
+    ~~~
 
     	If you have multiple kernel images installed on your system, you can choose which one to be executed.
     	GRUB displays a splash screen, waits for few seconds, if you don’t enter anything, it loads the default kernel image as specified in the grub configuration file.
@@ -62,7 +62,7 @@ Boot Process
     	As you notice from the above info, it contains kernel and initrd image.
     	So, in simple terms GRUB just loads and executes Kernel and initrd images.
 
-    ```
+    ~~~
 
 * Kernel
 
@@ -75,7 +75,7 @@ Boot Process
 
 * Init
 
-    ```
+    ~~~
     Looks at the /etc/inittab file to decide the Linux run level.
     Following are the available run levels
     0 – halt
@@ -89,10 +89,10 @@ Boot Process
     Execute ‘grep initdefault /etc/inittab’ on your system to identify the default run level
     If you want to get into trouble, you can set the default run level to 0 or 6. Since you know what 0 and 6 means, probably you might not do that.
     Typically you would set the default run level to either 3 or 5.
-	```
+	~~~
 * Runlevel
 
-    ```
+    ~~~
     Depending on your default init level setting, the system will execute the programs from one of the following directories.
     Run level 0 – /etc/rc.d/rc0.d/
     Run level 1 – /etc/rc.d/rc1.d/
@@ -107,7 +107,7 @@ Boot Process
     Programs starts with K are used during shutdown. K for kill.
     There are numbers right next to S and K in the program names. Those are the sequence number in which the programs should be started or killed.
     For example, S12syslog is to start the syslog deamon, which has the sequence number of 12. S80sendmail is to start the sendmail daemon, which has the sequence number of 80. So, syslog program will be started before sendmail.
-    ```
+    ~~~
 
 * Shutdown the system after 10 minutes.
 
@@ -281,10 +281,10 @@ are specified in /etc/sudoers, which is edited with the visudo utility. By defau
 
 		Nano /etc/group
 
-        ```
+        ~~~
 		cdrom:x:24:vivek,student13,raj
 		Where, group_name: It is the name of group. If you run ls -l command, you will see this name printed in the group field.  Password: Generally password is not used, hence it is empty/blank. It can store encrypted password. This is useful to implement privileged groups. Group ID (GID): Each user must be assigned a group ID. You can see this number in your /etc/passwd file.  Group List: It is a list of user names of users who are members of the group. The user names, must be separated by commas.
-        ```
+        ~~~
 
 * Variables
 
@@ -399,14 +399,14 @@ Hardware
 
 * Make a swap file
 
-        ```
+        ~~~
         dd if=/dev/zero of=/opt/myswap bs=1024 count=4
         mkswap /opt/myswap
         swapon -a
 
         For adding this myswap at boot time, add following in /etc/fstab file:
         /opt/myswap swap swap defaults 0 0
-        ```
+        ~~~
 
 * Show default kernel
 
@@ -446,7 +446,7 @@ File System
 
 * inodes
 
-        ```
+        ~~~
         An inode stores basic information about a regular file, directory, or other file system object
         iNode number also called as index number, it consists following attributes:
 
@@ -462,7 +462,7 @@ File System
         Extended attribute such as append only or no one can delete file including root user
         (immutability)
         Access Control List (ACLs)
-        ```
+        ~~~
 
 * Show inodes of files and folders
 
@@ -720,7 +720,7 @@ File System
 * Logs
 
 
-```
+~~~
 auth.log				Authentication logs
 boot.log				Boot logs
 btmp					Invalid login attempts
@@ -735,7 +735,7 @@ mysql*					MySQL logs
 secure					Security/authentication logs
 syslog					All system logs
 wtmp					User logins and logouts
-```
+~~~
 * Check Logs
 
 		less /var/log/messages
@@ -755,14 +755,14 @@ wtmp					User logins and logouts
 
 * System Startup Files
 
-```
+~~~
 /etc/rc.d  - scripts run from this subdir
 /etc/init.d - hard location for startup scripts. Linked to /etc/rc.d/rc0.d ..etc.
 /etc/rc.d/rc - file responsible for starting stopping services
 /etc/rc0.d  - contains files with links to /etc/init.d/.
      k05atd - kill,priority,service
      s05atd - start,priority.service
-```
+~~~
 
 * To start any script
 
@@ -821,7 +821,7 @@ wtmp					User logins and logouts
 
 * Symbolic Links
 
-```
+~~~
 ┌── ln(1) link, ln -- make links
 │   ┌── Create a symbolic link.
 │   │                         ┌── the path to the intended symlink
@@ -831,7 +831,7 @@ ln -s /path/to/original /path/to/symlink
       └───────┬───────┘
               └── the path to the original file/folder
                   can use . or ~ or other relative paths
-```
+~~~
 
 Performance
 ------------
@@ -865,7 +865,7 @@ Performance
 
     lowercase c shows full command
 
-    ```
+    ~~~
 
     * check i/o wait for server slowness - Represents CPU waiting for disk I/O. if it is low then you can rule out disk access. GT > 10% is high means Disk is slow
     * CPU idle. higher the number the more bandwidth available to server. Should be >25%
@@ -884,7 +884,7 @@ Performance
 	* swap: cached: caches files in the filesystem in memory for better performance. Uses spare memory
 	* SwapTotal, SwapFree. If they are equal there is no swapping going on
 
-    ```
+    ~~~
 
 * Show open tcp sockets
 
@@ -939,7 +939,7 @@ Performance
 
 		nice [process name]
 
-        ```
+        ~~~
         nice command is used for changing priority of the jobs.
         Syntax: nice [OPTION] [COMMAND [ARG]…]
         Range of priority goes from -20 (highest priority) to 19 (lowest).Priority is given to a job so that the most important job is executed first by the kernel and then the other least important job
@@ -1032,7 +1032,7 @@ Performance
 
 * Runlevels
 
-```
+~~~
 Red Hat as well as most of its derivatives (such as CentOS) uses runlevels like this:
 
 
@@ -1051,7 +1051,7 @@ service, run the following command:
 Unless they are required, disable the following:
 anacron haldaemon messagebus apmd hidd microcode_ctl autofs` hplip* pcscd avahi-daemon* isdn readahead_early bluetooth kdump readahead_later cups* kudzu rhnsd* firstboot mcstrans setroubleshoot gpm mdmonitor xfs.
 Items marked with a * are network services. It is particularly important to disable these. Additionally, the following services can be safely disabled if NFS is not in use: netfs, nfslock, portmap, rpcgssd, and rpcidmapd. Some software relies on haldaemon and messagebus, so care should be taken when disabling them
-```
+~~~
 
 * Auto Start Service
 
@@ -1147,7 +1147,7 @@ Command Line
 
 * Bash
 
-```
+~~~
 Login vs Non-Login:
      Login: When you login via SSH or via console without GUI. (Mac: Terminal, iTerm), Fabric
      Non-Login: from desktop if you open xterm (except on mac), screen command
@@ -1166,7 +1166,7 @@ Mac:
 
 .bashrc - is for bash configs
 .profile/.bash_profile : environmentmal variables
-```
+~~~
 
 * Configure defaul shell
 
@@ -1395,7 +1395,7 @@ Mac:
 
 * Commands
 
-```
+~~~
 screen -ls #show all screens
 CTRL a w # which screens are available
 CTRL a 0 # go to window 0
@@ -1411,7 +1411,7 @@ CTRL A X # close current split screen
 CTRL+a - switches to last window
 Exit # kill current session
 screen -r #reattach to screen
-```
+~~~
 
 # Python:
 
@@ -1474,7 +1474,7 @@ screen -r #reattach to screen
 
 * Lockdown SSH to kick anyone after 3 attempts
 
-```
+~~~
 Replace default ssh rule with this one.
 The first rule records the IP address of each attempt to access port 22 using the recent module.
 The second rule checks to see if that IP address has attempted to connect 4 or more times within the last 60 seconds, and if not then the packet is accepted.
@@ -1482,7 +1482,7 @@ Note this rule would require a default policy of DROP on the input chain.
 
 iptables -A INPUT -p tcp --dport 22 -m recent --set --name ssh --rsource
 iptables -A INPUT -p tcp --dport 22 -m recent ! --rcheck --seconds 60 --hitcount 4 --name ssh --rsource -j ACCEPT
-```
+~~~
 
 * Command switches
 
@@ -1608,17 +1608,17 @@ iptables -A INPUT -p tcp --dport 22 -m recent ! --rcheck --seconds 60 --hitcount
 
 * Crontab Commands
 
-```
+~~~
 export EDITOR=nano to specify a editor to open crontab file.
 crontab -e    		Edit your crontab file, or create one if it doesn’t already exist.
 crontab -l      	Display your crontab file.
 crontab -r      	Remove your crontab file.
 crontab -v      	Display the last time you edited your crontab file. (This option is only 					available on a few systems.)
-```
+~~~
 
 * Crontab file
 
-```
+~~~
 Crontab syntax :
 A crontab file has five fields for specifying day , date and time followed by the command to be run at that interval.
 *     *     *   *    *        command to be executed
@@ -1629,11 +1629,11 @@ A crontab file has five fields for specifying day , date and time followed by th
 |     |     +--------- day of        month (1 - 31)
 |     +----------- hour (0 - 23)
 +------------- min (0 - 59)
-```
+~~~
 
 * To Use Env Variables
 
-```
+~~~
 Example:
 * In crontab -e file:
 
@@ -1644,11 +1644,11 @@ SHELL=/bin/bash
 #!/bin/bash
 source $HOME/.bash_profile
 some_other_cmd
-```
+~~~
 
 * To Run with Virtual Env
 
-```
+~~~
 * in cron.sh
 #!/bin/bash
 source $HOME/.bash_profile
@@ -1660,7 +1660,7 @@ python ~/projects/myproject/myproject/cron.py >> ~/cronstatus.log
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myproject.settings")
 from django.conf import settings
-```
+~~~
 
 * Generate log file
 
@@ -1729,7 +1729,7 @@ from django.conf import settings
 
 * Create a new user on the server
 
-	```
+	~~~
 	Generate a SSH key on local machine
 	ssh-keygen -t rsa -C "your_email@example.com"
 
@@ -1744,7 +1744,7 @@ from django.conf import settings
 
 	Or Upload key to server ussing ssh-copy-id
 	ssh-copy-id [-i [identity_file]] [user@]machine
-	```
+	~~~
 
 * Configure SSH Login using Keys
 
@@ -1773,13 +1773,13 @@ from django.conf import settings
 
 * Access Localhost pages on remote system
 
-```
+~~~
 Note that if you are working with a remote system via SSH, you can't directly access the remote box's localhost URL. A solution to this is to simply forward port from the remote machine to your local machine:
 
 ssh -f -N -L 8081:localhost:8081 your_user@your_remote_machine
 
 Now you can access http://localhost:8081 and it will be as if you would issue the request from the remote machine.
-```
+~~~
 
 * Prevent Idle SSH sessions being killed
 
@@ -1905,7 +1905,7 @@ Custom SSH configuration file is useless without explicitly telling Ansible to u
 
 * LoadModule
 
-```
+~~~
 Remove Following
 LoadModule auth_basic_module modules/mod_auth_basic.so  -basic auth-
 LoadModule auth_digest_module modules/mod_auth_digest.so - md5 authentication
@@ -1960,7 +1960,7 @@ LoadModule disk_cache_module modules/mod_disk_cache.so
 #LoadModule cgi_module modules/mod_cgi.so - excute cgi
 #LoadModule version_module modules/mod_version.so - used if you want directives for different httpd versions
 #LoadModule mod_lua - provides interfaces for lua programming language
-```
+~~~
 
 * Server Signature
 
@@ -1969,7 +1969,7 @@ LoadModule disk_cache_module modules/mod_disk_cache.so
 
 * Virtual Host
 
-```
+~~~
 #Virtual Host
 <VirtualHost *:80>
     ServerAdmin admin@website.com
@@ -2009,7 +2009,7 @@ LoadModule disk_cache_module modules/mod_disk_cache.so
     </Directory>
 
 </VirtualHost>
-```
+~~~
 
 * Cloudflare
 
@@ -2028,7 +2028,7 @@ Restrict /admin website to only canada and australia
 
 * Pagespeed
 
-```
+~~~
 <IfModule pagespeed_module>
     # Uncomment the following line if you want to disable statistics entirely.
     # ModPagespeedStatistics off
@@ -2055,7 +2055,7 @@ Restrict /admin website to only canada and australia
           SetHandler mod_pagespeed_beacon
     </Location>
 </IfModule>
-```
+~~~
 
 * Enable Compression
 
@@ -2110,7 +2110,7 @@ Restrict /admin website to only canada and australia
 
 * Create a SAN config
 
-		```
+		~~~
 
 		[ req ]
 		prompt = no
@@ -2129,7 +2129,7 @@ Restrict /admin website to only canada and australia
 		[alt_names]
 		DNS.1   = server1.domain.com
 		DNS.2   = server2.domain.com
-		```
+		~~~
 * Create CSR with SAN config
 
 		openssl req -new -sha256 -key my-private-key.pem -out domain.com.csr -config san.cnf
@@ -2282,11 +2282,11 @@ DER - The parent format of PEM. It's useful to think of it as a binary version o
 
 * Database types:
 
-```
+~~~
 The two most popular storage engines in MySQL are InnoDB and MyISAM
 InnoDB supports some newer features like transactions, row-level locking, foreign keys. It's optimized for read/write high volume operations and high performance.
 MyISAM is simpler and better optimized for read only operations. It has limited feature set as compared to InnoDB.
-```
+~~~
 
 * Get help:
 
@@ -2416,7 +2416,7 @@ MyISAM is simpler and better optimized for read only operations. It has limited 
 
 * Manual Config
 
-```
+~~~
 * Login to MySQL
 mysql -u root
 
@@ -2432,7 +2432,7 @@ DELETE FROM user WHERE user.user= '';
 FLUSH PRIVILEGES;
 
 DROP DATABASE test;
-```
+~~~
 
 * Backup
 
@@ -2581,14 +2581,14 @@ DROP DATABASE test;
 
 * Git Post-Receive Hook on server
 
-		```
+		~~~
 	  	cat > hooks/postreceive
   	 	#!/bin/sh
   		GIT_WORK_TREE=/var/www/html
 		export GIT_WORK_TREE
  		do your stuff here
 		chmod +x hooks/postreceive
-		```
+		~~~
 
 * Add the remote repository to the local repository
 
@@ -2926,7 +2926,7 @@ DROP DATABASE test;
 
 # SystemD
 
-```
+~~~
 wget https://github.com/prometheus/node_exporter/releases/download/0.11.0/node_exporter-0.11.0.linux-amd64.tar.gz
 sudo mv node_exporter /usr/sbin/
 
@@ -2951,7 +2951,7 @@ WantedBy=multi-user.target
 sudo systemctl enable node_exporter.service
 sudo systemctl start node_exporter.service
 
-```
+~~~
 
 First set timezone before logging
 
@@ -3043,7 +3043,7 @@ sudo journalctl --vacuum-size=1G
 
 * Edit Service Config
 
-```
+~~~
 [Unit]
 Description=My Service
 Documentation=https://backplane.io/index
@@ -3052,4 +3052,4 @@ TimeoutStartSec=0
 ExecStart=/usr/local/bin/somecommand
 [Install]
 WantedBy=multi-user.target
-```
+~~~
