@@ -2953,6 +2953,86 @@ sudo systemctl start node_exporter.service
 
 ```
 
+First set timezone before logging
+
+~~~
+timedatectl list-timezones
+sudo timedatectl set-timezone zone
+timedatectl status
+~~~
+
+Logs since current boot
+
+~~~
+journalctl -b
+~~~
+
+To enable persistent logging:
+
+~~~
+sudo nano /etc/systemd/journald.conf
+. . .
+[Journal]
+Storage=persistent
+~~~
+
+Show boots
+
+~~~
+journalctl --list-boots
+~~~
+
+Logs since jan
+
+~~~
+journalctl --since "2015-01-10" --until "2015-01-11 03:00"
+journalctl --since 09:00 --until "1 hour ago"
+journalctl --since yesterday
+~~~
+
+By unit
+
+~~~
+journalctl -u nginx.service -u php-fpm.service --since today
+~~~
+
+By Process ID
+
+~~~
+journalctl _PID=8088
+~~~
+
+By User ID
+
+~~~
+journalctl _UID=33 --since today
+~~~
+
+Truncate output
+
+~~~
+journalctl --no-full
+journalclt --no-pager
+~~~
+
+Output to JSON
+
+~~~
+journalctl -b -u nginx -o json-pretty
+~~~ 
+
+See how much disk is being used
+
+~~~
+journalctl --disk-usage
+~~~
+
+Delete old logs
+
+~~~
+sudo journalctl --vacuum-size=1G
+~~~
+
 # SystemD (Generic
 
 * Create a service
