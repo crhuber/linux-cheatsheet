@@ -2645,7 +2645,15 @@ DROP DATABASE test;
 		git merge upstream/master
 
 
+* Rebasing
 
+~~~
+git checkout master
+git pull upstream master && git push origin master
+git checkout feature/my-master
+git rebase master
+
+~~~
 
 
 
