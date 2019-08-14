@@ -2655,6 +2655,12 @@ git rebase master
 
 ~~~
 
+* Undo last commit
+
+~~~
+git reset --hard HEAD~1
+~~~
+
 
 
 
