@@ -1145,6 +1145,14 @@ Command Line
   - count number of entries
   - pip to file
 
+* Output redirection
+
+		> file redirects stdout to file
+		1> file redirects stdout to file
+		2> file redirects stderr to file
+		&> file redirects stdout and stderr to file
+
+
 * Bash
 
 ~~~
@@ -3033,7 +3041,7 @@ Output to JSON
 
 ~~~
 journalctl -b -u nginx -o json-pretty
-~~~ 
+~~~
 
 See how much disk is being used
 
