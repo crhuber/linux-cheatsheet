@@ -2655,12 +2655,18 @@ DROP DATABASE test;
 
 * Rebasing
 
-~~~
-git checkout master
-git pull upstream master && git push origin master
-git checkout feature/my-master
-git rebase master
+First fetch the new master from the upstream repository, then rebase your work branch on that:
 
+Option 1:
+~~~
+git fetch origin            # Updates origin/master
+git rebase origin/master    # Rebases current branch onto origin/master
+~~~
+
+Option 2: Newer
+
+~~~
+git pull --rebase origin master
 ~~~
 
 * Undo last commit
