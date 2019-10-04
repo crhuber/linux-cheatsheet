@@ -2675,6 +2675,17 @@ git pull --rebase origin master
 git reset --hard HEAD~1
 ~~~
 
+* move last commit on master to different branch
+
+```
+git checkout -b feature/istio-elb-timeout
+git merge master
+git checkout master
+git reset --keep HEAD~1 # Move master back
+git checkout feature/istio-elb-timeout
+git status
+
+```
 
 
 
