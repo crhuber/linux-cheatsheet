@@ -2687,6 +2687,15 @@ git status
 
 ```
 
+* move currently worked on files to a new branch
+
+```
+git stash
+git checkout master
+git pull
+git checkout -b feature/new
+git stash pop
+```
 
 
 
