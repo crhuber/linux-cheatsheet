@@ -1151,6 +1151,16 @@ Command Line
 		1> file redirects stdout to file
 		2> file redirects stderr to file
 		&> file redirects stdout and stderr to file
+* Write output to a file
+
+```
+cat <<EOF> ~/.kube/config
+
+apiVersion: v1
+clusters:
+EOF
+
+```
 
 
 * Bash
