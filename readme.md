@@ -1293,6 +1293,10 @@ Mac:
 
 	for f in * ; do convert $f -scale 33% tmp/$f ; done
 
+* Zshell
+
+	.zprofile is equivalent to .bash_profile and runs at login, including over SSH
+	.zshrc is equivalent to .bashrc and runs for each new Terminal session
 
 # Networking
 
