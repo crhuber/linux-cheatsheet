@@ -1256,6 +1256,44 @@ Mac:
 
 	echo "word" | base64 -d
 
+* set variable
+	FOO="bar"
+
+* unset variable
+	unset FOO
+
+* recalling your variable by prepending it with a dollar sign ($). 
+	echo $FOO
+
+* preserves any special characters that might appear in the variable;
+	echo "${FOO}"
+
+* Prepending
+
+	When you create a variable, the variable is known to your current shell and only your current shell
+	You can prepend any number of variables before running a command. Whether the variables are used by the child process is up to the process, but you can pass the variables to it no matter what:
+
+	$ FOO=123 bash
+	$ echo $FOO
+	123
+
+
+* Exporting variables
+
+	Another way to make variables available to a child process is the export keyword, a command built into Bash. The export command broadens the scope of whatever variable or variables you specify:
+
+
+* Bash loop
+
+	for f in * ;
+		do file $f ;
+	done
+
+	or 1 liner
+
+	for f in * ; do convert $f -scale 33% tmp/$f ; done
+
+
 # Networking
 
 * Show Hostname
