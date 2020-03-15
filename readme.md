@@ -39,6 +39,7 @@ limitations under the License.
 - [Performance](#performance)
 - [PHP](#PHP)
 - [Python](#Python)
+- [Regex](#Regex)
 - [Rsync](#Rsync)
 - [Rsyslog](#Rsyslog)
 - [Screen](#Screen)
@@ -346,6 +347,10 @@ are specified in /etc/sudoers, which is edited with the visudo utility. By defau
 
 		who -umH
 
+* To temporarily prevent logins system wide (for all users but root) use nologin. The message in nologin will be displayed (might not work with ssh pre-shared keys).
+ 
+        echo "Sorry no login now" > /etc/nologin
+
 
 ## Hardware
 -------------
@@ -469,6 +474,21 @@ are specified in /etc/sudoers, which is edited with the visudo utility. By defau
 * Show number of cores
 
 		lscpu
+
+* Hardware Info
+ 
+```
+cat /proc/cpuinfo                  # CPU model
+cat /proc/meminfo                  # Hardware memory
+grep MemTotal /proc/meminfo        # Display the physical memory
+watch -n1 'cat /proc/interrupts'   # Watch changeable interrupts continuously
+free -m                            # Used and free memory (-m for MB)
+cat /proc/devices                  # Configured devices
+lspci -tv                          # Show PCI devices
+lsusb -tv                          # Show USB devices
+lshal                              # Show a list of all devices with their properties
+dmidecode                          # Show DMI/SMBIOS: hw info from the BIOS
+```
 
 File System
 ------------
@@ -723,6 +743,8 @@ File System
 
 		http://permissions-calculator.org/
 
+		![alt text](permissions.jpg "Permissions")
+
 * Permissions On Folders
 
 		r: read only the names of the files in the directory
@@ -865,6 +887,28 @@ ln -s /path/to/original /path/to/symlink
               └── the path to the original file/folder
                   can use . or ~ or other relative paths
 ```
+
+* Change the open files limit from 1024 to 10240 d
+ 
+        ulimit -n 10240                    # This is only valid within the shell
+ 
+* Login users and applications can be configured in /etc/security/limits.conf
+ 
+* System wide limits
+ 
+    ```
+    sysctl -a                          # View all system limits
+    sysctl fs.file-max                 # View max open files limit
+    sysctl fs.file-max=102400          # Change max open files limit
+    echo "1024 50000" > /proc/sys/net/ipv4/ip_local_port_range  # port range
+    cat /etc/sysctl.conf 
+    fs.file-max=102400                   # Permanent entry in sysctl.conf
+    cat /proc/sys/fs/file-nr           # How many file descriptors are in use
+    ```
+ 
+* Find opened files on a mount point with fuser
+ 
+        fuser -m /home 
 
 ## Performance
 ------------
@@ -1117,6 +1161,33 @@ Command Line
 
 			ls -la | awk '{ print $ 5}’
 
+* Awk (continued)
+
+	```
+	awk '{ print $2, $1 }' file                  # Print and inverse first two columns
+	awk '{printf("%5d : %s\n", NR,$0)}' file     # Add line number left aligned
+	awk '{print FNR "\t" $0}' files              # Add line number right aligned
+	awk NF test.txt                              # remove blank lines (same as grep '.')
+	awk 'length > 80'                            # print line longer than 80 char)
+	```
+
+* Sed
+
+	```
+	sed 's/string1/string2/g'                    # Replace string1 with string2
+	sed -i 's/wroong/wrong/g' *.txt              # Replace a recurring word with g
+	sed 's/\(.*\)1/\12/g'                        # Modify anystring1 to anystring2
+	sed '/<p>/,/<\/p>/d' t.xhtml                 # Delete lines that start with <p>
+												# and end with </p>
+	sed '/ *#/d; /^ *$/d'                        # Remove comments and blank lines
+	sed 's/[ \t]*$//'                            # Remove trailing spaces (use tab as \t)
+	sed 's/^[ \t]*//;s/[ \t]*$//'                # Remove leading and trailing spaces
+	sed 's/[^*]/[&]/'                            # Enclose first char with [] top->[t]op
+	sed = file | sed 'N;s/\n/\t/' > file.num     # Number lines on a file
+	Regular Expressions
+	```
+	http://www.grymoire.com/Unix/Sed.html
+
 * Tail, Sort, Head
 
 		ps -aux | tail -n +2 | sort -rnk 4
@@ -1330,6 +1401,91 @@ Mac:
 
 	.zprofile is equivalent to .bash_profile and runs at login, including over SSH
 	.zshrc is equivalent to .bashrc and runs for each new Terminal session
+
+* Redirects
+
+	```
+	# cmd 1> file                         # Redirect stdout to file.
+	# cmd 2> file                         # Redirect stderr to file.
+	# cmd 1>> file                        # Redirect and append stdout to file.
+	# cmd &> file                         # Redirect both stdout and stderr to file.
+	# cmd >file 2>&1                      # Redirects stderr to stdout and then to file.
+	# cmd1 | cmd2                         # pipe stdout to cmd2
+	# cmd1 2>&1 | cmd2                    # pipe stdout and stderr to cmd2
+	```
+
+	* Variables 
+
+	```
+	MESSAGE="Hello World"                        # Assign a string
+	PI=3.1415                                    # Assign a decimal number
+	```
+
+	* Arguments
+
+	```
+	$0, $1, $2, ...                              # $0 is the command itself 
+	$#                                           # The number of arguments
+	$*                                           # All arguments (also $@)
+	```
+
+	* Special Variables
+
+	```
+		$$                                           # The current process ID
+		$?                                           # exit status of last command
+		command
+		if [ $? != 0 ]; then
+			echo "command failed"
+		fi
+		mypath=`pwd`
+		mypath=${mypath}/file.txt
+		echo ${mypath##*/}                           # Display the filename only
+		echo ${mypath%%.*}                           # Full path without extention
+		foo=/tmp/my.dir/filename.tar.gz
+		path = ${foo%/*}                             # Full path without extention
+		var2=${var:=string}                          # Use var if set, otherwise use string
+													# assign string to var and then to var2.
+		size=$(stat -c%s "$file")                    # get file size in bourne script
+		filesize=${size:=-1}
+	```
+
+	* Constructs
+
+	```
+	for file in `ls`
+	do
+		echo $file
+	done
+
+	count=0
+	while [ $count -lt 5 ]; do
+		echo $count
+		sleep 1
+		count=$(($count + 1))
+	done
+
+	myfunction() {
+		find . -type f -name "*.$1" -print       # $1 is first argument of the function
+	}
+	myfunction "txt"
+
+	```
+
+	* Generate a file
+
+	```
+	MYHOME=/home/colin
+	cat > testhome.sh << _EOF
+	# All of this goes into the file testhome.sh
+	if [ -d "$MYHOME" ] ; then
+		echo $MYHOME exists
+	else
+		echo $MYHOME does not exist
+	fi
+	_EOF
+	sh testhome.sh
+	```
 
 ## Networking
 ---
@@ -3085,7 +3241,10 @@ git stash pop
 	4y - yank/copy 4 lines below
 	x - delete character
 	p - paste
-
+	/string       Search forward for string
+	?string       Search back for string
+	n       Search for next instance of string
+	N       Search for previous instance of string
 ## SystemD
 ----
 
@@ -3366,3 +3525,21 @@ Redirect stderr to stdout.
 my_command 2>&1
 ```
 
+## Regex
+
+* Basics
+
+```
+[\^$.|?*+()                          # special characters any other will match themselves
+\                                    # escapes special characters and treat as literal
+*                                    # repeat the previous item zero or more times
+.                                    # single character except line break characters
+.*                                   # match zero or more characters
+^                                    # match at the start of a line/string
+$                                    # match at the end of a line/string
+.$                                   # match a single character at the end of line/string
+^ $                                  # match line with a single space
+^[A-Z]                               # match any line beginning with any char from A to Z
+* The ^ (caret) fixes your pattern to the beginning of the line. For example the pattern ^1 matches any line starting with a 1.
+* The $ (dollar) fixes your pattern to the end of the sentence. For example, 9$ matches any line ending with a 9.
+```
