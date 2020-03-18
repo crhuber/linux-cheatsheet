@@ -348,7 +348,7 @@ are specified in /etc/sudoers, which is edited with the visudo utility. By defau
 		who -umH
 
 * To temporarily prevent logins system wide (for all users but root) use nologin. The message in nologin will be displayed (might not work with ssh pre-shared keys).
- 
+
         echo "Sorry no login now" > /etc/nologin
 
 
@@ -476,7 +476,7 @@ are specified in /etc/sudoers, which is edited with the visudo utility. By defau
 		lscpu
 
 * Hardware Info
- 
+
 ```
 cat /proc/cpuinfo                  # CPU model
 cat /proc/meminfo                  # Hardware memory
@@ -889,26 +889,26 @@ ln -s /path/to/original /path/to/symlink
 ```
 
 * Change the open files limit from 1024 to 10240 d
- 
+
         ulimit -n 10240                    # This is only valid within the shell
- 
+
 * Login users and applications can be configured in /etc/security/limits.conf
- 
+
 * System wide limits
- 
+
     ```
     sysctl -a                          # View all system limits
     sysctl fs.file-max                 # View max open files limit
     sysctl fs.file-max=102400          # Change max open files limit
     echo "1024 50000" > /proc/sys/net/ipv4/ip_local_port_range  # port range
-    cat /etc/sysctl.conf 
+    cat /etc/sysctl.conf
     fs.file-max=102400                   # Permanent entry in sysctl.conf
     cat /proc/sys/fs/file-nr           # How many file descriptors are in use
     ```
- 
+
 * Find opened files on a mount point with fuser
- 
-        fuser -m /home 
+
+        fuser -m /home
 
 ## Performance
 ------------
@@ -1414,22 +1414,22 @@ Mac:
 	# cmd1 2>&1 | cmd2                    # pipe stdout and stderr to cmd2
 	```
 
-	* Variables 
+* Variables
 
 	```
 	MESSAGE="Hello World"                        # Assign a string
 	PI=3.1415                                    # Assign a decimal number
 	```
 
-	* Arguments
+* Arguments
 
 	```
-	$0, $1, $2, ...                              # $0 is the command itself 
+	$0, $1, $2, ...                              # $0 is the command itself
 	$#                                           # The number of arguments
 	$*                                           # All arguments (also $@)
 	```
 
-	* Special Variables
+* Special Variables
 
 	```
 		$$                                           # The current process ID
@@ -1450,7 +1450,7 @@ Mac:
 		filesize=${size:=-1}
 	```
 
-	* Constructs
+* Constructs
 
 	```
 	for file in `ls`
@@ -1472,7 +1472,7 @@ Mac:
 
 	```
 
-	* Generate a file
+* Generate a file
 
 	```
 	MYHOME=/home/colin
@@ -1486,6 +1486,63 @@ Mac:
 	_EOF
 	sh testhome.sh
 	```
+* Assigning output of one command to variable
+
+	```
+	#!/bin/bash
+	for node in $(cat nodes.txt)
+	do
+		node_name=$(echo $node | tr -d '"');
+		echo $node_name
+	done
+	```
+
+* Iterating a json file
+
+```
+for r in $(cat repos.json | jq '.[]')
+do
+	repo_name=$(echo $r | tr -d '"');
+	echo $repo_name;
+done
+```
+
+* Checking for existence of arguments
+
+	```
+	if [ $# -eq 0 ]; then
+		echo "Please enter an argument"
+		exit 1
+	fi
+	```
+
+* Check for environment variable
+
+	```
+	if [ -z "${GITHUB_TOKEN}" ]; then
+		echo "Missing GITHUB_TOKEN environment variable"
+		exit 1
+	fi
+	```
+
+* Checking the output of last command and prompt to continue
+
+	```
+	 if [[ $? -ne 0 ]]; then
+		echo "command failed"
+		read ABCD
+ 	fi
+	```
+
+* Iterate over a list
+
+	```
+	namespaces=(ns1 ns2 ns3)
+	for n in ${namespaces[@]}; do
+		echo "*** $n ***" ;
+	done
+	```
+
 
 ## Networking
 ---
