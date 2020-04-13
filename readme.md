@@ -1157,6 +1157,8 @@ Command Line
 
 * Awk
 
+https://www.howtogeek.com/562941/how-to-use-the-awk-command-on-linux/
+
 	find positional parameters
 
 			ls -la | awk '{ print $ 5}’
@@ -1169,7 +1171,41 @@ Command Line
 	awk '{print FNR "\t" $0}' files              # Add line number right aligned
 	awk NF test.txt                              # remove blank lines (same as grep '.')
 	awk 'length > 80'                            # print line longer than 80 char)
+	$0											Represents the entire line of text.
+	$1											Represents the first field.
+	$NF											Stands for “number of fields,” and represents the last field.
 	```
+
+* Awk (output field seperators)
+
+put a / after each output
+
+```
+	date | awk 'OFS="/" {print$2,$3,$6}'  
+```
+
+* Awk (begin and ends) 
+
+put a line before everything runs
+```
+awk 'BEGIN {print "Dennis Ritchie"} {print $0}' dennis_ritchie.txt
+```
+
+* Awk (input field seperators)
+
+If you want awk to work with text that doesn’t use whitespace to separate fields, you have to tell it which character the text uses as the field separator. For example, the /etc/passwd file uses a colon (:) to separate fields.
+
+```
+awk -F: '{print $1,$6}' /etc/passwd
+```
+
+* Awk (patterns)
+
+If all we’re interested in are regular user accounts, we can include a pattern with our print action to filter out all other entries. Because User ID numbers are equal to, or greater than, 1,000, we can base our filter on that information.
+
+```
+awk -F: '$3 >= 1000 {print $1,$6}' /etc/passwd
+```
 
 * Sed
 
