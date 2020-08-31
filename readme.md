@@ -1207,6 +1207,13 @@ If all we’re interested in are regular user accounts, we can include a pattern
 awk -F: '$3 >= 1000 {print $1,$6}' /etc/passwd
 ```
 
+* cut
+
+Get the second field delimited by a dot
+```
+cut -f2 -d "."
+```
+
 * Sed
 
 	```
