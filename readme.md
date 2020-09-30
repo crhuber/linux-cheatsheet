@@ -3315,6 +3315,14 @@ git stash pop
 
 * Run Playbook locally
     ansible-playbook -i "localhost," -c local
+* finding Modules information:
+---------------------------
+ansible-doc -l -> to list out all modules
+ansible-doc -l | grep package -> to grep specific modules
+ansible-doc package -> to list out all information
+also >> ansible-doc -s yum -> also works for details of any modules
+>> ansible all -m ping -o -> to display in single line
+if we are using sudo user then specify -s at the end to run cmd in sudo    
 
 ## VIM
 ----
