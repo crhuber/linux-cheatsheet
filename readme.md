@@ -1587,6 +1587,64 @@ done
 	```
 
 
+* !^
+
+```
+!^ maps to the first argument of your latest command.
+```
+
+* !$
+
+```
+!$ maps to the last argument of your latest command.
+```
+
+* !!:2
+
+you could use the !! event designator to select the last command, and the 2 word designator to select the second argument.
+
+* Brace expansion
+
+expanded into ~/test/pics , ~/test/sounds, ~/test/sprites
+
+```
+$ mkdir ~/test/{pics,sounds,sprites}
+```
+
+A brace expansion can also have a sequence pattern {x..y[..incr]} where x and y are either an integer or a single character, and incr is an optional increment value.
+
+```
+touch ~/test/sounds/noise-{1..5}.mp3
+```
+
+```
+$ touch ~/test/pics/pic{1..10..2}.jpg
+$ ls ~/test/pics
+pic1.jpg pic3.jpg pic5.jpg pic7.jpg pic9.jpg
+```
+
+* Command Expansion
+
+Your shell can replace a command surrounded by $() with its output.
+
+```
+$ cat <<EOF > aboutme
+My name is $(whoami)
+and I live in $HOME
+EOF
+$ cat aboutme
+My name is br
+and I live in /home/br
+```
+
+for example rename all directories to uppercase
+
+```
+$ for dir in */; do
+    mv "$dir" "$(echo "$dir" | tr '[:lower:]' '[:upper:]')"
+  done
+```
+
 ## Networking
 ---
 
