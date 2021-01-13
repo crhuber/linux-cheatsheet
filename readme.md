@@ -1645,6 +1645,12 @@ $ for dir in */; do
   done
 ```
 
+* Copy from clipboard into new file
+
+```
+cat > generate-conf.sh (ctrl+d = paste)
+```
+
 ## Networking
 ---
 
