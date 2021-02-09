@@ -1708,6 +1708,8 @@ cat > generate-conf.sh (ctrl+d = paste)
 		dig +short txt 20120113._domainkey.gmail.com @8.8.8.8 #query text records
 		dig -x host #reverse
 		dig +nocmd +noall +answer www.blah.com #shows TTL
+		dig +short txt u123455.wl0000.sendgrid.net #query spf txt records
+		dig +short mx company.com # query mx records
 
 * Wget
 
@@ -2721,7 +2723,7 @@ MyISAM is simpler and better optimized for read only operations. It has limited 
 
 * Login to server
 
-		mysql -u root -pmYPassword
+		mysql -h mysql–instance1.123456789012.us-east-1.rds.amazonaws.com -P 3306 -u mymasteruser -p
 
 * Create a new Database
 
