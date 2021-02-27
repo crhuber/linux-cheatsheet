@@ -31,6 +31,7 @@ limitations under the License.
 - [Fish](#fish)
 - [GIT](#git)
 - [Hardware](#hardware)
+- [Jq](#jq)
 - [Memcache](#memcache)
 - [MySQL](#MySQL)
 - [Networking](#Networking)
@@ -3121,7 +3122,55 @@ git checkout -b feature/new
 git stash pop
 ```
 
+## Jq
 
+The '.' in the jq '.' command above is the simplest jq "filter." The dot takes the input JSON and outputs it as is. You can read more about filters here, but the bare minimum to know is that .keyname will filter the result to a property matching that key, and [index] will match an array value at that index
+
+```
+$ USERX='{"name":"duchess","city":"Toronto","orders":[{"id":"x","qty":10},{"id":"y","qty":15}]}'
+$ echo $USERX | jq '.'
+```
+
+And [] will match each item in an array:
+
+```
+echo $USERX | jq '.orders[].id'
+"x"
+"y"
+```
+
+Filtering output by value is also handy! Here we use | to output the result of one filter into the input of another filter and select(.qty>10) to select only orders with qty value greater than 10:
+
+````
+echo $USERX | jq '.orders[]|select(.qty>10)'
+{
+  "id": "y",
+  "qty": 15
+}
+```
+
+One more trick: filtering by key name rather than value:
+
+```
+$ ORDER='{"user_id":123,"user_name":"duchess","order_id":456,"order_status":"sent","vendor_id":789,"vendor_name":"Abe Books"}'
+$ echo $ORDER | jq '.'
+{
+  "user_id": 123,
+  "user_name": "duchess",
+  "order_id": 456,
+  "order_status": "sent",
+  "vendor_id": 789,
+  "vendor_name": "Abe Books"
+}
+$ echo $ORDER | jq 'with_entries(select(.key|match("order_")))'
+{
+  "order_id": 456,
+  "order_status": "sent"
+}
+(cheat sheet version: with_entries(select(.key|match("KEY FILTER VALUE"))))
+```
+
+Check out more resources below to learn about other stuff jq can do!
 
 
 ## Rsync
