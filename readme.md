@@ -48,6 +48,7 @@ limitations under the License.
 - [SSL](#SSL)
 - [Supervisor](#Supervisor)
 - [SystemD](#SystemD)
+- [SQL](#SQL)
 - [Tmux](#Tmux)
 - [User Admin](#user-admin)
 - [VIM](#VIM)
@@ -3590,6 +3591,40 @@ TimeoutStartSec=0
 ExecStart=/usr/local/bin/somecommand
 [Install]
 WantedBy=multi-user.target
+```
+
+## SQL
+
+WHERE is for rows:
+When querying, we can use the WHERE clause to filter the rows we get back. To use WHERE we specify a condition like “population less than 1000”:
+
+```
+SELECT *
+FROM city
+WHERE population < 1000;
+```
+
+SELECT is for Columns
+Conversely, if we want to get back only certain pieces of data (i.e. columns) of each row, we use SELECT:
+
+```
+SELECT name, countrycode
+FROM city;
+```
+
+Both at the Same Time
+And the real power of SQL is that we can combine both together:
+
+```
+SELECT name, countrycode
+FROM city
+WHERE population < 1000;
+```
+
+multiple WHERE queries by using AND like: 
+
+```
+WHERE population < 1000 AND countrycode = 'AIA'
 ```
 
 ## Fish
