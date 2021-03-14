@@ -3627,6 +3627,77 @@ multiple WHERE queries by using AND like:
 WHERE population < 1000 AND countrycode = 'AIA'
 ```
 
+JOIN
+
+Actions like WHERE and SELECT act on a single table.
+We know how to get city data, but lifeexpectancy exists on the country table. 
+How do we get them both together? The only way is to create one big table using JOIN.
+It connects city.countrycode to country.code. So for each city row, I take the city.countrycode and find the matching country.code row in the country table. Then I take those two rows and add them together. They are now one, larger row.
+
+
+```
+SELECT *
+FROM city
+JOIN country ON city.countrycode = country.code;
+```
+
+Using SELECT, WHERE and JOIN
+Create one big table with FROM and JOIN
+Pair down the rows with WHERE
+Pair down the columns with SELECT
+
+```
+SELECT city.name, country.lifeexpectancy
+FROM city
+JOIN country ON country.code = city.countrycode
+WHERE country.lifeexpectancy > 80;
+```
+
+GROUP-BY
+Grouping in SQL is closer to a process of sorting, then squishing or flattening. SQL calls this flattening aggregation. 
+Aggregation can take many forms. We’re about to simply count up the number of rows.
+Before we start grouping we need to decide which columns to flatten, and which columns to GROUP BY. Both types of columns go in the SELECT clause. For this query, we’re going to use countrycode and language.
+
+Even with all this explanation, GROUP BY can remain a bit baffling. Let’s walk through it one more time step-by-step:
+
+Start with the full, ungrouped table.
+Sort all the rows together based on the GROUP BY columns. So in our example: move all the USA rows together, and then all the TUV rows, and so on.
+For each group
+All of the columns specified in the GROUP BY clause are already the same so they simply collapse down into that value.
+For the other columns, they get combined based on the aggregate function. In our case, we COUNT each row that exists and display the final number.
+
+```
+SELECT
+  countrycode,
+  COUNT(language)
+FROM countrylanguage
+GROUP BY countrycode;
+```
+
+Multiply Two Columns:
+
+Our database has a table named purchase with data in the following columns: id, name, price, quantity, and discount_id.
+Let’s multiply the price by the quantity of the products to find out how much you paid for each item in your order.
+
+```
+SELECT
+	name
+ 	price*quantity  AS total_price
+FROM purchase;
+```
+
+Multiplying from Other Columns
+
+You can also use data from two columns coming from different tables. We have another table in our database named discount that has columns named id and value; the latter represents the percent discount on the item with the given ID.
+
+```
+SELECT
+	p.name, 
+ 	p.price*p.quantity*(100-d.value)/100  AS total_price
+FROM purchase p
+JOIN discount d ON d.id=p.discount_id;
+```
+
 ## Fish
 ----
 
