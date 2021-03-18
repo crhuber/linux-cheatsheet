@@ -576,7 +576,8 @@ File System
 
 
         lsblk  #find drive which is not mounted
-        sudo mkfs -t ext4 /dev/xvdf #makes file system on /dev/xvdf
+        sudo mkfs -t ext4 /dev/xvdf #makes file system on /dev/xvdf)
+	(or sudo mkfs -it xfs /dev/xvdf #makes file system on /dev/xvdf)
         sudo mkdir /mnt/my-data #make a mount point
         sudo mount /dev/xvdf /mnt/my-data #mount device
 
@@ -3410,21 +3411,22 @@ Check out more resources below to learn about other stuff jq can do!
 		tmux ls = list sessions
 		tmux new = new session
 		tmux attach = attach to old session, keep existing sessions open
-		tmux attach -d =  attach to session, disconnect other connections
+		tmux attach -b =  attach to session, disconnect other connections
+		tmux kill-session
 
 * Keys
 
-		Ctrl-a-d = detach from current session
-		Ctrl-a-n  = creates new window
-		Ctrl-a-0 = go to window 0
-		Ctrl-a-tab = toggle between windows
-		Ctrl-a-c = create new window
-		Ctrl-a-? = see bindings
-		Ctrl-a-x = close current window/pane
-		Ctrl-a-o = switch to other pane
-		Ctrl-a-q = show panes
-		Ctrl-a-V = new vertical pane
-		Ctrl-a-arrow = switch panes
+		Ctrl-b-d = detach from current session
+		Ctrl-b-n  = creates new window
+		Ctrl-b-0 = go to window 0
+		Ctrl-b-tab = toggle between windows
+		Ctrl-b-c = create new window
+		Ctrl-b-? = see bindings
+		Ctrl-b-x = close current window/pane
+		Ctrl-b-o = switch to other pane
+		Ctrl-b-q = show panes
+		Ctrl-b-V = new vertical pane
+		Ctrl-b-arrow = switch panes
 
 ## Ansible
 ----
