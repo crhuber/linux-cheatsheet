@@ -22,6 +22,7 @@ limitations under the License.
 
 - [Ansible](#ansible)
 - [Apache](#apache)
+- [Bash](#bash)
 - [Boot](#boot)
 - [Celery](#celery)
 - [Command Line](#command-line)
@@ -148,8 +149,9 @@ limitations under the License.
 
 * Shutdown the system after 10 minutes.
 
-		shutdown -h +10
-
+```
+shutdown -h +10
+```
 * Process States
 
 	Init process is the first process when linux boots up
@@ -199,25 +201,29 @@ Sends an interupt to kernel if it wasn’t to write a file. Rings are so program
 
 
 ## User Admin
------------
 
 * Become system administrator:
 
-
-		sudo -s
-		sudo su
+```
+sudo -s
+sudo su
+```
 
 The accounts capable of using sudo
 are specified in /etc/sudoers, which is edited with the visudo utility. By default, relevant logs are written to /var/log/secure.
 
 * Switch user
 
-		su - user2
-		argument "-" Provides an environment similar to what the user would expect had the user logged in directly.
+```
+su - user2
+```
+argument "-" Provides an environment similar to what the user would expect had the user logged in directly.
 
 * Password file syntax
 
-		/etc/passwd
+```
+/etc/passwd
+```
 
     ![alt text](passwdfile.jpg "Passwords")
 
@@ -236,21 +242,30 @@ are specified in /etc/sudoers, which is edited with the visudo utility. By defau
 
 * Change password
 
-		passwd
+```
+passwd
+```
 
 * Change password expiration
 
-        chage
+```
+chage
 
-        chage -E never username  (sets to never expire)
+chage -E never username  (sets to never expire)
+```
+
 
 * Lock user password
 
-        usermod -L username
+```
+usermod -L username
+```
 
 * Define default attributes for new users (UID, Password Expiriny, HomeDir)
 
-        nano /etc/login.defs
+```
+nano /etc/login.defs
+```
 
 * Kill a process
 
@@ -263,56 +278,75 @@ are specified in /etc/sudoers, which is edited with the visudo utility. By defau
 
 * Kill all users processes
 
-        killall -u username
+```
+killall -u username
+```
 
 * Kill all processes by name
 
-    killall firefox
-    pkill -9 firefox
+```
+killall firefox
+pkill -9 firefox
+```
 
 * Get process id
 
-    pgrep bash
+```
+pgrep bash
+```
 
 * Reload process
 
-   sudo kill -HUP pid_of_apache
+```
+sudo kill -HUP pid_of_apache
+```
 
 * Display users using file/folder
 
-        fuser -u file/folder
+```
+fuser -u file/folder
+```
 
 * Kill processes using file/folder
 
-        fuser -k file/folder
+```
+fuser -k file/folder
+```
 
 * Add User
 
-		add user user1
+```
+add user user1
+```
 
 
 * Show last logged in
 
-		last
-		last Log
-		last reboot  # shows last reboot
-
+```
+last
+last Log
+last reboot  # shows last reboot
+```
 
 * Show users groups
 
-		groups {username}
-
+```
+groups {username}
+```
 
 * Add User to Sudo
 
-		usermod -a -G sudo user1
-
+```
+usermod -a -G sudo user1
+```
 
 * Change default sudo timeout (in minutes)
 
-		add to /etc/sudoers
+add to /etc/sudoers
 
-		Defaults    timestamp_timeout=<value>
+```
+Defaults    timestamp_timeout=<value>
+```
 
 * Edit Group Config
 
@@ -915,7 +949,6 @@ ln -s /path/to/original /path/to/symlink
         fuser -m /home
 
 ## Performance
-------------
 
 * Load Average
 
@@ -1152,8 +1185,8 @@ Items marked with a * are network services. It is particularly important to disa
 
 *
 
-Command Line
--------------
+## Command Line
+
 
 * Xargs: Get input from a pipe and run a command for each argument. takes strings separated by whitespace and passes them into the command specficied
 
@@ -1314,7 +1347,7 @@ EOF
 ```
 
 
-* Bash
+## Bash
 
 ```
 Login vs Non-Login:
