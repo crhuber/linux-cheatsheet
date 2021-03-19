@@ -437,12 +437,8 @@ echo $tmout
 
 
 ```
-
-```lsb_release -a
-```
-
-```cat /etc/*-release
-```
+lsb_release -a
+cat /etc/*-release
 cat /proc/version
 ```
 
@@ -497,9 +493,7 @@ lsusb
 * Print hardware info stored in BIOS:
 
 ```
-
-```dmidecode
-```
+dmidecode
 sysreport
 ```
 
@@ -594,8 +588,7 @@ lshal                              # Show a list of all devices with their prope
 dmidecode                          # Show DMI/SMBIOS: hw info from the BIOS
 ```
 
-File System
-------------
+## File System
 
 * Linux file system description:
 
