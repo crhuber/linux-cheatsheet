@@ -81,7 +81,7 @@ limitations under the License.
 
 * GRUB
 
-    ```
+```
 
         If you have multiple kernel images installed on your system, you can choose which one to be executed.
         GRUB displays a splash screen, waits for few seconds, if you don’t enter anything, it loads the default kernel image as specified in the grub configuration file.
@@ -100,7 +100,7 @@ limitations under the License.
         As you notice from the above info, it contains kernel and initrd image.
         So, in simple terms GRUB just loads and executes Kernel and initrd images.
 
-    ```
+```
 
 * Kernel
 
@@ -113,7 +113,7 @@ limitations under the License.
 
 * Init
 
-    ```
+```
     Looks at the /etc/inittab file to decide the Linux run level.
     Following are the available run levels
     0 – halt
@@ -127,10 +127,10 @@ limitations under the License.
     Execute ‘grep initdefault /etc/inittab’ on your system to identify the default run level
     If you want to get into trouble, you can set the default run level to 0 or 6. Since you know what 0 and 6 means, probably you might not do that.
     Typically you would set the default run level to either 3 or 5.
-    ```
+```
 * Runlevel
 
-    ```
+```
     Depending on your default init level setting, the system will execute the programs from one of the following directories.
     Run level 0 – /etc/rc.d/rc0.d/
     Run level 1 – /etc/rc.d/rc1.d/
@@ -145,7 +145,7 @@ limitations under the License.
     Programs starts with K are used during shutdown. K for kill.
     There are numbers right next to S and K in the program names. Those are the sequence number in which the programs should be started or killed.
     For example, S12syslog is to start the syslog deamon, which has the sequence number of 12. S80sendmail is to start the sendmail daemon, which has the sequence number of 80. So, syslog program will be started before sendmail.
-    ```
+```
 
 * Shutdown the system after 10 minutes.
 
@@ -352,41 +352,55 @@ Defaults    timestamp_timeout=<value>
 
         Nano /etc/group
 
-        ```
+    ```
         cdrom:x:24:vivek,student13,raj
         Where, group_name: It is the name of group. If you run ls -l command, you will see this name printed in the group field.  Password: Generally password is not used, hence it is empty/blank. It can store encrypted password. This is useful to implement privileged groups. Group ID (GID): Each user must be assigned a group ID. You can see this number in your /etc/passwd file.  Group List: It is a list of user names of users who are members of the group. The user names, must be separated by commas.
-        ```
+    ```
 
 * Variables
 
-        echo $PATH #shows path variable
-        export -p #shows all defined
-        export MYAPP=1 #sets variable my app to value 1
-        EDITOR="nano"
+```
+echo $PATH #shows path variable
+export -p #shows all defined
+export MYAPP=1 #sets variable my app to value 1
+EDITOR="nano"
+```
 
 * Add path to system path
 
-        export PATH=$PATH:/usr/local/bin
+```
+export PATH=$PATH:/usr/local/bin
+```
 
 * Print usernames of logged in users:
 
-        users
+```
+users
+```
 
 * Write one line to another user from your terminal:
 
-        talk
+```
+talk
+```
 
 * show info on current user
 
-        id
+```
+id
+```
 
 * show all users and host where logged in from
 
-        who -umH
+```
+who -umH
+```
 
 * To temporarily prevent logins system wide (for all users but root) use nologin. The message in nologin will be displayed (might not work with ssh pre-shared keys).
 
-        echo "Sorry no login now" > /etc/nologin
+```
+echo "Sorry no login now" > /etc/nologin
+```
 
 
 ## Hardware
@@ -394,123 +408,176 @@ Defaults    timestamp_timeout=<value>
 
 * Print full date and time:
 
-        date
+```
+date
 
+```
 * Print the hostname of this machine:
 
 
-        echo $HOSTNAME
+```
+echo $HOSTNAME
+```
 
 
 * Print the default file permissions(subtract from 777):
 
-        echo $umask
+```
+echo $umask
+```
 
 
 * Print the session timeout:
 
-        echo $tmout
+```
+echo $tmout
+```
 
 * Print information about current linux distro:
 
 
-        lsb_release -a
-        cat /etc/*-release
-        cat /proc/version
+```
+
+```lsb_release -a
+```
+
+```cat /etc/*-release
+```
+cat /proc/version
+```
 
 * Print linux kernel version:
 
-        uname -a
+```
+uname -a
+```
 
 * Print information about kernel modules:
 
-        lsmod
+```
+lsmod
+```
 
 * Configure kernel modules (never do this):
 
-        modprobe
+```
+modprobe
+```
 
 * Look for messages from drivers:
 
-        dmesg
+```
+dmesg
+```
 
 * View Installed packages:
 
-        dpkg --get-selections
+```
+dpkg --get-selections
+```
 
 * Print environment variables:
 
-        printenv
+```
+printenv
+```
 
 * List hardware connected via PCI ports:
 
-        lspci
+```
+lspci
+```
 
 * List hardware connected via USB ports:
 
-        lsusb
+```
+lsusb
+```
 
 * Print hardware info stored in BIOS:
 
-        dmidecode
-        sysreport
+```
+
+```dmidecode
+```
+sysreport
+```
 
 
 * Dump captured data off of wireless card:
 
-        dumpcap
+```
+dumpcap
+```
 
 * Dump info about keyboard drivers:
 
-        dumpkeys
+```
+dumpkeys
+```
 
 * Print information about ethernet
 
-        ethtool
+```
+ethtool
+```
 
 * Make a bootable USB
 
-        dd if=efidisk.img of=/dev/usb (usb device name)
+```
+dd if=efidisk.img of=/dev/usb (usb device name)
+```
 
 * Make a swap file
 
-        ```
-        dd if=/dev/zero of=/opt/myswap bs=1024 count=4
-        mkswap /opt/myswap
-        swapon -a
+```
+dd if=/dev/zero of=/opt/myswap bs=1024 count=4
+mkswap /opt/myswap
+swapon -a
 
-        For adding this myswap at boot time, add following in /etc/fstab file:
-        /opt/myswap swap swap defaults 0 0
-        ```
+For adding this myswap at boot time, add following in /etc/fstab file:
+/opt/myswap swap swap defaults 0 0
+```
 
 * Show default kernel
 
-        grubby –default-kernel
+```
+grubby –default-kernel
+```
 
 * Modify kernel parameters
 
-        nano /etc/sysctl.conf
-
+```
+nano /etc/sysctl.conf
+```
 
 * Backup & Restore MBR
 
-        To backup: dd if=/dev/sda of=/tmp/mbr.img_backup bs=512 count=1
-        To restore: dd if=/tmp/mbr.img of=/dev/sda bs=512 count=1
-        The MBR  is a 512 byte segment on the very first sector of your hard drive composed of three parts: 1) the boot code which is 446 bytes long, 2) the partiton table which is 64 bytes long, and 3) the boot code signature which is 2 bytes long.
+```
+To backup: dd if=/dev/sda of=/tmp/mbr.img_backup bs=512 count=1
+To restore: dd if=/tmp/mbr.img of=/dev/sda bs=512 count=1
+The MBR  is a 512 byte segment on the very first sector of your hard drive composed of three parts: 1) the boot code which is 446 bytes long, 2) the partiton table which is 64 bytes long, and 3) the boot code signature which is 2 bytes long.
+```
 
 * Sync NTP time
 
-        sudo service ntp stop
-        sudo ntpdate -s time.nist.gov
-        sudo service ntp start
+```
+sudo service ntp stop
+sudo ntpdate -s time.nist.gov
+sudo service ntp start
+```
 
 * Show Memory information
 
-        cat /proc/meminfo
+```
+cat /proc/meminfo
+```
 
 * Show number of cores
 
-        lscpu
+```
+lscpu
+```
 
 * Hardware Info
 
@@ -532,11 +599,11 @@ File System
 
 * Linux file system description:
 
-        http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/
+http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/
 
 * inodes
 
-        ```
+```
         An inode stores basic information about a regular file, directory, or other file system object
         iNode number also called as index number, it consists following attributes:
 
@@ -552,223 +619,304 @@ File System
         Extended attribute such as append only or no one can delete file including root user
         (immutability)
         Access Control List (ACLs)
-        ```
+```
 
 * Show inodes of files and folders
 
+```
         ls -i
         stat
-
+```
 * Find where a commmand is executed from
 
+```
         which
         ie: which python  > /usr/bin
-
+```
 
 * list directories and recurse into subdirectories
 
+```
         ls -r
+```
 
 * Find files bigger than 100m
 
+```
         find . -size +100M
+```
 
 * Find files created within last 7 days
 
+```
         find . -mtime -7
+```
 
 * Find files accessed within last 7 days
 
+```
         find . -atime -7
+```
 
 * Find Disk Usage by Directory
 
+```
         du -sh /home/*
 
         #Using the -c option with the du command will show the grand total of used space for the designated directory
+```
 
 * check for bad blocks
 
+```
         sudo badblocks -s /dev/sda
+```
 
 * Read speed test
 
+```
         sudo hdparm -tT /dev/sda
+```
 
 * Write speed test. 16KB random write operations
 
+```
         fio --directory=/media/p_iops_vol0 --name fio_test_file --direct=1 --rw=randwrite --bs=16k --size=1G --numjobs=16 --time_based --runtime=180 --group_reporting --norandommap
+```
 
 * Display mountpounts
 
+```
         lsblk
         findmnt #show mountpoints
         sudo fdisk -l
         df -h
         df -h --output=source,target
+```
 
 * Add a new EBS disk to  server
 
-
+```
         lsblk  #find drive which is not mounted
         sudo mkfs -t ext4 /dev/xvdf #makes file system on /dev/xvdf)
     (or sudo mkfs -it xfs /dev/xvdf #makes file system on /dev/xvdf)
         sudo mkdir /mnt/my-data #make a mount point
         sudo mount /dev/xvdf /mnt/my-data #mount device
+```
 
 * Show Physical Volumes
 
+```
          pvdisplay
+```
 
 * Create Volume Group
 
     A group of physical volumes or disks are combined together into a single storage file which is referred to as the LVM volume group.
 
+```
         sudo vgcreate <volume-name> <device-1> <device-2> <device-3>
+```
 
 * Create Logical Volumes
 
+```
         sudo lvcreate –name <logical-volume-name> –size <size-of-volume> <volume-group-name>
+```
 
 * Display Logical Volumes
 
+```
         sudo lvdisplay
+```
 
 * Format Logical Volume
 
+```
         mkfs -t ext4 /dev/<lvm-name>
+```
 
 * Zero Out all blocks for performance
 
+```
         if=/dev/zero of=/dev/xvdf bs=1M
+```
 
 * Create Raid0
 
+```
         mdadm --create --verbose /dev/md0 --level=stripe --raid- devices=number_of_volumes device_name1 device_name2
+```
 
 * Resize Filesystem
 
+```
         resize2fs
+```
 
 * Raid Levels
 
+```
         0 - Striped set without parity or Striping
         1 - Mirrored set without parity or Mirroring
         0+1 -  (increased speed) arrays are created and they are each mirrored via an overall RAID 1 (data backup) array. By definition, this configuration requires at least 4 drives.
         5 - Provides both backup and increased speed. Additionally, a RAID 5 array can continue normally operating if one of its drives fails. The performance speed of the array will be reduced until the failed drive is replaced, but no data loss would occur. This array requires a minimum of 3 drives.
         1+0 Mirrors two drives together and then creates a striped set with the pair.
+```
 
 * Mount a new file system
 
+```
         fdisk /dev/hda1  #create new partision
         mkfs /dev/hda1  #create file system
         mount -a        # causes all filesystems mentioned in fstab to be mounted
+```
 
 * Define boot disk
 
+```
         cat /etc/fstab
         # UUID=9246707a-30ab-47be-b78f-bb7b24a459a8 /     ext4    defaults     1 1
         # ext4= filesystem , defaults = mount on boot
+```
 
 * Copy Files from Remote Machine to Local Machine
 
+```
         scp root@www.server.com:/root/file.sql /home/ec2-user
+```
 
 * Copy Local directory to remote machine
 
+```
         scp -rp sourcedirectory user@dest:/path
+```
 
 * Copy Remote directory to local path
 
+```
         scp -r user@your.server.example.com:/path/to/foo /home/user/Desktop/
+```
 
 * Copy hello.txt from local computer to remote home directory
 
+```
          scp hello.txt awshost1:~/
+```
 
 * Copy hello.txt from local to remote home directory, renaming it foo.txt
 
+```
         scp hello.txt awshost1:~/foo.txt
+```
 
 * Copying ~/foo.txt from the remote computer to the current local director
 
+```
         scp awshost1:~/foo.txt .
+```
 
 * Copying ~/foo.txt from remote to local directory cc, renaming it a.b
 
+```
         scp awshost1:~/foo.txt cc/a.b
+```
 
 * Compress a directory
 
+```
         tar -zcvf archive-name.tar.gz directory-name
         -c = create
         -f = following is archive name
         -v = verbose
         -z = gzip
-
+```
 
 * To append file to archive
 
+```
         tar rvf archive_name.tar new file.txt
+```
 
 * Encrypt a file:
 
+```
         gpg -o [outputfilename.gpg] -c [target file]
-
+```
 
 * Decrypt a file:
 
+```
         gpg -o [outputfilename] -d [target.gpg]
+```
 
 * Uncompress file
 
+```
         unzip filename.zip
-
+```
 
 * Open a compressed .tgz or .tar.gz file:
 
+```
         tar -xvf [target.tgz]
         tar -xvf —strip-components 1  # extracts without its parent folder
         tar -xvf -C  # extracts to a different directory
+```
 
 * Find Files
 
+```
         Find . -name http*
+```
 
 * Find all files not owned by root:
 
+```
         find . \! -user root -print
-
+```
 
 * Find all files not with permissions 644:
 
+```
         find . \! -perm 644 root -print
+```
 
 * Find files matching [filename]:
 
+```
         locate [filename]
+```
 
 * Show a file type
 
+```
         file image.jpg
+```
 
 * Show uncommented items in config files
 
+```
         grep -v "#" file.conf
+```
 
 * Search for a given string in all files recursively
 
+```
         grep -r "ramesh" *
+```
 
 * View the differences between two files:
 
+```
         diff [file 1] [file 2]
+```
 
 * Change File Permissions
 
+```
         chmod 775 filename
         chmod o+r file.txt  # o=other +=add r=read
-
         7 = Read + Write + Execute
         6 = Read + Write
         5 = Read + Execute
@@ -778,37 +926,45 @@ File System
         1 = Execute
         0 = All access denied
         First number is for the owner, second for the group, and third for everyon
-
+```
         http://permissions-calculator.org/
 
         ![alt text](permissions.jpg "Permissions")
 
 * Permissions On Folders
 
+```
         r: read only the names of the files in the directory
         w: create and delete of the files in the directory
         x: traverse the directory
+```
 
 * Permissions On files
 
+```
         r: open a file for reading (e.g. with the cat command)
         w: write a file (e.g. use sed -i (inplace) on it)
         x: execute a file
         It is important to note that a script can be executed even by a user who doesn’t have the execute permission on it. Passing a python script path to the python executable will cause python to open the file for reading and then interpret it. So it is not safe to rely on the executable permission for security. This goes for php, perl, ruby, javascript, etc, etc
+```
 
 * Copy permissions of one file onto another
 
+```
         getfacl FILE1 | setfacl –set-file=- FILE2
-
+```
 
 * Show permissions on all directories in a tree
 
-
+```
         namei -om /var/www/iddb.com/static
+```
 
 * Remove directory
 
+```
         rmdir directory
+```
 
 * Logs
 
@@ -829,22 +985,28 @@ secure					Security/authentication logs
 syslog					All system logs
 wtmp					User logins and logouts
 ```
+
 * Check Logs
 
+```
         less /var/log/messages
         less /var/log/secure
         less /var/log/auth
-
+```
 
 * Check disk space
 
+```
         df -H # H is for human readable
+```
 
 * Config Files
 
+```
         /etc/login.def - default settings template for new user accounts
         /etc/motd - message of the day
         /etc/inittab - defines default runlevel #id:3:initdefault:
+```
 
 * System Startup Files
 
@@ -859,58 +1021,75 @@ wtmp					User logins and logouts
 
 * To start any script
 
+```
         run /etc/init.d/smb start
 
         # To prevent startup delete sum link
+```
 
 * To create new startup script
 
+```
         put script in /etc/init.d/myservice
 
         /etc/rc3.d ln s ../init.d/myservice
+```
 
 * Check for systemd or sysvinit
 
+```
         pidof /sbin/init && echo "sysvinit" || echo "other"
 
         pidof systemd && echo "systemd" || echo "other"
-
+```
 
 * Show Current Runlevel
 
+```
         runlevel
-
         who -r
+```
 
 * Change default runlevel
 
+```
         nano /etc/inittab. change id:3:initdefault. to different number
+```
 
 * Change runlevel
 
+```
         init 1 (single user mode)
-
+```
 
 * Check file system consistency
 
+```
         Goto single user mode:
         # init 1
         Unmount file system:
         # umount /dev/sdb1
         Now run fsck command:
         # fsck /dev/sdb1
+```
 
 * Check a files type
 
+```
         file <filename>
+```
 
 * Generate md5
 
+```
         md5 <filename>
+```
 
 * Generate sha256
 
+```
         openssl sha -sha256 <filename> (mac)
+```
 
 * Symbolic Links
 
@@ -928,13 +1107,15 @@ ln -s /path/to/original /path/to/symlink
 
 * Change the open files limit from 1024 to 10240 d
 
+```
         ulimit -n 10240                    # This is only valid within the shell
+```
 
 * Login users and applications can be configured in /etc/security/limits.conf
 
 * System wide limits
 
-    ```
+```
     sysctl -a                          # View all system limits
     sysctl fs.file-max                 # View max open files limit
     sysctl fs.file-max=102400          # Change max open files limit
@@ -942,11 +1123,13 @@ ln -s /path/to/original /path/to/symlink
     cat /etc/sysctl.conf
     fs.file-max=102400                   # Permanent entry in sysctl.conf
     cat /proc/sys/fs/file-nr           # How many file descriptors are in use
-    ```
+```
 
 * Find opened files on a mount point with fuser
 
+```
         fuser -m /home
+```
 
 ## Performance
 
@@ -962,14 +1145,16 @@ ln -s /path/to/original /path/to/symlink
 
 * Show running services with their ports
 
-
+```
         lsof -i # monitors network connections in real time (mac/linux)
+```
 
 * Show what files a process has open
 
+```
         lsof -p $PID
-
         netstat -lptu
+```
 
 * top
 
@@ -979,7 +1164,7 @@ ln -s /path/to/original /path/to/symlink
 
     lowercase c shows full command
 
-    ```
+```
 
     * check i/o wait for server slowness - Represents CPU waiting for disk I/O. if it is low then you can rule out disk access. GT > 10% is high means Disk is slow
     * CPU idle. higher the number the more bandwidth available to server. Should be >25%
@@ -998,10 +1183,11 @@ ln -s /path/to/original /path/to/symlink
     * swap: cached: caches files in the filesystem in memory for better performance. Uses spare memory
     * SwapTotal, SwapFree. If they are equal there is no swapping going on
 
-    ```
+```
 
 * Show open tcp sockets
 
+```
         lsof -nPi tcp
 
         -n	: This option inhibits the conversion  of  network  numbers  to  host  names  for  network  files.
@@ -1012,29 +1198,41 @@ ln -s /path/to/original /path/to/symlink
          not working properly.
         -i [tcp] : This  option  selects  the  listing  of  files any of whose Internet address matches the address
          specified in i.
+```
 
 * Show bandwidth usage per connection
 
+```
         iftop
+```
 
 * Show Ports listening with thir process id
 
+```
         netstat -tlnp (show ports listening with their process id)
 
         -l, --listening : Show only listening sockets.  (These are omitted by default.)
         -n, --numeric : Show numerical addresses instead of trying to determine symbolic host, port or user names.
         -p, --program : Show the PID and name of the program to which each socket belongs.
         -t, --tcp : Show only tcp
+```
 
 * Show Ports listening - Mac only
 
+```
         nettop
+```
 
 * Show bandwith ussage per process
 
+```
+
         nethogs
+```
 
 * Show running services
+
+```
 
         ps –ax
         ps –eaf
@@ -1043,93 +1241,126 @@ ln -s /path/to/original /path/to/symlink
         a = show processes for all users
         u = display the process's user/owner
         x = also show processes not attached to a terminal
-
+```
 
 * Like top, but with a better, cleaner interface:
 
+```
         htop
+```
 
 * Stop a process from using all system resources and lagging computer:
 
+```
         nice [process name]
-
-        ```
         nice command is used for changing priority of the jobs.
         Syntax: nice [OPTION] [COMMAND [ARG]…]
         Range of priority goes from -20 (highest priority) to 19 (lowest).Priority is given to a job so that the most important job is executed first by the kernel and then the other least important job
-        ``
+```
 
 * Show all ruby-related PIDs and processes
 
+```
+
         pgrep -fl ruby
+```
 
 * Whats a process doing?
 
+```
         strace -f -p $PID
+```
 
 * Keep running the same command over and over
 
+```
         watch 'ps aux | grep ruby'
+```
 
 * How much memory is left
 
+```
         free -m
 
         Free: memory that is currently not used for anything. It should be small since memory shouldn’t be wasted
         Available: amount available for allocation to new process. Modern operating systems go out of their way to keep as little memory free as possible. Memory that is free is actually harder to use because it has to be transitioned from free to in use. Memory that is already in use, that is, memory that is available but not free, can easily be switched to another use.
         The "buffers" and "cached" will be released by the kernal if they are needed.
+```
 
 * Are we swapping
 
+```
         vmstat 1
+```
 
 * Top 10 memory hogs
 
+```
         ps aux --sort=-resident|head -11
+```
 
 * Tail all queries running against mysql
 
+```
         pt-query-digest --processlist h=localhost --print --no-report --user xxxx --password *****
+```
 
 * Check readwrite per sec on disk
 
+```
         iostat -xnk 5
+```
 
 * How much io disk or network is getting or sending
 
+```
         dstat
+```
 
 * Show every call a program is making
 
+```
         strace python myprogram.py #dont run on production db
-
         opensnoop -p pid  #same as strace but won't slow u down
+```
 
 * Show current directory disk size
 
+```
         du -hs
+```
 
 * What is using the IO? Is MySQL sucking up the resources? Is it your PHP processes?
 
+```
         dstat --top-io --top-bio
+```
 
 * top 10 memory hogs
 
+```
         ps aux --sort=-resident|head -11
+```
 
 * Tracroute but Avoid tcp blockage
 
+```
         tcptraceroute google.com
+```
 
 * is the host oversold
 
+```
         top, look for %st. Stealtime = virtual machines are competing for resources.
          If %st increases on all VM's, means your VM is using too much cpu.
          elif %st increases on just one VM = Physical is oversold
+```
 
 * Disk performance
 
+```
         A sustained increase of VolumeQueueLength way above 1 on a standard EBS volume should be treated as exhausting the throughput of that EBS volume. We recommend that you target a queue length between 4 and 8 for volumes with 2,000 to 4,000 provisioned IOPS, or a queue length of 1 for every 500 IOPS provisioned for volumes with fewer than 2,000 provisioned IOPS
+```
 
 * Bandwidth available between two computers
 
@@ -1202,7 +1433,7 @@ https://www.howtogeek.com/562941/how-to-use-the-awk-command-on-linux/
 
 * Awk (continued)
 
-    ```
+```
     awk '{ print $2, $1 }' file                  # Print and inverse first two columns
     awk '{printf("%5d : %s\n", NR,$0)}' file     # Add line number left aligned
     awk '{print FNR "\t" $0}' files              # Add line number right aligned
@@ -1211,7 +1442,7 @@ https://www.howtogeek.com/562941/how-to-use-the-awk-command-on-linux/
     $0											Represents the entire line of text.
     $1											Represents the first field.
     $NF											Stands for “number of fields,” and represents the last field.
-    ```
+```
 
 * Awk (output field seperators)
 
@@ -1253,7 +1484,7 @@ cut -f2 -d "."
 
 * Sed
 
-    ```
+```
     sed 's/string1/string2/g'                    # Replace string1 with string2
     sed -i 's/wroong/wrong/g' *.txt              # Replace a recurring word with g
     sed 's/\(.*\)1/\12/g'                        # Modify anystring1 to anystring2
@@ -1265,7 +1496,7 @@ cut -f2 -d "."
     sed 's/[^*]/[&]/'                            # Enclose first char with [] top->[t]op
     sed = file | sed 'N;s/\n/\t/' > file.num     # Number lines on a file
     Regular Expressions
-    ```
+```
     http://www.grymoire.com/Unix/Sed.html
 
 * Tail, Sort, Head
@@ -1486,7 +1717,7 @@ done
 
 * Redirects
 
-    ```
+```
     # cmd 1> file                         # Redirect stdout to file.
     # cmd 2> file                         # Redirect stderr to file.
     # cmd 1>> file                        # Redirect and append stdout to file.
@@ -1494,26 +1725,26 @@ done
     # cmd >file 2>&1                      # Redirects stderr to stdout and then to file.
     # cmd1 | cmd2                         # pipe stdout to cmd2
     # cmd1 2>&1 | cmd2                    # pipe stdout and stderr to cmd2
-    ```
+```
 
 * Variables
 
-    ```
+```
     MESSAGE="Hello World"                        # Assign a string
     PI=3.1415                                    # Assign a decimal number
-    ```
+```
 
 * Arguments
 
-    ```
+```
     $0, $1, $2, ...                              # $0 is the command itself
     $#                                           # The number of arguments
     $*                                           # All arguments (also $@)
-    ```
+```
 
 * Special Variables
 
-    ```
+```
         $$                                           # The current process ID
         $?                                           # exit status of last command
         command
@@ -1530,11 +1761,11 @@ done
                                                     # assign string to var and then to var2.
         size=$(stat -c%s "$file")                    # get file size in bourne script
         filesize=${size:=-1}
-    ```
+```
 
 * Constructs
 
-    ```
+```
     for file in `ls`
     do
         echo $file
@@ -1552,11 +1783,11 @@ done
     }
     myfunction "txt"
 
-    ```
+```
 
 * Generate a file
 
-    ```
+```
     MYHOME=/home/colin
     cat > testhome.sh << _EOF
     # All of this goes into the file testhome.sh
@@ -1567,17 +1798,17 @@ done
     fi
     _EOF
     sh testhome.sh
-    ```
+```
 * Assigning output of one command to variable
 
-    ```
+```
     #!/bin/bash
     for node in $(cat nodes.txt)
     do
         node_name=$(echo $node | tr -d '"');
         echo $node_name
     done
-    ```
+```
 
 * Iterating a json file
 
@@ -1591,39 +1822,39 @@ done
 
 * Checking for existence of arguments
 
-    ```
+```
     if [ $# -eq 0 ]; then
         echo "Please enter an argument"
         exit 1
     fi
-    ```
+```
 
 * Check for environment variable
 
-    ```
+```
     if [ -z "${GITHUB_TOKEN}" ]; then
         echo "Missing GITHUB_TOKEN environment variable"
         exit 1
     fi
-    ```
+```
 
 * Checking the output of last command and prompt to continue
 
-    ```
+```
      if [[ $? -ne 0 ]]; then
         echo "command failed"
         read ABCD
      fi
-    ```
+```
 
 * Iterate over a list
 
-    ```
+```
     namespaces=(ns1 ns2 ns3)
     for n in ${namespaces[@]}; do
         echo "*** $n ***" ;
     done
-    ```
+```
 
 
 * !^
@@ -2192,7 +2423,7 @@ from django.conf import settings
 
 * Create a new user on the server
 
-    ```
+```
     Generate a SSH key on local machine
     ssh-keygen -t rsa -C "your_email@example.com"
 
@@ -2207,7 +2438,7 @@ from django.conf import settings
 
     Or Upload key to server ussing ssh-copy-id
     ssh-copy-id [-i [identity_file]] [user@]machine
-    ```
+```
 
 * Configure SSH Login using Keys
 
@@ -2576,7 +2807,7 @@ Restrict /admin website to only canada and australia
 
 * Create a SAN config
 
-        ```
+    ```
 
         [ req ]
         prompt = no
@@ -2595,7 +2826,7 @@ Restrict /admin website to only canada and australia
         [alt_names]
         DNS.1   = server1.domain.com
         DNS.2   = server2.domain.com
-        ```
+    ```
 * Create CSR with SAN config
 
         openssl req -new -sha256 -key my-private-key.pem -out domain.com.csr -config san.cnf
@@ -3052,14 +3283,14 @@ DROP DATABASE test;
 
 * Git Post-Receive Hook on server
 
-        ```
+    ```
           cat > hooks/postreceive
            #!/bin/sh
           GIT_WORK_TREE=/var/www/html
         export GIT_WORK_TREE
          do your stuff here
         chmod +x hooks/postreceive
-        ```
+    ```
 
 * Add the remote repository to the local repository
 
