@@ -29,6 +29,7 @@ limitations under the License.
 - [File System](#file-system)
 - [Firewall](#firewall)
 - [Fish](#fish)
+- [FFmpeg](#ffmpeg)
 - [GIT](#git)
 - [Hardware](#hardware)
 - [Jq](#jq)
@@ -3865,4 +3866,12 @@ $                                    # match at the end of a line/string
 ^[A-Z]                               # match any line beginning with any char from A to Z
 * The ^ (caret) fixes your pattern to the beginning of the line. For example the pattern ^1 matches any line starting with a 1.
 * The $ (dollar) fixes your pattern to the end of the sentence. For example, 9$ matches any line ending with a 9.
+```
+
+## FFMpeg
+
+To use it, replace the libx264 codec with libx265, and push the compression lever further by increasing the CRF value — add, say, 4 or 6, since a reasonable range for H.265 may be 24 to 30. Note that lower CRF values correspond to higher bitrates, and hence produce higher quality videos.
+
+```
+ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
 ```
