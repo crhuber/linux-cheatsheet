@@ -1596,60 +1596,81 @@ Mac:
 
 * Configure defaul shell
 
+```
         defshell -bash
+```
 
 * Adding aliases
 
-        in your .bashrc
+in your .bashrc
 
+```
         alias dev='ssh fooey@dev.example.com -p 22000'
+```
 
 * Make bash history 10,0000
 
+```
         export HISTSIZE=100000 SAVEHIST=100000 HISTFILE=~/.bash_history
+```
 
 * Configure command line completion using up and down arrows
 
+```
         Create ~/.inputrc and fill it with this:
         "\e[A": history-search-backward
         "\e[B": history-search-forward
         set show-all-if-ambiguous on
         set completion-ignore-case on
+```
 
 * Colorize Bash Prompt
 
+```
         add to .bash_profile
         export PS1="[\[\e[32;1m\]\u@\h \[\e[33;1m\]\W\[\033[m\]]\[\e[37;1m\]\$ "
+```
 
 * to run a command from history use exclamation !
 
+```
         !680
+```
 
 * Prompt for input in a bash script
 
+```
         read -p “Do you want to continue” variable
+```
 
 * Cut off the first column in a text file
 
+```
         cat filename | cut -d" " -f1
+```
 
 * Redirection of output
 
+```
         &> for redirection, it redirects both the standard output and standard error
+```
 
 * Find what a command does
 
+```
         whatis
-
         The whatis command displays a summary line from the man page for the specified command.
+```
 
 * Navigation
 
+```
         ctrl-w - delete the last word
         ctrl-u - delete start of the line
         ctrl-l - clear the screen
         cd -  : go back to previous working dir
         option-left/right - move word by word
+```
 
 * Loop through folders
 
@@ -1664,19 +1685,33 @@ done
 
 * Base64 Decode
 
+```
     echo "word" | base64 -d
+```
 
 * set variable
+
+```
     FOO="bar"
+```
 
 * unset variable
+
+```
     unset FOO
+```
 
 * recalling your variable by prepending it with a dollar sign ($).
+
+```
     echo $FOO
+```
 
 * preserves any special characters that might appear in the variable;
+
+```
     echo "${FOO}"
+```
 
 * Prepending
 
@@ -1695,13 +1730,17 @@ done
 
 * Bash loop
 
+```
     for f in * ;
         do file $f ;
     done
+```
 
     or 1 liner
 
+```
     for f in * ; do convert $f -scale 33% tmp/$f ; done
+```
 
 * Zshell
 
@@ -1772,7 +1811,8 @@ done
     done
 
     myfunction() {
-        find . -type f -name "*.$1" -print       # $1 is first argument of the function
+        # $1 is first argument of the function
+        find . -type f -name "*.$1" -print      
     }
     myfunction "txt"
 
@@ -1919,151 +1959,212 @@ cat > generate-conf.sh (ctrl+d = paste)
 
 * Show Hostname
 
-
+```
         hostname -f
-
+```
 
 * Set hostname
 
+```
         hostname acme.dev.nul
         or /etc/sysconfig/network
+```
 
 * Change Time Zone
 
+```
         ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime
         export TZ=Australia/Sydney
+```
 
 * Show IP
 
+```
         hostname -I
         ip addr show
         sudo ethtool eth0 - show connection status
+```
 
 * Set IP
 
+```
         ifconfig eth0 192.168.0.10 netmask 255.255.255.0
         system-config-network
         /etc/sysconfig/network-scripts/
         ip address add 192.168.0.1 dev eth0
-
+```
 
 * Add Default Gateway
 
+```
         route add default gw xx.xx.xx.1
+```
 
 * Restart Nic
 
+```
         service network restart
         /etc/init.d/network restart
         ifup eth0
+```
 
 * Configure DNS
 
+```
         nano /etc/resolv.conf
+```
 
 * Configure DNS for specific suffix
 
+```
          cat /etc/resolver/private
          nameserver 192.168.99.100
+```
 
 * Query DNS
 
+```
         dig +short txt 20120113._domainkey.gmail.com @8.8.8.8 #query text records
         dig -x host #reverse
         dig +nocmd +noall +answer www.blah.com #shows TTL
         dig +short txt u123455.wl0000.sendgrid.net #query spf txt records
         dig +short mx company.com # query mx records
+```
 
 * Wget
 
+```
         * Download file setting target directory:
         wget -P ~/dest/dir www.foo.com/myfile.png
         * Download file but save as different name
         wget -O taglist.zip http://www.vim.org/scripts/download_script.php
+```
 
 * Curl
 
+```
         curl -I www.server.com			# -I to show headers only, -i to show headers
         curl -D- www.server.com |less  # shows detailed tcp stuff
-        while true; do curl --write-out " - HTTP Response: %{http_code} - Total time: %{time_total} \n" https://google.com; done #continous
 
+```
+
+* Curl loop
+
+```
+        while true; do curl --write-out " - HTTP Response: %{http_code} - Total time: %{time_total} \n" https://google.com; done #continous
+```
 * Siege
 
+```
         * Benchmark  20 connections for 30 seconds.
         siege -c20 www.google.com -b -t30s
+```
 
 * Ngrep
 
+```
         * Similar to wireshark
         ngrep -q -W byline "^(GET|POST) .*" # -W byline  preserves linesbreaks, -q  #supresses output about 		non-matching packets
         ngrep -q -W byline "search" host www.google.com and port 80
-
+```
 
         * Show packets going to a website on network
 
+```
         ngrep -d mywebsite
+```
+
+## Netcat
 
 
-* Netcat
-
-        * Portscan
+* Portscan
+  
+```
         nc -z example.com 20-100 	#scan port 20-100
+```
+* Copy files between two hosts
 
-        * Copy files between two hosts
+```
         Server: $ nc -l 9090 | tar -xzf -
         Client: tar -czf dir/ | nc server 9090
+```
 
-        * Expose a shell over port 8080
+* Expose a shell over port 8080
+  
+```
         server:
         $ mkfifo backpipe $ nc -l 8080  0<backpipe | /bin/bash > backpipe
         Client:
         nc example.com 8080
+```
 
-        * receive file
+* receive file
+
+```
         nc -l 9931 > bigfile
+```
 
-        * send file
+* send file
 
+```
         cat bigfile | nc ipaddress 9931
+```
 
-* Sshuttle
-
-        * Tunnel traffic to any server you have ssh access to including dns
-        sshuttle -r <server> --dns 0/0
-
-* Mitmproxy
-
-        Allows you to inspect https traffic
-
-        * Automatically strip all cache control headers and make sure you always get fresh connection
-        mitmproxy --anticache
-
-        * Record a session
-        mitmdump -w user-signup
-
-        * Replay a session
-        mitmdump -c user-signup | tail -n1 | grep 200 && echo "OK" || echo "FAIL"
-
-* Disable ping to avoid ICMP flood
-
-        Set following in /etc/sysctl.conf : net.ipv4.icmp_echo_ignore_all = 1
-        Then “sysctl -p”
-
-* Show Public IP Address
-
-        ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
-
-* Show SYN Flood
-
-        ss -a | grep SYN-RECV | awk '{print $4}' | awk -F":" '{print $1}' | sort | uniq -c | sort -n
-        or
-        netstat -antp | grep SYN_RECV|awk '{print $4}'|sort|uniq -c | sort -n
-
-* Netcat
-
+```
         nc -l -p 1234 #starts a server on port 1234
         nc destination_host 1234 # connect to server from client
         tar cfp - /some/dir | compress -c | nc -w 3 destination_host 1234 # compress file and send to remove
+```
+
+
+## Sshuttle
+
+
+* Tunnel traffic to any server you have ssh access to including dns
+
+```
+        sshuttle -r <server> --dns 0/0
+```
+
+## Mitmproxy
+
+ Allows you to inspect https traffic
+
+* Automatically strip all cache control headers and make sure you always get fresh connection
+
+```
+        mitmproxy --anticache
+```
+
+* Record a session
+
+```
+        mitmdump -w user-signup
+```
+* Replay a sessio
+
+```
+        mitmdump -c user-signup | tail -n1 | grep 200 && echo "OK" || echo "FAIL"
+```
+* Disable ping to avoid ICMP flood
+
+```
+        Set following in /etc/sysctl.conf : net.ipv4.icmp_echo_ignore_all = 1
+        Then “sysctl -p”
+```
+
+* Show Public IP Address
+
+```
+        ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+```
+* Show SYN Flood
+
+```
+        ss -a | grep SYN-RECV | awk '{print $4}' | awk -F":" '{print $1}' | sort | uniq -c | sort -n
+        or
+        netstat -antp | grep SYN_RECV|awk '{print $4}'|sort|uniq -c | sort -n
+```
 
 
 ## Screen
@@ -2071,8 +2172,9 @@ cat > generate-conf.sh (ctrl+d = paste)
 
 * Config File
 
+```
         ~/.screenrc
-
+```
 
 * Commands
 
@@ -2099,40 +2201,49 @@ screen -r #reattach to screen
 
 * update pip (Python package manager):
 
+```
         pip install -U pip
-
+```
 * search pip repos
 
+```
         pip
-
+```
 * create a virtual python environment
 
+```
         virtualenv [dirname] --no-site-packages
-
+```
 * connect to a virtual python environment
 
+```
         source [dirname]/bin/activate
-
+```
 * disconnect from a python environment:
 
+```
         deactivate
-
+```
 * install package into virtual python environment from outsie:
 
+```
         pip install [packagename]==[version_number] -E [dirname]
-
+```
 * export python virtual environment into a shareable format:
 
+```
         pip freeze -E [dirname] > requirements.txt
-
+```
 * import python virtual environment from a requirements.txt file:
 
+```
         pip install -E [dirname] -r requirements.txt
-
+```
 * Share all files in current folder over port 8080
 
+```
         python -m SimpleHTTPServer 8080
-
+```
 
 
 
@@ -2141,21 +2252,25 @@ screen -r #reattach to screen
 
 * Show config
 
+```
         iptables -L -v
-
+```
 * Edit config
 
+```
         /etc/sysconfig/iptables
-
+```
 * Allow connections for all tcp connections attempts at web connections.
 
+```
         sudo iptables -I INPUT 2 -p tcp  --dport 80 -j ACCEPT
-
+```
 
 * Lockdown connections to any IP address lying in the range of 192.168.1.0 - 192.168.1.255
 
+```
         sudo iptables -I INPUT 2 -p tcp --dport 22 -s 192.168.1.0/24 -j ACCEPT
-
+```
 * Lockdown SSH to kick anyone after 3 attempts
 
 ```
@@ -2171,6 +2286,7 @@ iptables -A INPUT -p tcp --dport 22 -m recent ! --rcheck --seconds 60 --hitcount
 * Command switches
 
 
+```
         -A      	Append
         -I          Inserts rule to position in chain
         -m          Connection State
@@ -2178,15 +2294,19 @@ iptables -A INPUT -p tcp --dport 22 -m recent ! --rcheck --seconds 60 --hitcount
         --dport     destination port
         -s          source ip
         -p protocol
-
+```
 
 * Save config
 
-        /etc/init.d/iptables save
+```
+/etc/init.d/iptables save
+```
 
 * Restart Iptables
 
-        sudo /sbin/service iptables restart
+```
+sudo /sbin/service iptables restart
+```
 
 
 ## SELINUX
@@ -2194,87 +2314,131 @@ iptables -A INPUT -p tcp --dport 22 -m recent ! --rcheck --seconds 60 --hitcount
 
 * Disable SE Linux
 
-        cat /etc/selinux/config
-        SELINUX=disabled
-        SELINUXTYPE=targeted
+```
+
+``````
+cat /etc/selinux/config
+
+``````
+SELINUX=disabled
+SELINUXTYPE=targeted
+```
 
 ## YUM
 ----
 
 * Check repositories:
 
-        nano /etc/yum.repos.d/CentOS-Base.repo
-        sudo yum repolist
+```
+
+``````
+nano /etc/yum.repos.d/CentOS-Base.repo
+sudo yum repolist
+```
 
 * Install Repositories
 
-        rpm -Uvh http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+```
+rpm -Uvh http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+```
 
 
 * Install package
 
-        yum install PACKAGENAME
+```
+yum install PACKAGENAME
+```
 
 * Remove package
 
-        yum remove PACKAGENAME
+```
+yum remove PACKAGENAME
+```
 
 * Update package
 
-        yum update PACKAGENAME
+```
+yum update PACKAGENAME
+```
 
 
 * List available updates
 
-        yum list updates
+```
+yum list updates
+```
 
 * Update system
 
-        yum update
+```
+yum update
+```
 
 * Upgrade system to newest release (dangerous!)
 
-        yum upgrade
+```
+yum upgrade
+```
 
 * Show package
 
-        yum list PACKAGENAME
+```
+yum list PACKAGENAME
+```
 
 * Search package repositories
 
-        yum search SEARCHSTRING
+```
+yum search SEARCHSTRING
+```
 
 * Search particular version of a package
 
-        yum --showduplicates list httpd | expand
+```
+yum --showduplicates list httpd | expand
+```
 
 * List package groups
 
-        yum grouplist
+```
+yum grouplist
+```
 
 * Install package group
 
-        yum groupinstall 'GROUP NAME'
+```
+yum groupinstall 'GROUP NAME'
+```
 
 * Update package group
 
-        yum groupupdate 'GROUP NAME'
+```
+yum groupupdate 'GROUP NAME'
+```
 
 * Remove package group
 
-        yum groupremove 'GROUP NAME'
+```
+yum groupremove 'GROUP NAME'
+```
 
 * Install utitilites you would need to install most commonly
 
-        yum groupinstall "Development Tools"
+```
+yum groupinstall "Development Tools"
+```
 
 * Show installed packages
 
-        yum list installed
+```
+yum list installed
+```
 
 * Show available updates
 
-        yum list updates
+```
+yum list updates
+```
 
 
 ## Cron
@@ -2282,15 +2446,19 @@ iptables -A INPUT -p tcp --dport 22 -m recent ! --rcheck --seconds 60 --hitcount
 
 * Cron files
 
-        /etc/cron.allow  # users allowed to submit jobs
+```
+/etc/cron.allow  # users allowed to submit jobs
+```
 
 * Jobs submitted from following dirs
 
 
-        /etc/crontab # root only jobs
-        /etc/cron.d #
-        /etc/cron.hourly #files placed in this dir run hourly
-        /var/spool/cron/username # created for user when run crontab -e
+```
+/etc/crontab # root only jobs
+/etc/cron.d #
+/etc/cron.hourly #files placed in this dir run hourly
+/var/spool/cron/username # created for user when run crontab -e
+```
 
 
 * Crontab Commands
@@ -2351,18 +2519,22 @@ from django.conf import settings
 
 * Generate log file
 
+```
         30 18 * * * rm /home/someuser/tmp/* > /home/someuser/cronlogs/clean_tmp_dir.log
-
+```
 
 * Find out what cron jobs are running
 
+```
         ls /etc/cron* + cat for user in $(cat /etc/passwd | cut -f1 -d:); do crontab -l -u $user; done
+```
 
 * To find out where is cron log
 
+```
         grep -ic cron /var/log/* | grep -v :0
-
         grep cron /etc/rsyslog.conf
+```
 
 * Check if cron configured to log
 
