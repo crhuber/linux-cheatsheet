@@ -20,41 +20,34 @@ limitations under the License.
 
 ## Table Of Contents
 
-- [Ansible](#ansible)
-- [Apache](#apache)
-- [Bash](#bash)
-- [Boot](#boot)
-- [Celery](#celery)
-- [Command Line](#command-line)
-- [Cron](#cron)
-- [File System](#file-system)
-- [Firewall](#firewall)
-- [Fish](#fish)
-- [FFmpeg](#ffmpeg)
-- [GIT](#git)
-- [Hardware](#hardware)
-- [Jq](#jq)
-- [Memcache](#memcache)
-- [MySQL](#MySQL)
-- [Networking](#Networking)
-- [NewRelic](#NewRelic)
-- [Nginx](#Nginx)
-- [Performance](#performance)
-- [PHP](#PHP)
-- [Python](#Python)
-- [Regex](#Regex)
-- [Rsync](#Rsync)
-- [Rsyslog](#Rsyslog)
-- [Screen](#Screen)
-- [SELinux](#SELinux)
-- [SSL](#SSL)
-- [Supervisor](#Supervisor)
-- [SystemD](#SystemD)
-- [SQL](#SQL)
-- [Tmux](#Tmux)
-- [User Admin](#user-admin)
-- [VIM](#VIM)
-- [YUM](#YUM)
+- [Linux Admin Guide](#linux-admin-guide)
+  - [Table Of Contents](#table-of-contents)
+  - [Boot](#boot)
+  - [User Admin](#user-admin)
+  - [Hardware](#hardware)
+  - [File System](#file-system)
+  - [Performance](#performance)
+  - [Command Line](#command-line)
+  - [Bash](#bash)
+  - [Networking](#networking)
+  - [Netcat](#netcat)
+  - [Sshuttle](#sshuttle)
+  - [Mitmproxy](#mitmproxy)
+  - [Screen](#screen)
+  - [Python](#python)
+  - [Firewall](#firewall)
+  - [SELINUX](#selinux)
+  - [YUM](#yum)
+  - [Cron](#cron)
+  - [Apache](#apache)
+  - [SSL](#ssl)
+  - [PHP](#php)
+  - [MySQL](#mysql)
+  - [Memcache](#memcache)
+  - [Git](#git)
+  - [Jq](#jq)
+  - [Regex](#regex)
+  - [FFMpeg](#ffmpeg)
 
 ## Boot
 ---
@@ -404,7 +397,7 @@ echo "Sorry no login now" > /etc/nologin
 
 
 ## Hardware
--------------
+
 
 * Print full date and time:
 
@@ -1955,7 +1948,7 @@ cat > generate-conf.sh (ctrl+d = paste)
 ```
 
 ## Networking
----
+
 
 * Show Hostname
 
@@ -2168,7 +2161,6 @@ cat > generate-conf.sh (ctrl+d = paste)
 
 
 ## Screen
----
 
 * Config File
 
@@ -2197,7 +2189,7 @@ screen -r #reattach to screen
 ```
 
 ## Python
----
+
 
 * update pip (Python package manager):
 
@@ -2248,7 +2240,7 @@ screen -r #reattach to screen
 
 
 ## Firewall
----
+
 
 * Show config
 
@@ -2310,7 +2302,7 @@ sudo /sbin/service iptables restart
 
 
 ## SELINUX
-----
+
 
 * Disable SE Linux
 
@@ -2325,7 +2317,6 @@ SELINUXTYPE=targeted
 ```
 
 ## YUM
-----
 
 * Check repositories:
 
@@ -2442,7 +2433,6 @@ yum list updates
 
 
 ## Cron
-----
 
 * Cron files
 
@@ -2711,7 +2701,6 @@ Custom SSH configuration file is useless without explicitly telling Ansible to u
         The new default is to kill all children of a terminating login session, regardless of what historically valid precautions were taken to prevent this. The behavior can be changed by setting KillUserProcesses=no in /etc/systemd/logind.conf. When the SSH daemon process associated with your connection decides that your connection is dead, it sends a hangup signal (SIGHUP) to the login shell. This notifies the shell that you've vanished and that it should begin cleaning up after itself. What happens at this point is shell specific (search its documentation page for "HUP"), but for the most part it will start sending SIGHUP to running jobs associated with it before terminating. Each of those processes, in turn, will do whatever they're configured to do on receipt of that signal. Processes that were invoked with a prefixed nohup command. (i.e. "don't hang up on this") Daemons interpret the HUP signal differently; since they do not have a controlling terminal and do not automatically receive a HUP signal
 
 ## Apache
-----
 
 * Install
 
@@ -2954,7 +2943,6 @@ Restrict /admin website to only canada and australia
 
 
 ## SSL
-----
 
  * Install tools
 
@@ -3099,7 +3087,6 @@ PKCS12 - A Microsoft private standard that was later defined in an RFC that prov
 DER - The parent format of PEM. It's useful to think of it as a binary version of the base64-encoded PEM file. Not routinely used very much outside of Windows.
 
 ## PHP
-----
 
 * Install
 
@@ -3142,7 +3129,6 @@ DER - The parent format of PEM. It's useful to think of it as a binary version o
 
 
 ## MySQL
-----
 
 * Database types:
 
@@ -3337,7 +3323,6 @@ DROP DATABASE test;
 
 
 ## Memcache
-----
 
 * Install Memcached
 
@@ -3363,7 +3348,6 @@ DROP DATABASE test;
         extension=memcache.so
 
 ## GIT
-----
 
 * Install
 
@@ -3608,7 +3592,6 @@ Check out more resources below to learn about other stuff jq can do!
 
 
 ## Rsync
-----
 
 * Install
 
@@ -3620,7 +3603,6 @@ Check out more resources below to learn about other stuff jq can do!
 
 
 ## NewRelic
-----
 
 * Install server monitor
 
@@ -3650,7 +3632,6 @@ Check out more resources below to learn about other stuff jq can do!
 
 
 ## Celery
-----
 
 * Run deamon
 
@@ -3667,7 +3648,6 @@ Check out more resources below to learn about other stuff jq can do!
 
 
 ## Supervisor
-----
 
 * Install
 
@@ -3700,7 +3680,6 @@ Check out more resources below to learn about other stuff jq can do!
          supervisorctl {start,status,stop} hello
 
 ## Nginx
-----
 
 * Reload Config
 
@@ -3821,7 +3800,6 @@ Check out more resources below to learn about other stuff jq can do!
         sudo systemctl enable nginx.service
 
 ## Rsyslog
-----
 
 * Config File
 
@@ -3836,7 +3814,6 @@ Check out more resources below to learn about other stuff jq can do!
         *.*             @@logs-01.loggly.com:514;LogglyFormat
 
 ## Tmux
-----
 
 * Commands
 
@@ -3859,15 +3836,15 @@ Check out more resources below to learn about other stuff jq can do!
         Ctrl-b-q = show panes
         Ctrl-b-V = new vertical pane
         Ctrl-b-arrow = switch panes
+        Ctrl-b-[-arrow = scroll
 
 ## Ansible
-----
 
 * Run Playbook locally
     ansible-playbook -i "localhost," -c local
 
 ## VIM
-----
+
 
     hl - move L/R
     jk - move up down
@@ -3895,8 +3872,9 @@ Check out more resources below to learn about other stuff jq can do!
     ?string       Search back for string
     n       Search for next instance of string
     N       Search for previous instance of string
+
 ## SystemD
-----
+
 
 ```
 wget https://github.com/prometheus/node_exporter/releases/download/0.11.0/node_exporter-0.11.0.linux-amd64.tar.gz
@@ -4133,7 +4111,6 @@ JOIN discount d ON d.id=p.discount_id;
 ```
 
 ## Fish
-----
 
 Reference:
 https://github.com/jorgebucaran/fish-cookbook/blob/master/README.md
