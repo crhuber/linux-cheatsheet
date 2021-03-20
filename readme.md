@@ -2308,10 +2308,10 @@ sudo /sbin/service iptables restart
 
 ```
 
-``````
+```
 cat /etc/selinux/config
 
-``````
+```
 SELINUX=disabled
 SELINUXTYPE=targeted
 ```
@@ -2322,7 +2322,7 @@ SELINUXTYPE=targeted
 
 ```
 
-``````
+```
 nano /etc/yum.repos.d/CentOS-Base.repo
 sudo yum repolist
 ```
@@ -3559,7 +3559,7 @@ echo $USERX | jq '.orders[].id'
 
 Filtering output by value is also handy! Here we use | to output the result of one filter into the input of another filter and select(.qty>10) to select only orders with qty value greater than 10:
 
-````
+```
 echo $USERX | jq '.orders[]|select(.qty>10)'
 {
   "id": "y",
