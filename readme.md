@@ -48,6 +48,8 @@ limitations under the License.
   - [Jq](#jq)
   - [Regex](#regex)
   - [FFMpeg](#ffmpeg)
+  - [Gpg](#gpg)
+  - [IPFS](#ipfs)
 
 ## Boot
 ---
@@ -4283,3 +4285,46 @@ To use it, replace the libx264 codec with libx265, and push the compression leve
 ```
 ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
 ```
+
+## GPG
+
+Install
+
+`brew install gnupg`
+
+Generate key
+
+`gpg --gen-key`
+
+Export your public key on your second computer into an armored blob using the email address you chose when creating the key
+
+`gpg --export --armor -email > pubkey.asc`
+
+Import another users public key
+
+`gpg --import pubkey.asc`
+
+Show keys on keyring
+
+`gpg --list-keys`
+
+Encrypt a file using someone elses public key
+
+`gpg --encrypt --recipient "Cory Heath" myriad.pdf`
+
+Decrypt file 
+
+`gpg --decrypt myriad.pdf.gpg > myriad.pdf`
+
+
+## IPFS
+
+
+To upload to IPFS, all we need to do on our first computer is
+
+`ipfs add myriad.pdf.gpg`
+
+
+download the posted encrypted file from your first computer from IPFS using the same hash:
+
+`ipfs get QmYqSCWuzG8Cyo4MFQzqKcC14ct4ybAWyrAc9qzdJaFYTL`
