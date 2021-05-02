@@ -4324,6 +4324,10 @@ To upload to IPFS, all we need to do on our first computer is
 
 `ipfs add myriad.pdf.gpg`
 
+make sure our file is available on IPFS
+
+`ipfs pin ls`
+
 
 download the posted encrypted file from your first computer from IPFS using the same hash:
 
