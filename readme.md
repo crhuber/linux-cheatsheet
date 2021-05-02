@@ -4319,6 +4319,12 @@ Decrypt file
 
 ## IPFS
 
+Init
+
+```
+ipfs init
+ipfs daemon 
+```
 
 To upload to IPFS, all we need to do on our first computer is
 
