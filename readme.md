@@ -4131,6 +4131,38 @@ FROM purchase p
 JOIN discount d ON d.id=p.discount_id;
 ```
 
+## SQLLite
+
+import CSV data with a single command, the table is created automatically:
+
+```
+> .import --csv city.csv city
+> select count(*) from city;
+1117
+```
+
+Data could be exported as SQL, CSV, JSON, even Markdown and HTML. Takes just a couple of commands:
+
+```
+.mode json
+.output city.json
+select city, foundation_year, timezone from city limit 10;
+.shell cat city.json
+```
+
+Read json
+
+```
+select
+  json_extract(value, '$.iso.code') as code,
+  json_extract(value, '$.iso.number') as num,
+  json_extract(value, '$.name') as name,
+  json_extract(value, '$.units.major.name') as unit
+from
+  json_each(readfile('currency.sample.json'))
+;
+```
+
 ## Fish
 
 Reference:
