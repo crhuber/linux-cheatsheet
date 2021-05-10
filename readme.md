@@ -1200,6 +1200,12 @@ ln -s /path/to/original /path/to/symlink
         iftop
 ```
 
+* Show which apps are using the connection
+
+```
+ss -p
+```
+
 * Show Ports listening with thir process id
 
 ```
