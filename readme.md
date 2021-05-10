@@ -634,6 +634,12 @@ http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/
         find . -size +100M
 ```
 
+* Find largest directories in current directory
+
+```
+        du -hs */ | sort -hr | head
+```
+
 * Find files created within last 7 days
 
 ```
@@ -2048,6 +2054,13 @@ cat > generate-conf.sh (ctrl+d = paste)
 ```
         while true; do curl --write-out " - HTTP Response: %{http_code} - Total time: %{time_total} \n" https://google.com; done #continous
 ```
+
+* Show IP address
+
+```
+curl ipinfo.io
+```
+
 * Siege
 
 ```
