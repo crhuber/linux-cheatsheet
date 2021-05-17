@@ -50,6 +50,7 @@ limitations under the License.
   - [FFMpeg](#ffmpeg)
   - [Gpg](#gpg)
   - [IPFS](#ipfs)
+  - [Dig](#dig)
 
 ## Boot
 ---
@@ -4389,3 +4390,237 @@ make sure our file is available on IPFS
 download the posted encrypted file from your first computer from IPFS using the same hash:
 
 `ipfs get QmYqSCWuzG8Cyo4MFQzqKcC14ct4ybAWyrAc9qzdJaFYTL`
+
+
+## Dig
+
+Query the linux.org domain:
+
+```
+dig linux.org
+```
+
+
+The first line of the output prints the installed dig version, and the queried domain name. The second line shows the global options (by default, only cmd).
+
+```
+; <<>> DiG 9.13.3 <<>> linux.org
+;; global options: +cmd
+```
+If you don’t want those lines to be included in the output, use the +nocmd option. This option must be the very first one after the dig command.
+
+The next section includes technical details about the answer received from the requested authority (DNS server). The header shows the opcode (the action performed by dig) and the status of the action. In this example, the status is NOERROR, which means that the requested authority served the query without any issue.
+
+```
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 37159
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 2, ADDITIONAL: 5
+```
+This section can be removed using the +nocomments option, which also disables some other section’s headers.
+
+The “OPT” pseudo section is shown only in the newer versions of the dig utility. You can read more about the Extension mechanisms for DNS (EDNS) here .
+
+```
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+```
+To exclude this section from the output, use the +noedns option.
+
+In the “QUESTION” section dig shows the query (question). By default, dig requests the A record.
+
+```
+;; QUESTION SECTION:
+;linux.org.			IN	A
+```
+You can disable this section using the +noquestion option.
+
+The “ANSWER” section provides us with an answer to our question. As we already mentioned, by default dig will request the A record. Here, we can see that the domain linux.org points to the 104.18.59.123 IP address.
+
+```
+;; ANSWER SECTION:
+linux.org.		300	IN	A	104.18.59.123
+linux.org.		300	IN	A	104.18.58.123
+```
+Usually, you do not want to turn off the answer, but you can remove this section from the output using the +noanswer option.
+
+The “AUTHORITY” section tells us what server(s) are the authority for answering DNS queries about the queried domain.
+
+```
+;; AUTHORITY SECTION:
+linux.org.		86379	IN	NS	lia.ns.cloudflare.com.
+linux.org.		86379	IN	NS	mark.ns.cloudflare.com.
+```
+You can disable this section of the output using the +noauthority option.
+
+The “ADDITIONAL” section gives us information about the IP addresses of the authoritative DNS servers shown in the authority section.
+
+```
+;; ADDITIONAL SECTION:
+lia.ns.cloudflare.com.	84354	IN	A	173.245.58.185
+lia.ns.cloudflare.com.	170762	IN	AAAA	2400:cb00:2049:1::adf5:3ab9
+mark.ns.cloudflare.com.	170734	IN	A	173.245.59.130
+mark.ns.cloudflare.com.	170734	IN	AAAA	2400:cb00:2049:1::adf5:3b82
+```
+The +noadditional option disables the additional section of a reply.
+
+The last section of the dig output includes statistics about the query.
+
+```
+;; Query time: 58 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1)
+;; WHEN: Fri Oct 12 11:46:46 CEST 2018
+;; MSG SIZE  rcvd: 212
+```
+You can disable this part with the +nostats option.
+
+Printing Only the Answer
+Generally, you would want to get only a short answer to your dig query.
+
+1. Get a Short Answer
+To get a short answer to your query, use the +short option:
+
+```
+dig linux.org +short
+
+104.18.59.123
+104.18.58.123
+```
+The output will include only the IP addresses of the A record.
+
+2. Get a Detailed Answer
+
+For more a detailed answer, turn off all the results using the +noall options and then turn on only the answer section with the +answer option.
+
+```
+dig linux.org +noall +answer
+
+; <<>> DiG 9.13.3 <<>> linux.org +noall +answer
+;; global options: +cmd
+linux.org.		67	IN	A	104.18.58.123
+linux.org.		67	IN	A	104.18.59.123
+```
+Query Specific Name Server
+By default, if no name server is specified, dig uses the servers listed in /etc/resolv.conf file.
+
+To specify a name server against which the query will be executed, use the @ (at) symbol followed by the name server IP address or hostname.
+For example, to query the Google name server (8.8.8.8) for information about the linux.org domain you would use:
+
+```
+dig linux.org @8.8.8.8
+
+; <<>> DiG 9.13.3 <<>> linux.org @8.8.8.8
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 39110
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;linux.org.			IN	A
+
+;; ANSWER SECTION:
+linux.org.		299	IN	A	104.18.58.123
+linux.org.		299	IN	A	104.18.59.123
+
+;; Query time: 54 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Fri Oct 12 14:28:01 CEST 2018
+;; MSG SIZE  rcvd: 70
+```
+
+Query a Record Type
+Dig allows you to perform any valid DNS query by appending the record type to the end of the query. In the following section, we will show you examples of how to search for the most common records, such as A (the IP address), CNAME (canonical name), TXT (text record), MX (mail exchanger), and NS (name servers).
+
+1. Querying A records
+To get a list of all the address(es) for a domain name, use the a option:
+
+```
+dig +nocmd google.com a +noall +answer
+
+google.com.		128	IN	A	216.58.206.206
+```
+As you already know, if no DNS record type is specified, dig will request the A record. You can also query the A record without specifying the a option.
+
+2. Querying CNAME records
+To find the alias domain name use the cname option:
+
+```
+dig +nocmd mail.google.com cname +noall +answer
+
+mail.google.com.	553482	IN	CNAME	googlemail.l.google.com.
+```
+
+3. Querying TXT records
+Use the txt option to retrieve all the TXT records for a specific domain:
+
+```
+dig +nocmd google.com txt +noall +answer
+
+google.com.		300	IN	TXT	"facebook-domain-verification=22rm551cu4k0ab0bxsw536tlds4h95"
+google.com.		300	IN	TXT	"v=spf1 include:_spf.google.com ~all"
+google.com.		300	IN	TXT	"docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e"
+```
+4. Querying MX records
+To get a list of all the mail servers for a specific domain use the mx option:
+
+
+```
+dig +nocmd google.com mx +noall +answer
+
+google.com.		494	IN	MX	30 alt2.aspmx.l.google.com.
+google.com.		494	IN	MX	10 aspmx.l.google.com.
+google.com.		494	IN	MX	40 alt3.aspmx.l.google.com.
+google.com.		494	IN	MX	50 alt4.aspmx.l.google.com.
+google.com.		494	IN	MX	20 alt1.aspmx.l.google.com.
+```
+5. Querying NS records
+To find the authoritative name servers for our specific domain use the ns option:
+
+```
+dig +nocmd google.com ns +noall +answer
+
+google.com.		84527	IN	NS	ns1.google.com.
+google.com.		84527	IN	NS	ns2.google.com.
+google.com.		84527	IN	NS	ns4.google.com.
+google.com.		84527	IN	NS	ns3.google.com.
+```
+
+6. Querying All Records
+Use the any option to get a list of all DNS records for a specific domain:
+
+```
+dig +nocmd google.com any +noall +answer
+
+google.com.		299	IN	A	216.58.212.14
+google.com.		299	IN	AAAA	2a00:1450:4017:804::200e
+google.com.		21599	IN	NS	ns2.google.com.
+google.com.		21599	IN	NS	ns1.google.com.
+google.com.		599	IN	MX	30 alt2.aspmx.l.google.com.
+google.com.		21599	IN	NS	ns4.google.com.
+google.com.		599	IN	MX	50 alt4.aspmx.l.google.com.
+google.com.		599	IN	MX	20 alt1.aspmx.l.google.com.
+google.com.		299	IN	TXT	"docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e"
+google.com.		21599	IN	CAA	0 issue "pki.goog"
+google.com.		599	IN	MX	40 alt3.aspmx.l.google.com.
+google.com.		3599	IN	TXT	"facebook-domain-verification=22rm551cu4k0ab0bxsw536tlds4h95"
+google.com.		21599	IN	NS	ns3.google.com.
+google.com.		599	IN	MX	10 aspmx.l.google.com.
+google.com.		3599	IN	TXT	"v=spf1 include:_spf.google.com ~all"
+google.com.		59	IN	SOA	ns1.google.com. dns-admin.google.com. 216967258 900 900 1800 60
+```
+
+Reverse DNS Lookup
+To query the hostname associated with a specific IP address use the -x option.
+For example, to perform a reverse lookup on 208.118.235.148 you would type:
+
+```
+dig -x 208.118.235.148 +noall +answer
+```
+As you can see from the output below the IP address 208.118.235.148 is associated with the hostname wildebeest.gnu.org.
+
+```
+; <<>> DiG 9.13.3 <<>> -x 208.118.235.148 +noall +answer
+;; global options: +cmd
+148.235.118.208.in-addr.arpa. 245 IN	PTR	wildebeest.gnu.org.
+```
