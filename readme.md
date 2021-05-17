@@ -4394,6 +4394,13 @@ download the posted encrypted file from your first computer from IPFS using the 
 
 ## Dig
 
+Install
+
+```
+sudo apt update && sudo apt install dnsutils #debian
+sudo yum install bind-utils #centos
+```
+
 Query the linux.org domain:
 
 ```
