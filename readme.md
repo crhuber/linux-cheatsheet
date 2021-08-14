@@ -4334,8 +4334,16 @@ $                                    # match at the end of a line/string
 
 To use it, replace the libx264 codec with libx265, and push the compression lever further by increasing the CRF value — add, say, 4 or 6, since a reasonable range for H.265 may be 24 to 30. Note that lower CRF values correspond to higher bitrates, and hence produce higher quality videos.
 
+mp4 to lower output
+
 ```
 ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
+```
+
+Mov to mp4
+
+```
+ffmpeg -i my-video.mov -vcodec h264 -acodec mp2 my-video.mp4
 ```
 
 ## GPG
