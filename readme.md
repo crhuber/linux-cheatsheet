@@ -22,6 +22,7 @@ limitations under the License.
 
 - [Linux Admin Guide](#linux-admin-guide)
   - [Table Of Contents](#table-of-contents)
+  - [Age](#age)
   - [Apache](#apache)
   - [Bash](#bash)
   - [Boot](#boot)
@@ -4775,4 +4776,45 @@ As you can see from the output below the IP address 208.118.235.148 is associate
 ; <<>> DiG 9.13.3 <<>> -x 208.118.235.148 +noall +answer
 ;; global options: +cmd
 148.235.118.208.in-addr.arpa. 245 IN	PTR	wildebeest.gnu.org.
+```
+
+## Age
+
+* Download and Install
+
+```
+https://github.com/FiloSottile/age
+```
+
+* Generate a New Key Par
+
+```
+mkdir ~/.age 
+age-keygen -o ~/.age/key.txt
+```
+
+Share the public key with recipient
+
+* Encrypt a file with recipient's public key
+
+```
+age -r [receipient public key] example.txt > example.txt.age
+```
+
+* Decrypt a file
+
+```
+age --decrypt example.txt.age -i ~/.age/key.txt -o example.txt 
+```
+
+* Encrypt & Decrypt using a passphrase
+
+```
+# encrypt
+age -p secrets.txt > secrets.txt.age
+Enter passphrase (leave empty to autogenerate a secure one):
+
+# decrypt
+$ age -d secrets.txt.age > secrets.txt
+Enter passphrase:
 ```
