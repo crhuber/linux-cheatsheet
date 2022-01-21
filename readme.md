@@ -49,6 +49,7 @@ limitations under the License.
   - [Sshuttle](#sshuttle)
   - [Regex](#regex)
   - [Screen](#screen)
+  - [SSH](#ssh)
   - [SSL](#ssl)
   - [SQL](#sql)
   - [SELINUX](#selinux)
@@ -2859,6 +2860,19 @@ Custom SSH configuration file is useless without explicitly telling Ansible to u
 * Do programs remain running when you disconnect?
 
         The new default is to kill all children of a terminating login session, regardless of what historically valid precautions were taken to prevent this. The behavior can be changed by setting KillUserProcesses=no in /etc/systemd/logind.conf. When the SSH daemon process associated with your connection decides that your connection is dead, it sends a hangup signal (SIGHUP) to the login shell. This notifies the shell that you've vanished and that it should begin cleaning up after itself. What happens at this point is shell specific (search its documentation page for "HUP"), but for the most part it will start sending SIGHUP to running jobs associated with it before terminating. Each of those processes, in turn, will do whatever they're configured to do on receipt of that signal. Processes that were invoked with a prefixed nohup command. (i.e. "don't hang up on this") Daemons interpret the HUP signal differently; since they do not have a controlling terminal and do not automatically receive a HUP signal
+
+* Access RDS in a Private Subnet from Local Machine
+
+```
+ssh -i "Private_key.pem" -f -N -L 3306:RDS_Instance_Endpoint:3306 ec2-user@EC2-Instance_Endpoint -v
+```
+
+
+```
+ssh -i  ~/.ssh/my.key -f -N -L  \
+3306:rdshostname.cluster-xyz.us-west-2.rds.amazonaws.com:3306 \
+ec2-user@ec1-2-3-4.us-west-2.compute.amazonaws.com -v 
+```
 
 ## Apache
 
