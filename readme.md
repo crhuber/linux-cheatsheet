@@ -24,6 +24,7 @@ limitations under the License.
   - [Table Of Contents](#table-of-contents)
   - [Age](#age)
   - [Apache](#apache)
+  - [Asdf](#asdf)
   - [Bash](#bash)
   - [Boot](#boot)
   - [Command Line](#command-line)
@@ -4845,4 +4846,122 @@ Enter passphrase (leave empty to autogenerate a secure one):
 # decrypt
 $ age -d secrets.txt.age > secrets.txt
 Enter passphrase:
+```
+
+## Asdf
+
+* Install
+
+```
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.8
+$ mkdir -p ~/.config/fish/completions; and cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+## edit config.fish
+# asdf
+source $HOME/.asdf/asdf.fish
+```
+
+* Pyenv replacement
+
+```
+$ asdf plugin add python
+
+$ asdf install python latest:3 # At the moment of writing this, it installed 3.8.4
+
+$ asdf global python 3.8.4 # This sets python 3.8.4 as our default python version
+
+```
+
+* Rbenv
+
+```
+$ asdf plugin add ruby
+
+$ asdf install ruby latest # We can omit the version number. Currently installs 2.7.1
+
+$ asdf global ruby 2.7.1
+
+```
+
+* Goenv 
+
+```
+$ asdf plugin add golang
+
+$ asdf install golang latest # 1.14.6
+
+$ asdf global golang 1.14.6
+```
+
+* Nvm 
+
+```
+$ asdf plugin add nodejs
+
+$ asdf install nodejs 12.18.2
+
+$ asdf global nodejs 12.18.2
+```
+
+* Asdf Global
+
+Using asdf global creates a file under your HOME directory called .tool-versions. This lets asdf know which versions to use. And of course, in contrast to global, there is also the local keyword that creates another .tool-versions. This is useful when projects require different version.
+
+```
+$ cat ~/.tool-versions
+
+python 3.8.4
+
+ruby 2.7.1
+
+golang 1.14.6
+
+nodejs 12.18.2
+
+```
+
+* Extras 
+
+In order to accommodate my work flow when I was still using pyenv virtualenv, I created a function that behaves quite similar to pyenv virtualenv.
+
+```
+$ touch ~/.config/fish/functions/venv.fish
+
+function venv --argument-names 'python_version' --description 'Create virtualenv named the same as current directory'
+  set -l python_bin
+
+  if not test -n "$python_version"
+    # Use default python version set by asdf
+    set python_bin ($HOME/.asdf/bin/asdf which python)
+  else
+    set python_bin $ASDF_DIR/installs/python/$python_version/bin/python
+  end
+
+  set -l venv_name (basename $PWD | tr . -)
+
+  echo
+  if not test -e $python_bin
+    echo "Python version `$python_version` is not installed."
+    return 1
+  end
+
+  echo Creating virtualenv `$venv_name`
+  $python_bin -m venv $HOME/.virtualenvs/$venv_name
+  source $HOME/.virtualenvs/$venv_name/bin/activate.fish
+end
+```
+
+Whenever I’m inside a python project, I just need to type venv or venv <python_version> and it will automatically create a virtualenv under ~/.virtualenvs using the current directory name.
+
+In order to automatically activate the virtualenv when cding to a project, do the following:
+
+```
+$ touch ~/.config/fish/conf.d/__auto_venv.fish
+
+function __auto_venv --on-variable PWD --description "Automatically activate python venv"
+  set -l venv_name (basename $PWD | tr . -)
+
+  if test -d $HOME/.virtualenvs/$venv_name
+    source $HOME/.virtualenvs/$venv_name/bin/activate.fish
+  end
+end
 ```
