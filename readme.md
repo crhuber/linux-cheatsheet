@@ -1684,6 +1684,15 @@ in your .bashrc
         option-left/right - move word by word
 ```
 
+* Loop through text file
+
+```
+for repo in $(cat repos.txt)
+do
+    echo $repo
+done
+```
+
 * Loop through folders
 
 ```
@@ -1739,6 +1748,11 @@ done
 
     Another way to make variables available to a child process is the export keyword, a command built into Bash. The export command broadens the scope of whatever variable or variables you specify:
 
+* Bash script header
+
+```
+#!/bin/bash
+```
 
 * Bash loop
 
