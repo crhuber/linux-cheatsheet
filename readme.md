@@ -2013,6 +2013,9 @@ This is what you want: have it fail explicitly and immediately, rather than crea
 
 * set -o pipefail
 
+
+30 years ago, when the first users of Bourne shell were burned by this problem, a shell option called “pipefail” was introduced. Enabling this option changes the shell’s behavior so that, when any command in a pipeline series fails, the entire pipeline fails. However, this option is not enabled by default, so it’s widely recommended as best practice that all scripts should start by enabling this (and a few other) (options)[https://sipb.mit.edu/doc/safe-shell/].
+
 This setting prevents errors in a pipeline from being masked. If any command in a pipeline fails, that return code will be used as the return code of the whole pipeline. By default, the pipeline's return code is that of the last command even if it succeeds. Imagine finding a sorted list of matching lines in a file:
 
     ```
