@@ -2889,7 +2889,7 @@ ssh -i "Private_key.pem" -f -N -L 3306:RDS_Instance_Endpoint:3306 ec2-user@EC2-I
 ```
 ssh -i  ~/.ssh/my.key -f -N -L  \
 3306:rdshostname.cluster-xyz.us-west-2.rds.amazonaws.com:3306 \
-ec2-user@ec1-2-3-4.us-west-2.compute.amazonaws.com -v 
+ec2-user@ec1-2-3-4.us-west-2.compute.amazonaws.com -v
 ```
 
 ## Apache
@@ -4041,7 +4041,7 @@ ansible-doc -l | grep package -> to grep specific modules
 ansible-doc package -> to list out all information
 also >> ansible-doc -s yum -> also works for details of any modules
 >> ansible all -m ping -o -> to display in single line
-if we are using sudo user then specify -s at the end to run cmd in sudo    
+if we are using sudo user then specify -s at the end to run cmd in sudo
 
 ## VIM
 
@@ -4538,6 +4538,10 @@ Export your public key on your second computer into an armored blob using the em
 
 `gpg --export --armor -email > pubkey.asc`
 
+Export your public key using the name on the key and base64 encode
+
+`gpg --export "firstname lastname" |  base64`
+
 Import another users public key
 
 `gpg --import pubkey.asc`
@@ -4829,7 +4833,7 @@ https://github.com/FiloSottile/age
 * Generate a New Key Par
 
 ```
-mkdir ~/.age 
+mkdir ~/.age
 age-keygen -o ~/.age/key.txt
 ```
 
@@ -4844,7 +4848,7 @@ age -r [receipient public key] example.txt > example.txt.age
 * Decrypt a file
 
 ```
-age --decrypt example.txt.age -i ~/.age/key.txt -o example.txt 
+age --decrypt example.txt.age -i ~/.age/key.txt -o example.txt
 ```
 
 * Encrypt & Decrypt using a passphrase
@@ -4893,7 +4897,7 @@ $ asdf global ruby 2.7.1
 
 ```
 
-* Goenv 
+* Goenv
 
 ```
 $ asdf plugin add golang
@@ -4903,7 +4907,7 @@ $ asdf install golang latest # 1.14.6
 $ asdf global golang 1.14.6
 ```
 
-* Nvm 
+* Nvm
 
 ```
 $ asdf plugin add nodejs
@@ -4930,7 +4934,7 @@ nodejs 12.18.2
 
 ```
 
-* Extras 
+* Extras
 
 In order to accommodate my work flow when I was still using pyenv virtualenv, I created a function that behaves quite similar to pyenv virtualenv.
 
