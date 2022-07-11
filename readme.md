@@ -54,6 +54,7 @@ limitations under the License.
   - [SSL](#ssl)
   - [SQL](#sql)
   - [SELINUX](#selinux)
+  - [Terraform](#terraform)
   - [User Admin](#user-admin)
   - [YUM](#yum)
 
@@ -4979,4 +4980,22 @@ function __auto_venv --on-variable PWD --description "Automatically activate pyt
     source $HOME/.virtualenvs/$venv_name/bin/activate.fish
   end
 end
+```
+
+## Terraform
+
+Luckily Terraform allows for plugins caching. So, whenever plugin has to be downloaded and is present in the cache directory, it will be copied into the project instead. This can save some time and bandwidth.
+
+```
+touch ~/.terraformrc
+```
+Put this in your ~/.terraformrc and enjoy:
+
+```
+plugin_cache_dir   = "$HOME/.terraform.d/plugin-cache"
+```
+Then create the cache directory:
+
+```
+mkdir -p $HOME/.terraform.d/plugin-cache
 ```
