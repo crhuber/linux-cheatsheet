@@ -1686,6 +1686,12 @@ in your .bashrc
         option-left/right - move word by word
 ```
 
+* Bash Shebang
+
+```
+#!/bin/bash
+```
+
 * Loop through text file
 
 ```
@@ -1917,6 +1923,16 @@ done
     done
 ```
 
+* Iterate over a file
+
+```
+#!/bin/bash
+for repo in $(cat repos.txt)
+do
+    echo $repo
+    read -n 1 # prompt to continue
+done
+```
 
 * !^
 
@@ -4457,6 +4473,12 @@ To read a file line by line, use the read builtin.
 while read -la line
     echo $line
 end < my_file
+```
+
+To do a loop in a 1 liner
+
+```
+for i in ns1 ns2 ns2 ; echo $i ; kubectl get pods --namespace=$i; end
 ```
 
 How do I read from stdin in fish?
