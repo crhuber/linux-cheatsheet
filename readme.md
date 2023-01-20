@@ -1482,6 +1482,18 @@ If all we’re interested in are regular user accounts, we can include a pattern
 awk -F: '$3 >= 1000 {print $1,$6}' /etc/passwd
 ```
 
+* Awk with an IF statement
+
+```
+k get pdb | awk '{ if ($4 == 0) print $1;}'
+```
+
+* AWK print colum if string is in the column
+
+```
+k get node | awk '$4 ~ "d" {print $1, $3, $4;}'
+```
+
 * cut
 
 Get the second field delimited by a dot
@@ -2180,6 +2192,12 @@ By default, bash sets this to $' \n\t' - space, newline, tab - which is too eage
 
 ```
         route add default gw xx.xx.xx.1
+```
+
+* Show Routes
+
+```
+netstat -r
 ```
 
 * Restart Nic
@@ -3704,6 +3722,11 @@ DROP DATABASE test;
 
         git merge upstream/master
 
+* Show dit diff of staged files
+
+```
+git diff ---cached
+```
 
 * Rebasing
 
