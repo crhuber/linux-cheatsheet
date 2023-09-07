@@ -3820,7 +3820,11 @@ $ echo $ORDER | jq 'with_entries(select(.key|match("order_")))'
 (cheat sheet version: with_entries(select(.key|match("KEY FILTER VALUE"))))
 ```
 
-Check out more resources below to learn about other stuff jq can do!
+Selecting multiple fields
+
+```
+cat city.json | jq '.tips[] | "\(.name) \(.type) \(.address)- \(.comment)"'
+```
 
 
 ## Rsync
