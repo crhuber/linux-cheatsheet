@@ -619,90 +619,90 @@ http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/
 * Show inodes of files and folders
 
 ```
-        ls -i
-        stat
+ls -i
+stat
 ```
 * Find where a commmand is executed from
 
 ```
-        which
-        ie: which python  > /usr/bin
+which
+ie: which python  > /usr/bin
 ```
 
 * list directories and recurse into subdirectories
 
 ```
-        ls -r
+ls -r
 ```
 
 * Find files bigger than 100m
 
 ```
-        find . -size +100M
+find . -size +100M
 ```
 
 * Find largest directories in current directory
 
 ```
-        du -hs */ | sort -hr | head
+du -hs */ | sort -hr | head
 ```
 
 * Find files created within last 7 days
 
 ```
-        find . -mtime -7
+find . -mtime -7
 ```
 
 * Find files accessed within last 7 days
 
 ```
-        find . -atime -7
+find . -atime -7
 ```
 
 * Find Disk Usage by Directory
 
 ```
-        du -sh /home/*
+du -sh /home/*
 
-        #Using the -c option with the du command will show the grand total of used space for the designated directory
+#Using the -c option with the du command will show the grand total of used space for the designated directory
 ```
 
 * check for bad blocks
 
 ```
-        sudo badblocks -s /dev/sda
+sudo badblocks -s /dev/sda
 ```
 
 * Read speed test
 
 ```
-        sudo hdparm -tT /dev/sda
+sudo hdparm -tT /dev/sda
 ```
 
 * Write speed test. 16KB random write operations
 
 ```
-        fio --directory=/media/p_iops_vol0 --name fio_test_file --direct=1 --rw=randwrite --bs=16k --size=1G --numjobs=16 --time_based --runtime=180 --group_reporting --norandommap
+fio --directory=/media/p_iops_vol0 --name fio_test_file --direct=1 --rw=randwrite --bs=16k --size=1G --numjobs=16 --time_based --runtime=180 --group_reporting --norandommap
 ```
 
 * Display mountpounts
 
 ```
-        lsblk
-        findmnt #show mountpoints
-        sudo fdisk -l
-        df -h
-        df -h --output=source,target
+lsblk
+findmnt #show mountpoints
+sudo fdisk -l
+df -h
+df -h --output=source,target
 ```
 
 * Add a new EBS disk to  server
 
 ```
-        lsblk  #find drive which is not mounted
-        sudo mkfs -t ext4 /dev/xvdf #makes file system on /dev/xvdf)
+lsblk  #find drive which is not mounted
+sudo mkfs -t ext4 /dev/xvdf #makes file system on /dev/xvdf)
     (or sudo mkfs -it xfs /dev/xvdf #makes file system on /dev/xvdf)
-        sudo mkdir /mnt/my-data #make a mount point
-        sudo mount /dev/xvdf /mnt/my-data #mount device
+sudo mkdir /mnt/my-data #make a mount point
+sudo mount /dev/xvdf /mnt/my-data #mount device
 ```
 
 * Show Physical Volumes
@@ -990,23 +990,23 @@ wtmp					User logins and logouts
 * Check Logs
 
 ```
-        less /var/log/messages
-        less /var/log/secure
-        less /var/log/auth
+less /var/log/messages
+less /var/log/secure
+less /var/log/auth
 ```
 
 * Check disk space
 
 ```
-        df -H # H is for human readable
+df -H # H is for human readable
 ```
 
 * Config Files
 
 ```
-        /etc/login.def - default settings template for new user accounts
-        /etc/motd - message of the day
-        /etc/inittab - defines default runlevel #id:3:initdefault:
+/etc/login.def - default settings template for new user accounts
+/etc/motd - message of the day
+/etc/inittab - defines default runlevel #id:3:initdefault:
 ```
 
 * System Startup Files
@@ -1023,73 +1023,73 @@ wtmp					User logins and logouts
 * To start any script
 
 ```
-        run /etc/init.d/smb start
+run /etc/init.d/smb start
 
-        # To prevent startup delete sum link
+# To prevent startup delete sum link
 ```
 
 * To create new startup script
 
 ```
-        put script in /etc/init.d/myservice
+put script in /etc/init.d/myservice
 
-        /etc/rc3.d ln s ../init.d/myservice
+/etc/rc3.d ln s ../init.d/myservice
 ```
 
 * Check for systemd or sysvinit
 
 ```
-        pidof /sbin/init && echo "sysvinit" || echo "other"
+pidof /sbin/init && echo "sysvinit" || echo "other"
 
-        pidof systemd && echo "systemd" || echo "other"
+pidof systemd && echo "systemd" || echo "other"
 ```
 
 * Show Current Runlevel
 
 ```
-        runlevel
-        who -r
+runlevel
+who -r
 ```
 
 * Change default runlevel
 
 ```
-        nano /etc/inittab. change id:3:initdefault. to different number
+nano /etc/inittab. change id:3:initdefault. to different number
 ```
 
 * Change runlevel
 
 ```
-        init 1 (single user mode)
+init 1 (single user mode)
 ```
 
 * Check file system consistency
 
 ```
-        Goto single user mode:
-        # init 1
-        Unmount file system:
-        # umount /dev/sdb1
-        Now run fsck command:
-        # fsck /dev/sdb1
+Goto single user mode:
+# init 1
+Unmount file system:
+# umount /dev/sdb1
+Now run fsck command:
+# fsck /dev/sdb1
 ```
 
 * Check a files type
 
 ```
-        file <filename>
+file <filename>
 ```
 
 * Generate md5
 
 ```
-        md5 <filename>
+md5 <filename>
 ```
 
 * Generate sha256
 
 ```
-        openssl sha -sha256 <filename> (mac)
+openssl sha -sha256 <filename> (mac)
 ```
 
 * Symbolic Links
@@ -2520,12 +2520,9 @@ sudo /sbin/service iptables restart
 
 * Disable SE Linux
 
-```
 
 ```
 cat /etc/selinux/config
-
-```
 SELINUX=disabled
 SELINUXTYPE=targeted
 ```
@@ -2533,8 +2530,6 @@ SELINUXTYPE=targeted
 ## YUM
 
 * Check repositories:
-
-```
 
 ```
 nano /etc/yum.repos.d/CentOS-Base.repo
@@ -2724,26 +2719,28 @@ from django.conf import settings
 * Generate log file
 
 ```
-        30 18 * * * rm /home/someuser/tmp/* > /home/someuser/cronlogs/clean_tmp_dir.log
+30 18 * * * rm /home/someuser/tmp/* > /home/someuser/cronlogs/clean_tmp_dir.log
 ```
 
 * Find out what cron jobs are running
 
 ```
-        ls /etc/cron* + cat for user in $(cat /etc/passwd | cut -f1 -d:); do crontab -l -u $user; done
+ls /etc/cron* + cat for user in $(cat /etc/passwd | cut -f1 -d:); do crontab -l -u $user; done
 ```
 
 * To find out where is cron log
 
 ```
-        grep -ic cron /var/log/* | grep -v :0
-        grep cron /etc/rsyslog.conf
+grep -ic cron /var/log/* | grep -v :0
+grep cron /etc/rsyslog.conf
 ```
 
 * Check if cron configured to log
 
-        cat /etc/default/cron
-        look for EXTRA_OPTS="-L 2” -L is how verbose
+```
+cat /etc/default/cron
+look for EXTRA_OPTS="-L 2” -L is how verbose
+```
 
 * Check cron log
 
@@ -2754,34 +2751,45 @@ from django.conf import settings
 
 * SSHD Config
 
+```
         nano /etc/ssh/sshd_config
+```
 
 * User Config File
 
+```
         ~/.ssh/config
+```
 
 * Example Config
 
+```
         Host dev
             HostName dev.example.com
             Port 22000
             User phooey
             IdentityFile ~/.ssh/github.key
+```
 
 * Port Forwarding
 
 * Local client  will use 9906 and use ssh and connect over to 3306
 
+```
         ssh -f -N -L 9906:127.0.0.1:3306 user@remoteserver.com
+```
 
 * Lightweight Proxy for Geoblocked content:
 
+```
         ssh -D 9090 user@remoteserver.com
 
         Exposes the local port 9090 as a SOCKS proxy. You can then alter your browser settings to use your local SOCKS proxy to route browsing traffic.
+```
 
 * Port Forwarding Shortcut
 
+```
     Add this to your ssh config to make it easier to call tunnel
 
         Host tunnel
@@ -2789,6 +2797,7 @@ from django.conf import settings
             Local forward 9906 127.0.0.1:3306
 
         ssh -f -N tunnel
+```
 
 * Create a new user on the server
 
@@ -2811,15 +2820,17 @@ from django.conf import settings
 
 * Configure SSH Login using Keys
 
+```
         nano /home/deploy/.ssh/authorized_keys
 
         Add the contents of the id_rsa.pub on your local machine and any other public keys that you want to have access to this server to this file
 
         chmod 600 .ssh/authorized_keys
-
+```
 
 * Configure SSH For Certain Users or logins
 
+```
         nano /etc/ssh/sshd_config
 
         Add these lines to the file, inserting the ip address from where you will be connecting:
@@ -2829,10 +2840,13 @@ from django.conf import settings
         PasswordAuthentication no
 
         AllowUsers user@(your-ip) user@(another-ip-if-any)
+```
 
 * Run Commands on remote machine
 
+```
         ssh -l <username> <servername> "/bin/cat -n /etc/group"
+```
 
 * Access Localhost pages on remote system
 
@@ -2846,6 +2860,7 @@ Now you can access http://localhost:8081 and it will be as if you would issue th
 
 * Prevent Idle SSH sessions being killed
 
+```
     Client config
 
         ServerAliveInterval = 60
@@ -2853,23 +2868,30 @@ Now you can access http://localhost:8081 and it will be as if you would issue th
     Server config
 
         ClientAliveInternal = 60
+```
+
 * Retreive the public key from a private key
 
+```
         ssh-keygen -y -e -f myfile.pem
+```
 
 * Enable Bastion Host
 
 On local machine enable SSH Agent forwarding
 
+```
         ssh -A user@bastion
 
         or
 
         Host bastion
               ForwardAgent yes
+```
 
 Then configure ProxyCommand setting for the remote instances in your SSH configuration file.
 
+```
         Host private1
               IdentityFile ~/.ssh/rsa_private_key
               ProxyCommand ssh user@bastion -W %h:%p
@@ -2877,10 +2899,13 @@ Then configure ProxyCommand setting for the remote instances in your SSH configu
         Host bastion
               IdentityFile ~/.ssh/bastion_rsa_key
               ForwardAgent yes
+```
 
 Finally, connect to private instance
 
+```
         ssh user@private1
+```
 
 SSH will establish a connection to the bastion host and then from the bastion host connect to “private1”, using the specified keys at each step along the way.
 
@@ -2889,10 +2914,12 @@ SSH will establish a connection to the bastion host and then from the bastion ho
 
 SSH multiplexing is the ability to carry multiple SSH sessions over a single TCP connection. This can result in speed increases that can add up when repeatedly running commands against remote SSH hosts.
 
+```
         Host demo-server.domain.com
               ControlPath ~/.ssh/cm-%r@%h:%p
               ControlMaster auto
               ControlPersist 10m
+```
 
 The ControlPath entry specifies where to store the “control socket” for the multiplexed connections. In this case, %r refers to the remote login name, %h refers to the target host name, and %p refers to the destination port.
 
@@ -2905,10 +2932,11 @@ Finally, the ControlPersist setting keeps the master connection alive for the sp
 
 Custom SSH configuration file is useless without explicitly telling Ansible to use these settings when connecting to Ansible-managed hosts. This is accomplished by creating (or modifying) ansible.cfg and adding the following setings:
 
+```
     [ssh_connection]
     ssh_args = -F ./ssh.cfg -o ControlMaster=auto -o ControlPersist=30m
     control_path = ~/.ssh/ansible-%%r@%%h:%%p
-
+```
 
 * Do programs remain running when you disconnect?
 
@@ -2931,54 +2959,74 @@ ec2-user@ec1-2-3-4.us-west-2.compute.amazonaws.com -v
 
 * Install
 
+```
         sudo yum install httpd mod_ssl
         sudo yum install httpd24 mod_ssl
+```
 
 * Make DocumentRoot
 
+```
         mkdir /var/www/website.com
+```
 
 * Edit config
 
+```
         sudo nano /etc/httpd/conf/httpd.conf
+```
 
 * ServerAdmin
 
+```
         ServerAdmin admin@website.com
+```
 
 * ServerName
 
+```
         www.website.com
-
+```
 * DocumentRoot
 
+```
         DocumentRoot "/var/www/website.com"
+```
 
 * Directory Options
 
+```
         <Directory "/var/www/website.com">
         Options FollowSymLinks 	#Comment out Indexes to prevent browsing of directories
-
+```
 
 * ServerTokens
 
+```
         ServerTokens Prod 	# only shows Apache
         * Default: full
+```
 
 * Timeout
 
+```
         Timeout 30  # is the max time to wait for a response, action it and respond. Forces visitors to wait in line.
         * Default : 60
+```
 
 * MaxKeepAliveRequests
 
+```
         MaxKeepAliveRequests 200 #max number of requests per connection
         *Default : 100
+```
 
 * KeepAliveTimeout
 
+```
         KeepAliveTimeout 3 #time that the connection waits for client to request something. But new connections will be on hold. Lower is best
         * Default : 5
+```
 
 * LoadModule
 
@@ -3041,8 +3089,10 @@ LoadModule disk_cache_module modules/mod_disk_cache.so
 
 * Server Signature
 
+```
         ServerSignature Off
         * Default: On
+```
 
 * Virtual Host
 
@@ -3093,6 +3143,7 @@ LoadModule disk_cache_module modules/mod_disk_cache.so
 Restrict /admin website to only canada and australia
 
 
+```
     SetEnvIf CF-IPCountry AU AllowCountry=1
     SetEnvIf CF-IPCountry CA AllowCountry=1
     <Directory /var/www/website.com/admin>
@@ -3100,7 +3151,7 @@ Restrict /admin website to only canada and australia
         Require env AllowCountry
       </RequireAll>
     </Directory>
-
+```
 
 
 * Pagespeed
@@ -3136,38 +3187,49 @@ Restrict /admin website to only canada and australia
 
 * Enable Compression
 
-
+```
         #AdditionalCompression
         AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/x-javascript
+```
 
 * Add permissions writable directories
 
+```
         chown apache:apache -R /var/www/website.com/images/dir1
         chown apache:apache -R /var/www/website.com/images/dir2
+```
 
 * Restart
 
+```
         /etc/init.d/httpd restart
+```
 
 * Autostart
 
+```
         sudo /sbin/chkconfig --levels 235 httpd on
+```
 
 * Reload Config
 
+```
         sudo /etc/init.d/httpd reload
-
+```
 
 * See loaded modules
 
+```
         /usr/sbin/httpd -M
+```
 
 * Security Testing
 
+```
         wget -P ~/tools http://www.cirt.net/nikto/nikto-current.tar.gz
         tar -xzvf nikto-current.tar.gz
         perl nikto.pl -h localhost
-
+```
 
 ## SSL
 
@@ -3187,7 +3249,7 @@ Restrict /admin website to only canada and australia
 
 * Create a SAN config
 
-    ```
+```
 
         [ req ]
         prompt = no
@@ -3206,7 +3268,8 @@ Restrict /admin website to only canada and australia
         [alt_names]
         DNS.1   = server1.domain.com
         DNS.2   = server2.domain.com
-    ```
+```
+
 * Create CSR with SAN config
 
         openssl req -new -sha256 -key my-private-key.pem -out domain.com.csr -config san.cnf
