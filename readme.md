@@ -44,6 +44,7 @@ limitations under the License.
   - [MySQL](#mysql)
   - [Networking](#networking)
   - [Netcat](#netcat)
+  - [Ollama](#ollama)
   - [PHP](#php)
   - [Performance](#performance)
   - [Python](#python)
@@ -5110,4 +5111,47 @@ Then create the cache directory:
 
 ```
 mkdir -p $HOME/.terraform.d/plugin-cache
+```
+
+
+## Ollama
+
+Run a model
+
+`ollama run llama2`
+
+Show models
+
+`ollama list`
+
+Http serve
+
+`ollama serve`
+
+Create new model
+
+`ollama create somename -f Modelfile`
+
+`ollama run somename`
+
+OpenAI compatability
+
+To invoke Ollama’s OpenAI compatible API endpoint, use the same OpenAI format and change the hostname to http://localhost:11434:
+
+```
+curl http://localhost:11434/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{
+        "model": "llama2",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant."
+            },
+            {
+                "role": "user",
+                "content": "Hello!"
+            }
+        ]
+    }'
 ```
