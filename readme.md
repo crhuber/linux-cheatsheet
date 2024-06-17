@@ -3642,149 +3642,200 @@ DROP DATABASE test;
 
 * Install
 
-        sudo yum install git
+```
+sudo yum install git
+```
 
 * Generate key
 
-        ssh-keygen -t rsa
-
+```
+ssh-keygen -t rsa
+```
 * Start a new git project:
 
-        git init
-
+```
+git init
+```
 * Clone a git (target can be specified either locally or remotely, via any number of protocols):
-
-        git clone [target]
-
+```
+git clone [target]
+```
 * Commit changes to a git:
-
-        git commit -m "[message]"
-
+```
+git commit -m "[message]"
+```
 * Get info on current repository:
 
-        git status
-
+```
+git status
+```
 * Show change log for current repository:
 
-        git log
+```
+git log
+```
 
 * Update git directory from another repository:
 
-        git pull [target]
+```
+git pull [target]
+```
 
 * Push branch to other repository:
 
-        git push [target]
+```
+git push [target]
+```
 
 * Create a new branch:
 
-        git branch [branchname]
-
+```
+git branch [branchname]
+```
 * Switch to target branch:
 
-        git checkout [branchname]
+```
+git checkout [branchname]
+```
 
 * Delete a branch:
 
-        git branch -d [branchname]
+```
+git branch -d [branchname]
+```
 
 * Merge two branches:
 
-        git merge [branchname] [branchname]
+```
+git merge [branchname] [branchname]
+```
 
 * Contributing
 
-    1. Fork it
-    2. Create your feature branch (git checkout -b my-new-feature)
-    3. Commit your changes (git commit -am 'Add some feature')
-    4. Push to the branch (git push origin my-new-feature)
-    5. Create a new Pull Request
+```
+1. Fork it
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create a new Pull Request
+```
 
 * Branches
 
-    1. Create a new branch (git branch my-new-feature)
-    2. Switch to new branch (git checkout my-new-feature)
-    3. Commit your changes (git commit -am 'Add some feature')
-    4. Push to the branch (git push origin my-new-feature)
-    5. Switch to master (git checkout master)
-    6. Merge (git merge my-new-feature)
+```
+1. Create a new branch (git branch my-new-feature)
+2. Switch to new branch (git checkout my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Switch to master (git checkout master)
+6. Merge (git merge my-new-feature)
+```
 
 * Ensure ssh-agent is enabled
 
-        eval "$(ssh-agent -s)"
+```
+eval "$(ssh-agent -s)"
+```
 
 * Add your SSH key to the ssh-agen
 
-        ssh-add ~/.ssh/id_rsa
+```
+ssh-add ~/.ssh/id_rsa
+```
 
 * See file changes
 
-        git diff
+```
+git diff
+```
 
 * Git Post-Receive Hook on server
 
-    ```
-          cat > hooks/postreceive
-           #!/bin/sh
-          GIT_WORK_TREE=/var/www/html
-        export GIT_WORK_TREE
-         do your stuff here
-        chmod +x hooks/postreceive
-    ```
+```
+cat > hooks/postreceive
+#!/bin/sh
+GIT_WORK_TREE=/var/www/html
+export GIT_WORK_TREE
+do your stuff here
+chmod +x hooks/postreceive
+```
 
 * Add the remote repository to the local repository
 
-        git push website+master:refs/heads/master [FIRST TIME ONLY]
-        git push website master                   [ALL OTHER TIMES]
+```
+git push website+master:refs/heads/master [FIRST TIME ONLY]
+git push website master                   [ALL OTHER TIMES]
+```
 
 * Add empty commit
 
-        git commit --allow-empty
+```
+git commit --allow-empty
+```
 
 * List all local branches
 
-        git branch
+```
+git branch
+```
 
 * List referenced remote branches
 
-        git branch -r
+```
+git branch -r
+```
 
 * Find which branches are already merged into master and can be removed
 
-        git checkout master
-        git branch --merged
+```
+git checkout master
+git branch --merged
+```
 
 * Remove all outdated branches with:
 
-        git branch -d old-merged-feature
+```
+git branch -d old-merged-feature
+```
 
 * Decide what to do with not merged branches
 
-        git branch --no-merged
+```
+git branch --no-merged
+```
 
 * Creating a Fork and making Upstream PR
 
-    List the current configured remote repository for your fork.
+List the current configured remote repository for your fork.
 
-        git remote -v
-
+```
+git remote -v
+```
     Specify a new remote upstream repository that will be synced with the fork.
 
-        git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
+```
+git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
+```
 
 * Sync a fork
 
-    Fetch the branches and their respective commits from the upstream repository. Commits to master will be stored in a local branch, upstream/master
+Fetch the branches and their respective commits from the upstream repository. Commits to master will be stored in a local branch, upstream/master
 
-        git fetch upstream
+```
+git fetch upstream
+```
 
-    Check out your fork's local master branch
+Check out your fork's local master branch
 
-        git checkout master
+```
+git checkout master
+```
 
-    Merge the changes from upstream/master into your local master branch. This brings your fork's master branch into sync with the upstream repository, without losing your local changes
+Merge the changes from upstream/master into your local master branch. This brings your fork's master branch into sync with the upstream repository, without losing your local changes
 
-        git merge upstream/master
+```
+git merge upstream/master
+```
 
 * Show dit diff of staged files
 
@@ -3793,7 +3844,7 @@ git diff ---cached
 ```
 
 * Rebasing
-
+ 
 First fetch the new master from the upstream repository, then rebase your work branch on that:
 
 Option 1:
@@ -3814,7 +3865,7 @@ git pull --rebase origin master
 git reset --hard HEAD~1
 ```
 
-* move last commit on master to different branch
+* Move last commit on master to different branch
 
 ```
 git checkout -b feature/istio-elb-timeout
@@ -3823,10 +3874,9 @@ git checkout master
 git reset --keep HEAD~1 # Move master back
 git checkout feature/istio-elb-timeout
 git status
-
 ```
 
-* move currently worked on files to a new branch
+* Move currently worked on files to a new branch
 
 ```
 git stash
@@ -3834,6 +3884,12 @@ git checkout master
 git pull
 git checkout -b feature/new
 git stash pop
+```
+
+* Undo deleting a file that was already committed 
+
+```
+git checkout main -- folder/deletefile.txt
 ```
 
 ## Jq
