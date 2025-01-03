@@ -3844,7 +3844,7 @@ git diff ---cached
 ```
 
 * Rebasing
- 
+
 First fetch the new master from the upstream repository, then rebase your work branch on that:
 
 Option 1:
@@ -3886,7 +3886,7 @@ git checkout -b feature/new
 git stash pop
 ```
 
-* Undo deleting a file that was already committed 
+* Undo deleting a file that was already committed
 
 ```
 git checkout main -- folder/deletefile.txt
@@ -4536,12 +4536,18 @@ set foo 42
 ```
 The set builtin accepts the following flags to explicitly declare the scope of the variable:
 
+```
 -l, --local: available only to the innermost block
 -g, --global: available outside blocks and by other functions
 -U, --universal: shared between all fish sessions and persisted across restarts of the shell
 -x, --export: available to any child process spawned in the current session
+```
 
+To set universal variable
 
+```
+set -x -U foo 42
+```
 
 Export variable
 
@@ -4559,6 +4565,10 @@ Set path persistently
 
 ```
 set -U fish_user_paths $fish_user_paths my_path
+
+# or to add a path to your PATH, globally, permanently, across all open shell sessions
+
+fish_add_path /opt/whatever/bin
 ```
 
 Unset path persistently
@@ -4626,6 +4636,14 @@ To do a loop in a 1 liner
 
 ```
 for i in ns1 ns2 ns2 ; echo $i ; kubectl get pods --namespace=$i; end
+```
+
+Loop based on a file
+
+```
+for i in *.yaml
+  echo $i
+end
 ```
 
 How do I read from stdin in fish?
