@@ -41,6 +41,7 @@ limitations under the License.
   - [Jq](#jq)
   - [Memcache](#memcache)
   - [Mitmproxy](#mitmproxy)
+  - [Mise](#mise)
   - [MySQL](#mysql)
   - [Networking](#networking)
   - [Netcat](#netcat)
@@ -5182,4 +5183,47 @@ curl http://localhost:11434/v1/chat/completions \
             }
         ]
     }'
+```
+
+## Mise
+
+Run a command once with a specific version
+
+```bash
+mise exec node@22 -- node -v
+```
+
+Make a version available globally
+
+```bash
+mise use --global node@lts
+node -v
+# v22.14.0
+```
+
+See versions installed
+```bash
+mise ls
+Tool  Version  Source                      Requested
+node  22.17.1  ~/.config/mise/config.toml  lts
+```
+
+Use mise for a specific project
+
+```bash
+cd myproj
+mise use node@23
+# mise node@23.10.0 ✓ installed
+node -v
+# v23.10.0
+cat mise.toml
+# [tools]
+# node = "23"
+```
+
+We will leave this directory. The node version will revert to the global LTS version
+```bash
+cd ..
+node -v
+# v22.14.0
 ```
