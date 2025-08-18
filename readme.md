@@ -1,22 +1,7 @@
 Linux Admin Guide
 =================
-** Guide to administering Linux on RHEL, CentOS, Amazon AMI's **
+** Guide to administering Linux **
 
-```
-Copyright 2014 Craig H
-
-Licensed under the Apache License, Version 2.0 (the 'License');
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an 'AS IS' BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
 
 ## Table Of Contents
 
@@ -58,6 +43,7 @@ limitations under the License.
   - [SELINUX](#selinux)
   - [Terraform](#terraform)
   - [User Admin](#user-admin)
+  - [VIM](#vim)
   - [YUM](#yum)
 
 ## Boot
@@ -4210,33 +4196,63 @@ if we are using sudo user then specify -s at the end to run cmd in sudo
 
 ## VIM
 
+### moving around
+h - right
+l - left
+j - down
+k - up
 
-    hl - move L/R
-    jk - move up down
-    w - moves to start of next word
-    e - moves end of the word
-    b - begining of word
-    0 - begging of a line
-    $ - end of a line
-    2G- go to line 2. ( line #G)
-    /text - search with n and N
-    d - delete
-    dw - delete word
-    :w - save/write
-    :q
-    :q! - quit without save
-    u - undo
-    ctrl+r - redo
-    ctrl-b / ctrl-f - Move Backwards/Forward by Page
-    dd - delete/cut line
-    3dd - delete/cut 3 lines
-    4y - yank/copy 4 lines below
-    x - delete character
-    p - paste
-    /string       Search forward for string
-    ?string       Search back for string
-    n       Search for next instance of string
-    N       Search for previous instance of string
+### line movement
+0 or ^  - start of line
+$ - end of line
+f + any char - find character on line
+G - last line in file
+gg - first line in file
+number + G - move to line number
+
+### word movements
+w - move to next word
+b - move backwords
+e - end of word
+
+### screen movement
+control + f - move down screen
+control + d - move down half screen
+
+### searching
+/ <query>
+n - go to next search result
+N - go back in results
+* - search for the word where your cursor is
+
+### editing
+d - delete
+d + $ - delete to end of unline
+d + e - delete to end of word
+d + G - delete to end of the file
+dd - delete whole line
+dw - delete word
+
+2 dw - delete 2 words
+2 dd - delete 2 lines
+u - undo
+
+### copying
+y - copy
+yy - copy whole line
+4y - yank/copy 4 lines below
+p - paste
+
+### search & replace
+:%s/word/newword/g
+:%s/word/newword/c - ask for confirmation
+
+% means - replace in whole file
+
+### save
+:w - save/write
+:q
+:q! - quit without save
 
 ## SystemD
 
