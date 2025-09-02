@@ -4197,35 +4197,51 @@ if we are using sudo user then specify -s at the end to run cmd in sudo
 ## VIM
 
 ### moving around
+
+```
 h - right
 l - left
 j - down
 k - up
+```
 
 ### line movement
+
+```
 0 or ^  - start of line
 $ - end of line
 f + any char - find character on line
 G - last line in file
 gg - first line in file
 number + G - move to line number
+```
 
 ### word movements
+```
 w - move to next word
 b - move backwords
 e - end of word
+```
 
 ### screen movement
+
+```
 control + f - move down screen
 control + d - move down half screen
+```
 
 ### searching
+
+```
 / <query>
 n - go to next search result
 N - go back in results
 * - search for the word where your cursor is
+```
 
 ### editing
+
+```
 d - delete
 d + $ - delete to end of unline
 d + e - delete to end of word
@@ -4236,23 +4252,151 @@ dw - delete word
 2 dw - delete 2 words
 2 dd - delete 2 lines
 u - undo
+```
 
 ### copying
+
+```
 y - copy
 yy - copy whole line
 4y - yank/copy 4 lines below
 p - paste
-
+```
 ### search & replace
+
+```
 :%s/word/newword/g
 :%s/word/newword/c - ask for confirmation
 
 % means - replace in whole file
+```
 
 ### save
+
+```
 :w - save/write
 :q
 :q! - quit without save
+```
+
+### text objects
+
+#### verbs
+
+```
+d - delete
+c - change (delete and insert mode)
+v - visually select
+y - yank (copy)
+> - indent
+< - outdent
+f - find on line
+. - repeat last change
+dw - delete word
+u - undo
+ctrl R - redo
+```
+
+#### nouns
+
+```
+w - word
+b - back
+2j - down 2 lines
+iw - inner word
+i" - inner qoutes
+ip - inner paragraph
+i[ - inner bracket
+i( - inner parens
+as - a sentence
+f<char> - find the next character on line
+```
+
+#### search
+
+```
+/<search> - search
+/<search> enter n - next results
+%s/old/new/gc - g is greedy, c is confirm
+```
+
+
+### plugins
+
+```
+:PlugInstall - install plugins
+:PlugClean - clean plugin
+```
+
+### themes
+
+```
+:col <tab> - change theme
+```
+
+
+### file management
+
+```
+<leader>w - Save file
+<leader>gg - lazy git
+```
+### tabs
+
+```
+:vs - vertical split
+:vs filename
+gt - next tab
+gT - previus tab
+1gt - go to tab 1
+```
+
+### neotree
+
+```
+space e - toggle file explorer
+space E - focus file explorer
+```
+
+#### search
+While in the neo-tree window:
+
+```
+/ - Start searching (type to filter visible files)
+n - Go to next match
+N - Go to previous match
+Escape - Clear search
+```
+
+### split navigation
+
+```
+<leader>- - Split window below
+<leader>| - Split window right
+<leader>wd - Delete window
+
+Ctrl-h - Move left
+Ctrl-j - Move down
+Ctrl-k - Move up
+Ctrl-l - Move right
+```
+
+### Search:
+
+```
+<leader>sg - Search with live grep (most commonly used)
+<leader>sw - Search for the word under cursor
+```
+
+### File finding:
+
+```
+<leader>ff - Find files
+<leader>fr - Recent files
+<leader><space> - Find files (quick access)
+```
+
+
 
 ## SystemD
 
