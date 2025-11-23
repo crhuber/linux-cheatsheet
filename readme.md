@@ -249,6 +249,65 @@ chage -E never username  (sets to never expire)
 
 ```
 usermod -L username
+
+or
+passwd -l username
+```
+* check if a user has a password set:
+
+```
+sudo passwd -S username
+
+This will show something like:
+
+username P ... = Password is set
+username L ... = Account is locked
+username NP ... = No password
+
+username P 2025-11-06 0 99999 7 -1
+
+
+P = Password is set and account is unlocked
+2025-11-06 = Password was last changed on November 6, 2025 (13 days ago)
+```
+
+* prevent ssh login
+
+```
+sudo usermod -s /usr/sbin/username syncthing
+```
+
+* check current shell to see if they can login
+
+```
+grep syncthing /etc/passwd
+
+You'll see something like:
+
+syncthing:x:999:999::/home/syncthing:/bin/sh
+
+The last field is the shell. If it's /bin/sh, /bin/bash, etc., the user CAN login if they have credentials (password or SSH key).
+```
+
+* Check logins
+
+```
+grep "Accepted publickey for" /var/log/auth.log
+grep "Accepted password for" /var/log/auth.log
+```
+
+
+* Extract the hash of their password
+
+```
+sudo grep syncthing /etc/shadow > hash.txt
+```
+* crack hash
+Use tools like John the Ripper or hashcat
+
+```
+   john hash.txt
+   hashcat -m 1800 hash.txt wordlist.txt
 ```
 
 * Define default attributes for new users (UID, Password Expiriny, HomeDir)
@@ -305,10 +364,36 @@ fuser -k file/folder
 
 * Add User
 
+useradd - Low-level utility, creates user but:
+
+Does NOT prompt for password
+Does NOT create home directory by default (unless you use -m)
+Leaves the account in a locked state (no password set)
+You'd need to manually set password with passwd username
+
+
+adduser - High-level interactive script (Debian/Ubuntu), which:
+
+DOES prompt for password interactively
+Creates home directory automatically
+Asks for full name, room number, etc.
+Much more user-friendly
+
+
 ```
-add user user1
+adduser user1
 ```
 
+** Add System User
+
+System user (can't login normally)
+Shell set to /usr/sbin/nologin (can't get interactive shell)
+No password set (account locked)
+Can't SSH in (no password + no shell)
+
+```
+adduser --system --no-create-home --shell /usr/sbin/nologin syncthing
+```
 
 * Show last logged in
 
