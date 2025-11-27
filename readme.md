@@ -22,6 +22,7 @@ Linux Admin Guide
   - [FFMpeg](#ffmpeg)
   - [Git](#git)
   - [Gpg](#gpg)
+  - [Helix](#helix)
   - [IPFS](#ipfs)
   - [Jq](#jq)
   - [Memcache](#memcache)
@@ -5471,4 +5472,113 @@ We will leave this directory. The node version will revert to the global LTS ver
 cd ..
 node -v
 # v22.14.0
+```
+
+## Helix
+
+### movement
+
+```
+h: moves cursor 1 character to the left.
+j: moves cursor 1 line above.
+k: moves cursor 1 line below.
+l: moves cursor 1 character to the right.
+gg - move to first line
+G - move to last line
+2gg - move to second line
+```
+
+### movement - word
+
+```
+e - move to end of word
+b - move to beginning of word
+w - move by word
+```
+
+### editing
+
+```
+c - change and insert
+d - delete
+u - indo
+mi" - delete inside quotes
+```
+
+### linting
+
+```
+Space + d - open the Diagnostics Picker
+```
+
+### copy paste
+
+```
+x - select entire line
+2x- select 2 lines
+y - yank to clipboard
+p - paste
+space P - paste system clipboard
+space y - copy to system clipboard
+% - select whole file
+%, s, query, enter, i - multiselect
+control-d - multiselect (my custom)
+```
+
+
+### finding
+
+```
+/ - find in file
+n - next result
+N - backwards result
+- Space f - find a file / file explorer
+- Space + / - global search
+- Space b - switch between open files
+```
+
+### panes
+
+```
+Ctrl-w v - vertical split
+Ctrl-w h/j/k/l - Navigate between splits (left/down/up/right)
+Ctrl-w q - Close the current split
+Ctrl-w o - Close all splits except the current one
+```
+
+
+
+### go language server
+
+```bash
+fish_add_path $GOPATH/bin
+hx --health go
+```
+
+install linters
+
+```bash
+go install golang.org/x/tools/gopls@latest                               # LSP
+go install github.com/go-delve/delve/cmd/dlv@latest                      # Debugger
+go install golang.org/x/tools/cmd/goimports@latest                       # Formatter
+go install github.com/nametake/golangci-lint-langserver@latest           # Linter
+go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest # Linter cli
+```
+
+
+languages.toml
+
+```toml
+[language]
+name = "go"
+auto-format = true
+formatter = { command = "goimports" }
+
+
+[language-server.gopls]
+command = "gopls"
+args = ["-logfile=/tmp/gopls.log",  "serve"]
+
+[language-server.gopls.config]
+"ui.diagnostic.staticcheck" = true
 ```
