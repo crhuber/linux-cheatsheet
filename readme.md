@@ -1800,25 +1800,25 @@ done
 
 * Base64 Decode
 
-```
+```bash
     echo "word" | base64 -d
 ```
 
 * set variable
 
-```
+```bash
     FOO="bar"
 ```
 
 * unset variable
 
-```
+```bash
     unset FOO
 ```
 
 * recalling your variable by prepending it with a dollar sign ($).
 
-```
+```bash
     echo $FOO
 ```
 
@@ -1850,16 +1850,22 @@ done
 
 * Bash loop
 
-```
+```bash
     for f in * ;
         do file $f ;
+    done
+
+    for CurDay in Monday Tuesday Wednesday Thursday Friday Saturday Sunday
+    do
+        printf "%s\n" "$CurDay"
     done
 ```
 
     or 1 liner
 
-```
-    for f in * ; do convert $f -scale 33% tmp/$f ; done
+```bash
+    for f in * ; do convert $f -scale 33% tmp/$f ; done // or
+    for i in {1..4}; do echo "$i"; done
 ```
 
 * Zshell
@@ -1881,14 +1887,14 @@ done
 
 * Variables
 
-```
+```bash
     MESSAGE="Hello World"                        # Assign a string
     PI=3.1415                                    # Assign a decimal number
 ```
 
 * Arguments
 
-```
+```bash
     $0, $1, $2, ...                              # $0 is the command itself
     $#                                           # The number of arguments
     $*                                           # All arguments (also $@)
@@ -1896,7 +1902,7 @@ done
 
 * Special Variables
 
-```
+```bash
         $$                                           # The current process ID
         $?                                           # exit status of last command
         command
@@ -1917,7 +1923,7 @@ done
 
 * Constructs
 
-```
+```bash
     for file in `ls`
     do
         echo $file
@@ -1940,7 +1946,7 @@ done
 
 * Generate a file
 
-```
+```bash
     MYHOME=/home/colin
     cat > testhome.sh << _EOF
     # All of this goes into the file testhome.sh
@@ -1954,7 +1960,7 @@ done
 ```
 * Assigning output of one command to variable
 
-```
+```bash
     #!/bin/bash
     for node in $(cat nodes.txt)
     do
@@ -1965,7 +1971,7 @@ done
 
 * Iterating a json file
 
-```
+```bash
 for r in $(cat repos.json | jq '.[]')
 do
     repo_name=$(echo $r | tr -d '"');
@@ -1975,7 +1981,7 @@ done
 
 * Checking for existence of arguments
 
-```
+```bash
     if [ $# -eq 0 ]; then
         echo "Please enter an argument"
         exit 1
@@ -1984,16 +1990,25 @@ done
 
 * Check for environment variable
 
-```
+```bash
     if [ -z "${GITHUB_TOKEN}" ]; then
         echo "Missing GITHUB_TOKEN environment variable"
         exit 1
     fi
 ```
 
+
+* Test for a variable being equal to (`-eq`) an integer (`0`).
+
+```bash
+if [ $var -eq 0 ]; then
+    printf "Variable '\$var' is equal to '0'.\n"
+fi
+```
+
 * Checking the output of last command and prompt to continue
 
-```
+```bash
      if [[ $? -ne 0 ]]; then
         echo "command failed"
         read ABCD
@@ -2002,7 +2017,7 @@ done
 
 * Iterate over a list
 
-```
+```bash
     namespaces=(ns1 ns2 ns3)
     for n in ${namespaces[@]}; do
         echo "*** $n ***" ;
@@ -2011,7 +2026,7 @@ done
 
 * Iterate over a file
 
-```
+```bash
 #!/bin/bash
 for repo in $(cat repos.txt)
 do
@@ -2020,15 +2035,27 @@ do
 done
 ```
 
+* To implement a case command:
+
+```bash
+case "$1"
+in
+    0) echo "zero found";;
+    1) echo "one found";;
+    2) echo "two found";;
+    3*) echo "something beginning with 3 found";;
+esac
+```
+
 * !^
 
-```
+```bash
 !^ maps to the first argument of your latest command.
 ```
 
 * !$
 
-```
+```bash
 !$ maps to the last argument of your latest command.
 ```
 
@@ -2040,17 +2067,17 @@ you could use the !! event designator to select the last command, and the 2 word
 
 expanded into ~/test/pics , ~/test/sounds, ~/test/sprites
 
-```
+```bash
 $ mkdir ~/test/{pics,sounds,sprites}
 ```
 
 A brace expansion can also have a sequence pattern {x..y[..incr]} where x and y are either an integer or a single character, and incr is an optional increment value.
 
-```
+```bash
 touch ~/test/sounds/noise-{1..5}.mp3
 ```
 
-```
+```bash
 $ touch ~/test/pics/pic{1..10..2}.jpg
 $ ls ~/test/pics
 pic1.jpg pic3.jpg pic5.jpg pic7.jpg pic9.jpg
@@ -2060,7 +2087,7 @@ pic1.jpg pic3.jpg pic5.jpg pic7.jpg pic9.jpg
 
 Your shell can replace a command surrounded by $() with its output.
 
-```
+```bash
 $ cat <<EOF > aboutme
 My name is $(whoami)
 and I live in $HOME
@@ -2072,7 +2099,7 @@ and I live in /home/br
 
 for example rename all directories to uppercase
 
-```
+```bash
 $ for dir in */; do
     mv "$dir" "$(echo "$dir" | tr '[:lower:]' '[:upper:]')"
   done
@@ -2080,7 +2107,7 @@ $ for dir in */; do
 
 * Copy from clipboard into new file
 
-```
+```bash
 cat > generate-conf.sh (ctrl+d = paste)
 ```
 
@@ -2103,7 +2130,7 @@ The `set -e` option instructs bash to immediately exit if any command [1] has a 
 
 Affects variables. When set, a reference to any variable you haven't previously defined - with the exceptions of $* and $@ - is an error, and causes the program to immediately exit. Languages like Python, C, Java and more all behave the same way, for all sorts of good reasons. One is so typos don't create new variables without you realizing it. For example:
 
-    ```
+    ```bash
     #!/bin/bash
     firstName="Aaron"
     fullName="$firstname Maxwell"
@@ -2121,7 +2148,7 @@ This is what you want: have it fail explicitly and immediately, rather than crea
 
 This setting prevents errors in a pipeline from being masked. If any command in a pipeline fails, that return code will be used as the return code of the whole pipeline. By default, the pipeline's return code is that of the last command even if it succeeds. Imagine finding a sorted list of matching lines in a file:
 
-    ```
+    ```bash
     $ grep some-string /non/existent/file | sort
     grep: /non/existent/file: No such file or directory
     % echo $?
@@ -2132,7 +2159,7 @@ This setting prevents errors in a pipeline from being masked. If any command in 
 - This empty string is then passed through sort, which happily accepts it as valid input, and returns a status code of 0.
 - This is fine for a command line, but bad for a shell script: you almost certainly want the script to exit right then with a nonzero exit code... like this:
 
-    ```
+    ```bash
     $ set -o pipefail
     $ grep some-string /non/existent/file | sort
     grep: /non/existent/file: No such file or directory
@@ -2144,7 +2171,7 @@ This setting prevents errors in a pipeline from being masked. If any command in 
 
 The IFS variable - which stands for Internal Field Separator - controls what Bash calls word splitting. When set to a string, each character in the string is considered by Bash to separate words. This governs how bash will iterate through a sequence. For example, this script:
 
-    ```
+    ```bash
     #!/bin/bash
     IFS=$' '
     items="a b c"
@@ -2170,7 +2197,7 @@ For the second loop, "words" are separated by a newline, which means bash consid
 
 Got all that? The next question is, why are we setting IFS to a string consisting of a tab character and a newline? Because it gives us better behavior when iterating over a loop. By "better", I mean "much less likely to cause surprising and confusing bugs". This is apparent in working with bash arrays:
 
-    ```
+    ```bash
     #!/bin/bash
     names=(
     "Aaron Maxwell"
@@ -2191,7 +2218,7 @@ Got all that? The next question is, why are we setting IFS to a string consistin
     done
 
     ```
-    ```
+    ```bash
     ## Output
     With default IFS value...
     Aaron
@@ -2208,7 +2235,7 @@ Got all that? The next question is, why are we setting IFS to a string consistin
     ```
 Or consider a script that takes filenames as command line arguments:
 
-    ```
+    ```bash
     for arg in $@; do
         echo "doing something with file: $arg"
     done
