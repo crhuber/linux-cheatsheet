@@ -5513,6 +5513,7 @@ l: moves cursor 1 character to the right.
 gg - move to first line
 G - move to last line
 2gg - move to second line
+f{ -  find the next { character
 ```
 
 ### movement - word
