@@ -5563,6 +5563,11 @@ N - backwards result
 - Space f - find a file / file explorer
 - Space + / - global search
 - Space b - switch between open files
+space s - find functions
+space b - switch open buffers
+buffers like tabs
+space j - jump list shows where you were working
+
 ```
 
 ### panes
