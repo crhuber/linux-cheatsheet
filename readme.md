@@ -45,6 +45,7 @@ Linux Admin Guide
   - [Terraform](#terraform)
   - [User Admin](#user-admin)
   - [VIM](#vim)
+  - [Yazi](#yazi)
   - [YUM](#yum)
 
 ## Boot
@@ -5615,3 +5616,20 @@ args = ["-logfile=/tmp/gopls.log",  "serve"]
 [language-server.gopls.config]
 "ui.diagnostic.staticcheck" = true
 ```
+
+## Yazi
+
+```
+r - rename
+y - copy
+p - paste 
+d - delete
+o - open
+enter - open
+space -	toggle selection of hovered file/directory
+. - toggle the visibility of hidden files
+tab - show file info
+c ⇒ c - copy the file path
+c ⇒ f -	copy the filename
+```
+
