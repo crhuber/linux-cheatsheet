@@ -4385,6 +4385,21 @@ p - paste
 % means - replace in whole file
 ```
 
+### multi line operations
+
+```
+:g command run command on any lines matching a pattern
+:g/pattern/cmd
+
+:g/foo/p - print all lines with foo
+:g/foo/d  - delete all lines with foo
+:g/foo/norm A bar - adds bar to end of every line
+
+
+:v command run command on any lines not matching pattern
+```
+
+
 ### save
 
 ```
@@ -4464,6 +4479,20 @@ gt - next tab
 gT - previus tab
 1gt - go to tab 1
 ```
+
+### windows
+
+```
+:sp or ctrl-w s - split holizontal
+:vsp or ctrl-w v - split vertical
+:vsp <tab> - split with a different file
+
+ctrl-w w - move window
+ctrl-w q - close window
+ctrl-w < - decrease current window width
+ctrl-w o - close all other windows
+```
+
 
 ### neotree
 
@@ -5622,7 +5651,7 @@ args = ["-logfile=/tmp/gopls.log",  "serve"]
 ```
 r - rename
 y - copy
-p - paste 
+p - paste
 d - delete
 o - open
 enter - open
