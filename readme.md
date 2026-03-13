@@ -145,42 +145,57 @@ shutdown -h +10
 ```
 * Process States
 
-    Init process is the first process when linux boots up
+Init process is the first process when linux boots up
 
-            pidof systemd
-            >1
-    There are 4 states for a process
+```bash
+    pidof systemd
+    >1
+```
+There are 4 states for a process
 
-            - Running: running or waiting to be assigned to CPU
-            - Waiting: : iowait - waiting for io, or just waiting for an event to occur. uninterruptible are ones waiting on hardware
-            - Zombie: process is dead but its still in process table
 
-    Background Jobs
+- Running: running or waiting to be assigned to CPU
+- Waiting: : iowait - waiting for io, or just waiting for an event to occur. uninterruptible are ones waiting on hardware
+- Zombie: process is dead but its still in process table
 
-             & or ctrl+z
+Background Jobs
+
+
+```bash
+     & or ctrl+z
+```
 
     Foreground Jobs
 
-            jobs
-            fg %1
+
+```bash
+    jobs
+    fg %1
+```
 
 * Signals
 
-    Signals notify an process of an event. Similar to how a hardware sends kernel interupts. Programs only recognize signals if they are programmed to do so.
+Signals notify an process of an event. Similar to how a hardware sends kernel interupts. Programs only recognize signals if they are programmed to do so.
 
-    Shows all available signals
+Shows all available signals
 
-        kill -l
 
-    Signal Types:
+```bash
+kill -l
+```
 
-        SIGINT - interupprt
-        SIGHUP - when controlling terminal is closed without closing. The OS sends sighup
-        SIGINIT2 - sent when user hits control+c
-        SIGQUIT - sent when quit signal Ctrl + D
-        SIGKIll9 - terminates immediately and without out cleaning up
-        SIGTERM15 - kill uses this by default. Clean shutdown.
-        SIGTSTP2- - Control z
+Signal Types:
+
+
+```bash
+SIGINT - interupprt
+SIGHUP - when controlling terminal is closed without closing. The OS sends sighup
+SIGINIT2 - sent when user hits control+c
+SIGQUIT - sent when quit signal Ctrl + D
+SIGKIll9 - terminates immediately and without out cleaning up
+SIGTERM15 - kill uses this by default. Clean shutdown.
+SIGTSTP2- - Control z
+```
 
 * System Calls
 
@@ -216,18 +231,20 @@ argument "-" Provides an environment similar to what the user would expect had t
 /etc/passwd
 ```
 
-    ![alt text](passwdfile.jpg "Passwords")
+![alt text](passwdfile.jpg "Passwords")
 
-
-    * Username: It is used when user logs in. It should be between 1 and 32 characters in length.
-    * Password: An x character indicates that encrypted password is stored in /etc/shadow file.
-    * User ID (UID): Each user must be assigned a user ID (UID). UID 0 (zero) is reserved for root and UIDs 1-99 are reserved for other predefined accounts. Further UID 100-999 are reserved by system for administrative and system accounts/groups.
-    * Group ID (GID): The primary group ID (stored in /etc/group file)
-    * User ID Info: The comment field. It allow you to add extra information about the users such as user's full name, phone number etc. This field use by finger command.
-    * Home directory: The absolute path to the directory the user will be in when they log in. If this directory does not exists then users directory becomes /
-    * Command/shell: The absolute path of a command or shell (/bin/bash). Typically, this is a shell. Please note that it does not have to be a shell.
+```
+* Username: It is used when user logs in. It should be between 1 and 32 characters in length.
+* Password: An x character indicates that encrypted password is stored in /etc/shadow file.
+* User ID (UID): Each user must be assigned a user ID (UID). UID 0 (zero) is reserved for root and UIDs 1-99 are reserved for other predefined accounts. Further UID 100-999 are reserved by system for administrative and system accounts/groups.
+* Group ID (GID): The primary group ID (stored in /etc/group file)
+* User ID Info: The comment field. It allow you to add extra information about the users such as user's full name, phone number etc. This field use by finger command.
+* Home directory: The absolute path to the directory the user will be in when they log in. If this directory does not exists then users directory becomes /
+* Command/shell: The absolute path of a command or shell (/bin/bash). Typically, this is a shell. Please note that it does not have to be a shell.
+```
 
 * System User vs Normal User
+
 
         System users will be created with no aging information in /etc/shadow, and their numeric identifiers are chosen in the SYS_UID_MIN–SYS_UID_MAX range, defined in /etc/login.defs, instead of UID_MIN–UID_MAX (and their GID counterparts for the creation of groups).On CentOS: Although useradd --system foouser creates no home directory for that user. Service accounts often don't have a "proper" login shell, i.e. they have /usr/sbin/nologin. Moreover, service accounts are typically locked, i.e. it is not possible to login (for traditional /etc/passwd and /etc/shadow this can be achieved by setting the password hash to arbitrary values such as * or x)
 
@@ -245,7 +262,6 @@ chage
 chage -E never username  (sets to never expire)
 ```
 
-
 * Lock user password
 
 ```bash
@@ -259,16 +275,16 @@ passwd -l username
 ```bash
 sudo passwd -S username
 
-This will show something like:
+# This will show something like:
 
-username P ... = Password is set
-username L ... = Account is locked
-username NP ... = No password
+# username P ... = Password is set
+# username L ... = Account is locked
+# username NP ... = No password
 
-username P 2025-11-06 0 99999 7 -1
+# username P 2025-11-06 0 99999 7 -1
 
 
-P = Password is set and account is unlocked
+# P = Password is set and account is unlocked
 2025-11-06 = Password was last changed on November 6, 2025 (13 days ago)
 ```
 
@@ -319,12 +335,15 @@ nano /etc/login.defs
 
 * Kill a process
 
-        1       HUP (hang up)
-        2       INT (interrupt)
-        3       QUIT (quit)
-        6       ABRT (abort)
-        9       KILL (non-catchable, non-ignorable kill)
-        Each process is supplied with a set of standard signal handlers by the operating system in order to deal with incoming signals. When no signal is explicitly included in the command, signal 15, named SIGTERM, is sent by default. If this fails, the stronger signal 9, called SIGKILL
+
+```bash
+1       HUP (hang up)
+2       INT (interrupt)
+3       QUIT (quit)
+6       ABRT (abort)
+9       KILL (non-catchable, non-ignorable kill)
+Each process is supplied with a set of standard signal handlers by the operating system in order to deal with incoming signals. When no signal is explicitly included in the command, signal 15, named SIGTERM, is sent by default. If this fails, the stronger signal 9, called SIGKILL
+```
 
 * Kill all users processes
 
@@ -426,7 +445,10 @@ Defaults    timestamp_timeout=<value>
 
 * Edit Group Config
 
-        Nano /etc/group
+
+```bash
+Nano /etc/group
+```
 
 ```bash
 cdrom:x:24:vivek,student13,raj
@@ -1002,9 +1024,10 @@ chmod o+r file.txt  # o=other +=add r=read
 0 = All access denied
 First number is for the owner, second for the group, and third for everyon
 ```
-        http://permissions-calculator.org/
 
-        ![alt text](permissions.jpg "Permissions")
+http://permissions-calculator.org/
+
+![alt text](permissions.jpg "Permissions")
 
 * Permissions On Folders
 
@@ -1210,12 +1233,13 @@ fuser -m /home
 
 * Load Average
 
-        The "number of cores = max load"
-        The three numbers represent averages over progressively longer periods of time (one, five, and fifteen minute averages)
-        Rule of Thumb: on a multicore system, your load should not exceed the number of cores available.
-        On a dual-core CPU, I won't even think about it until load gets and stays above 1.7 or so
-        Which average should I be observing? One, five, or 15 minute?, you should be looking at the five or 15-minute averages. Frankly, if your box spikes above 1.0 on the one-minute average, you're still fine. It's when the 15-minute average goes north of 1.0 and stays there that you need to snap to.
-        how do I know how many cores my system has? grep 'model name' /proc/cpuinfo | wc -l
+
+The "number of cores = max load"
+The three numbers represent averages over progressively longer periods of time (one, five, and fifteen minute averages)
+Rule of Thumb: on a multicore system, your load should not exceed the number of cores available.
+On a dual-core CPU, I won't even think about it until load gets and stays above 1.7 or so
+Which average should I be observing? One, five, or 15 minute?, you should be looking at the five or 15-minute averages. Frankly, if your box spikes above 1.0 on the one-minute average, you're still fine. It's when the 15-minute average goes north of 1.0 and stays there that you need to snap to.
+how do I know how many cores my system has? grep 'model name' /proc/cpuinfo | wc -l
 
 
 * Show running services with their ports
@@ -1233,11 +1257,11 @@ netstat -lptu
 
 * top
 
-    ![alt text](topoutput.jpg "Top")
+![alt text](topoutput.jpg "Top")
 
-    uppercase M sorts by memory
+uppercase M sorts by memory
 
-    lowercase c shows full command
+lowercase c shows full command
 
 ```bash
 
@@ -1445,16 +1469,25 @@ A sustained increase of VolumeQueueLength way above 1 on a standard EBS volume s
 
 * Bandwidth available between two computers
 
-        iperf -s
+
+```bash
+iperf -s
+```
 
 * Test if a specific TCP/IP port is open with round trip
 
-          hping3 www.google.com -S -V -p 443
-          -S Sets the SYN tcp flag
+
+```bash
+  hping3 www.google.com -S -V -p 443
+  -S Sets the SYN tcp flag
+```
 
 * View Services Startup
 
-        chkconfig --list
+
+```bash
+chkconfig --list
+```
 
 * Runlevels
 
@@ -1481,19 +1514,28 @@ Items marked with a * are network services. It is particularly important to disa
 
 * Auto Start Service
 
-        chkconfig httpd on
+
+```bash
+chkconfig httpd on
+```
 
 
 * Restart Service
 
-        /etc/init.d/<servicename>
 
-        Service <servicename> restart
+```bash
+/etc/init.d/<servicename>
+
+Service <servicename> restart
+```
 
 * Reload Service configuration
 
-        kill -HUP 128
-        This causes the program to restart and examine its configuration files.
+
+```bash
+kill -HUP 128
+This causes the program to restart and examine its configuration files.
+```
 
 *
 
@@ -1502,7 +1544,10 @@ Items marked with a * are network services. It is particularly important to disa
 
 * Xargs: Get input from a pipe and run a command for each argument. takes strings separated by whitespace and passes them into the command specficied
 
-        ls |xargs -n 2 echo   #-n2 means how many arguments to supply at a given time
+
+```bash
+ls |xargs -n 2 echo   #-n2 means how many arguments to supply at a given time
+```
 
 * Awk
 
@@ -1510,7 +1555,10 @@ https://www.howtogeek.com/562941/how-to-use-the-awk-command-on-linux/
 
     find positional parameters
 
-            ls -la | awk '{ print $ 5}’
+
+```bash
+ls -la | awk '{ print $ 5}’
+```
 
 * Awk (continued)
 
@@ -1594,39 +1642,61 @@ Regular Expressions
 
 * Tail, Sort, Head
 
-        ps -aux | tail -n +2 | sort -rnk 4
-        tail = starting from 2 lines below otp
-        sort = - reverse , numeric sort, by column 4
-        head = output the first 10 lines
-        uniq = with -c counts how many times a string shows up in a document uniquely
+
+```bash
+ps -aux | tail -n +2 | sort -rnk 4
+tail = starting from 2 lines below otp
+sort = - reverse , numeric sort, by column 4
+head = output the first 10 lines
+uniq = with -c counts how many times a string shows up in a document uniquely
+```
 
 * run jobs in parallel easily:
 
-        ls *.png | parallel -j4 convert {} {.}.jpg
+
+```bash
+ls *.png | parallel -j4 convert {} {.}.jpg
+```
 
 
 * Open an editor to work with long or complex command lines
 
-        ctrl-x ctrl-e
+
+```bash
+ctrl-x ctrl-e
+```
 
 * Wait until [command 1] is finished to execute [command 2]
 
 
-        [command 1] ; [command 2]
+
+```bash
+[command 1] ; [command 2]
+```
 
 * To leave stuff in background even if you logout
 
-         nohup ./long_script &
+
+```bash
+ nohup ./long_script &
+```
 
 * Change to the previous directory you were working on
 
-        cd -
+
+```bash
+cd -
+```
 
 * Starts a command at the specified time
 
-        echo start_backup.sh | at midnight
+
+```bash
+echo start_backup.sh | at midnight
+```
 
 * Remembers your most used folders
+
 
         'j.py' http://tiny.cc/62qjow  an incredible substitute to browse directories by name instead of 'cd'
         - learn to use 'pushd' to save time navigating folders (j.py is better though)
@@ -1655,10 +1725,12 @@ Regular Expressions
 
 * Output redirection
 
-        > file redirects stdout to file
-        1> file redirects stdout to file
-        2> file redirects stderr to file
-        &> file redirects stdout and stderr to file
+```bash
+> file redirects stdout to file
+1> file redirects stdout to file
+2> file redirects stderr to file
+&> file redirects stdout and stderr to file
+```
 * Write output to a file
 
 ```bash
@@ -2376,7 +2448,8 @@ ngrep -q -W byline "^(GET|POST) .*" # -W byline  preserves linesbreaks, -q  #sup
 ngrep -q -W byline "search" host www.google.com and port 80
 ```
 
-        * Show packets going to a website on network
+
+* Show packets going to a website on network
 
 ```bash
 ngrep -d mywebsite
@@ -2847,7 +2920,10 @@ look for EXTRA_OPTS="-L 2” -L is how verbose
 
 * Check cron log
 
-        mailx
+
+```bash
+mailx
+```
 
 
 #SSH
@@ -3041,7 +3117,7 @@ control_path = ~/.ssh/ansible-%%r@%%h:%%p
 
 * Do programs remain running when you disconnect?
 
-        The new default is to kill all children of a terminating login session, regardless of what historically valid precautions were taken to prevent this. The behavior can be changed by setting KillUserProcesses=no in /etc/systemd/logind.conf. When the SSH daemon process associated with your connection decides that your connection is dead, it sends a hangup signal (SIGHUP) to the login shell. This notifies the shell that you've vanished and that it should begin cleaning up after itself. What happens at this point is shell specific (search its documentation page for "HUP"), but for the most part it will start sending SIGHUP to running jobs associated with it before terminating. Each of those processes, in turn, will do whatever they're configured to do on receipt of that signal. Processes that were invoked with a prefixed nohup command. (i.e. "don't hang up on this") Daemons interpret the HUP signal differently; since they do not have a controlling terminal and do not automatically receive a HUP signal
+The new default is to kill all children of a terminating login session, regardless of what historically valid precautions were taken to prevent this. The behavior can be changed by setting KillUserProcesses=no in /etc/systemd/logind.conf. When the SSH daemon process associated with your connection decides that your connection is dead, it sends a hangup signal (SIGHUP) to the login shell. This notifies the shell that you've vanished and that it should begin cleaning up after itself. What happens at this point is shell specific (search its documentation page for "HUP"), but for the most part it will start sending SIGHUP to running jobs associated with it before terminating. Each of those processes, in turn, will do whatever they're configured to do on receipt of that signal. Processes that were invoked with a prefixed nohup command. (i.e. "don't hang up on this") Daemons interpret the HUP signal differently; since they do not have a controlling terminal and do not automatically receive a HUP signal
 
 * Access RDS in a Private Subnet from Local Machine
 
@@ -3336,17 +3412,26 @@ perl nikto.pl -h localhost
 
  * Install tools
 
-        yum install openssl openssl-devel
-        or yum install crypto-utils
+
+```bash
+yum install openssl openssl-devel
+or yum install crypto-utils
+```
 
  * Generate Private Key
 
-        openssl genrsa -out my-private-key.pem 2048
-        or genkey --days 365 servername.domain.com
+
+```bash
+openssl genrsa -out my-private-key.pem 2048
+or genkey --days 365 servername.domain.com
+```
 
 * Create CSR
 
-        openssl req -sha256 -new -key ~/my-private-key.pem -out ~/domain.com.csr
+
+```bash
+openssl req -sha256 -new -key ~/my-private-key.pem -out ~/domain.com.csr
+```
 
 * Create a SAN config
 
@@ -3373,30 +3458,48 @@ DNS.2   = server2.domain.com
 
 * Create CSR with SAN config
 
-        openssl req -new -sha256 -key my-private-key.pem -out domain.com.csr -config san.cnf
+
+```bash
+openssl req -new -sha256 -key my-private-key.pem -out domain.com.csr -config san.cnf
+```
 
 * Verify SAN on cert
 
-        openssl req -noout -text -in domain.com.csr | grep DNS
+
+```bash
+openssl req -noout -text -in domain.com.csr | grep DNS
+```
 
 * Convert Cert to PKCS12
 
-        openssl pkcs12 -export -out  domain.com.p12 -inkey my-private-key.pem -in cert.cer
+
+```bash
+openssl pkcs12 -export -out  domain.com.p12 -inkey my-private-key.pem -in cert.cer
+```
 
 * Install Cert
 
-        Copy to  /etc/httpd/conf/ssl.crt/
-        genkey will output
-        /etc/pki/tls/private/ #privatekey
-        /etc/pki/certs/ #public key
+
+```bash
+Copy to  /etc/httpd/conf/ssl.crt/
+genkey will output
+/etc/pki/tls/private/ #privatekey
+/etc/pki/certs/ #public key
+```
 
 * View Cert
 
-        openssl x509 -in cerfile.cer -noout –text
+
+```bash
+openssl x509 -in cerfile.cer -noout –text
+```
 
 * Create a self-signed certificate
 
-        openssl x509 -req -days 365 -in my.csr -signkey my-private-key.pem -out my-self-signed.pem
+
+```bash
+openssl x509 -req -days 365 -in my.csr -signkey my-private-key.pem -out my-self-signed.pem
+```
 
 * Installing Root CA
 
@@ -3430,13 +3533,16 @@ You can also use OpenSSL's s_client by trying to connect to a server that you kn
 
     ... snip lots of output ...
 
-        Key-Arg   : None
-        PSK identity: None
-        PSK identity hint: None
-        SRP username: None
-        Start Time: 1392837700
-        Timeout   : 300 (sec)
-        Verify return code: 0 (ok)
+
+```bash
+Key-Arg   : None
+PSK identity: None
+PSK identity hint: None
+SRP username: None
+Start Time: 1392837700
+Timeout   : 300 (sec)
+Verify return code: 0 (ok)
+```
 
 
     The first thing to look for is the certificate chain near the top of the output. This should show the CA as the issuer (next to i:). This tells you that the server is presenting a certificate signed by the CA you're installing. Second, look for the verify return code at the end to be set to 0 (ok).
@@ -3444,7 +3550,10 @@ You can also use OpenSSL's s_client by trying to connect to a server that you kn
 
 * Test SSL certificates
 
-        openssl s_client -connect name.server.io:443
+
+```bash
+openssl s_client -connect name.server.io:443
+```
 
 
 * Certificate Formats
@@ -3481,42 +3590,66 @@ In summary, there are four different ways to present certificates and their comp
 
 * Install
 
-        yum install php php-cli php-common php-pecl-memcache php-pear  php-mysql php-xml php-mbstring php-gd php-pdo
-        or  (amazon)
 
-        yum install php54 php54-cli php54-common php54-pecl-memcache php54-pear php54-mysql php54-xml php54-mbstring php54-gd php54-pdo
+```bash
+yum install php php-cli php-common php-pecl-memcache php-pear  php-mysql php-xml php-mbstring php-gd php-pdo
+or  (amazon)
+
+yum install php54 php54-cli php54-common php54-pecl-memcache php54-pear php54-mysql php54-xml php54-mbstring php54-gd php54-pdo
+```
 
 * Configuration File
 
-        nano  /etc/php.ini
+
+```bash
+nano  /etc/php.ini
+```
 
 * Expose PHP
 
-        expose_php = Off
-        * Default: On
+
+```bash
+expose_php = Off
+* Default: On
+```
 
 * Memory Limit
 
-        memory_limit = 128M
-        * Default: 128M (no change)
+
+```bash
+memory_limit = 128M
+* Default: 128M (no change)
+```
 
 * Error Log
 
-        error_log = /var/log/php-error.log
-        * Defautl: Empty
+
+```bash
+error_log = /var/log/php-error.log
+* Defautl: Empty
+```
 
 * Timezone
 
-        date.timezone = "Australia/Sydney"
+
+```bash
+date.timezone = "Australia/Sydney"
+```
 
 * Allow Fopen
 
-        allow_url_fopen  = Off
-        * Default : On. If enabled, allow_url_fopen allows PHP's file functions to retrieve data from remote locations such as an FTP server or web site, and could lead to code injection vulnerabilities.
+
+```bash
+allow_url_fopen  = Off
+* Default : On. If enabled, allow_url_fopen allows PHP's file functions to retrieve data from remote locations such as an FTP server or web site, and could lead to code injection vulnerabilities.
+```
 
 * Create the PHP error files
 
-        sudo touch /var/log/php-error.log
+
+```bash
+sudo touch /var/log/php-error.log
+```
 
 
 ## MySQL
@@ -3530,129 +3663,213 @@ MyISAM is simpler and better optimized for read only operations. It has limited 
 
 * Get help:
 
-        help
+
+```bash
+help
+```
 
 * Login to server
 
-        mysql -h mysql–instance1.123456789012.us-east-1.rds.amazonaws.com -P 3306 -u mymasteruser -p
+
+```bash
+mysql -h mysql–instance1.123456789012.us-east-1.rds.amazonaws.com -P 3306 -u mymasteruser -p
+```
 
 * Create a new Database
 
-        mysqladmin -u root -pmyPassword -v create myDB
+
+```bash
+mysqladmin -u root -pmyPassword -v create myDB
+```
 
 * Show databases:
 
-        show databases;
+
+```bash
+show databases;
+```
 
 * Secure Installation
 
-        /usr/bin/mysql_secure_installation
+
+```bash
+/usr/bin/mysql_secure_installation
+```
 
 * Choose a database to use:
 
-        use [database name here];
+
+```bash
+use [database name here];
+```
 
 * Show database schema:
 
-        show tables;
+
+```sql
+show tables;
+```
 
 * Delete database:
 
-        DROP DATABASE [databasename];
+
+```sql
+DROP DATABASE [databasename];
+```
 
 * New database:
 
-        CREATE DATABASE [databasename];
+
+```sql
+CREATE DATABASE [databasename];
+```
 
 * Create a new user:
 
-        CREATE USER [username@localhost] IDENTIFIED BY '[password]' ;
+
+```sql
+CREATE USER [username@localhost] IDENTIFIED BY '[password]' ;
+```
 
 * Show users:
 
-        select * from mysql.user;
+
+```sql
+select * from mysql.user;
+```
 
 * Delete a user:
 
-        delete from mysql.user WHERE User='[user_name]';
+
+```sql
+delete from mysql.user WHERE User='[user_name]';
+```
 
 * Give user access to all tables (make them root). the "%" means that they can sign in remotely, from any machine, not just localhost.:
 
-        grant all privileges on *.* to someusr@"%" identified by '[password]';
+
+```sql
+grant all privileges on *.* to someusr@"%" identified by '[password]';
+```
 
 
 * Give user access to certain database. Only accessable from localhost
 
-        grant all privileges ON myDB.* TO myUser@localhost IDENTIFIED BY 'myPassword';
+
+```sql
+grant all privileges ON myDB.* TO myUser@localhost IDENTIFIED BY 'myPassword';
+```
 
 * give certain privileges to a user on a certain database:
 
-        grant select,insert,update,delete,create,drop on [somedb].* to [someusr]@["%"] identified by '[password]';
+
+```sql
+grant select,insert,update,delete,create,drop on [somedb].* to [someusr]@["%"] identified by '[password]';
+```
 
 * Show all privileges
 
 
-        select user,host from mysql.user ;
+
+```sql
+select user,host from mysql.user ;
+```
 
 * Tell mysql to use new user priv policies:
 
 
-        flush privileges;
+
+```sql
+flush privileges;
+```
 
 
 * change user password:
 
-        use mysql;
-        SET PASSWORD FOR 'jeffrey'@'localhost' = PASSWORD('cleartext password');
+
+```sql
+use mysql;
+SET PASSWORD FOR 'jeffrey'@'localhost' = PASSWORD('cleartext password');
+```
 
 * update user
 
-        set password='[password]'('[newpassword]') where User='[user_name]' ;
+
+```bash
+set password='[password]'('[newpassword]') where User='[user_name]' ;
+```
 
 * mysql command line args:
 
 * export text file with commands to rebuild all mysql tables:
 
-        mysqldump [databasename] > [dumpfilename.txt]
+
+```bash
+mysqldump [databasename] > [dumpfilename.txt]
+```
 
 
 * restore from a dump:
 
-        mysql -u [username] -p < [dumpfilename.txt]
+
+```bash
+mysql -u [username] -p < [dumpfilename.txt]
+```
 
 
 * dump entire database:
 
-        mysqldump -u [username] -p --opt [databasename] > [dumpfile.sql]
+
+```bash
+mysqldump -u [username] -p --opt [databasename] > [dumpfile.sql]
+```
 
 * restore from entire database dump:
 
-        mysql -u [username] -p --database=[databasename] < [dumpfile.sql]
+
+```bash
+mysql -u [username] -p --database=[databasename] < [dumpfile.sql]
+```
 
 
 * install using remi repo since other repos only had version 5.1 instead of 5.5
 
-        yum --enablerepo=remi install mysql-server  mysql mysql-libs
+
+```bash
+yum --enablerepo=remi install mysql-server  mysql mysql-libs
+```
 
 
 * Config
 
-        sudo nano /etc/my.cnf
+
+```bash
+sudo nano /etc/my.cnf
+```
 
 * Add performance settings under [mysqld]
 
-        query_cache_size=16M
 
-        thread_cache_size=4
+```bash
+query_cache_size=16M
+
+thread_cache_size=4
+```
 
 * Start
 
-        sudo /sbin/chkconfig --levels 235 mysqld on
-        sudo service mysqld start
+
+```bash
+sudo /sbin/chkconfig --levels 235 mysqld on
+sudo service mysqld start
+```
 
 * Auto Config
 
-        sudo /usr/bin/mysql_secure_installation
+
+```bash
+sudo /usr/bin/mysql_secure_installation
+```
 
 * Manual Config
 
@@ -3676,66 +3893,101 @@ DROP DATABASE test;
 
 * Backup
 
-        mysqldump -u root -p --all-databases > ~/backup.sql
+```bash
+mysqldump -u root -p --all-databases > ~/backup.sql
+```
 
-        http://sourceforge.net/projects/automysqlbackup/
+http://sourceforge.net/projects/automysqlbackup/
 
 
 * Import
 
-        sudo mysql -u root -p < backup.sql
+
+```bash
+sudo mysql -u root -p < backup.sql
+```
 
 
 *Tuning
 
-        wget -O mysqltuner.pl mysqltuner.pl
-        wget --trust-server-names mysqltuner.pl
+
+```bash
+wget -O mysqltuner.pl mysqltuner.pl
+wget --trust-server-names mysqltuner.pl
+```
 
 
 * Automatically defragment
 
-        Mysqlcheck -o --user=root --password= -A
+
+```bash
+Mysqlcheck -o --user=root --password= -A
+```
 
 
 * Copy DB to Remote Server
 
-        mysqldump dbname -u root -pRootPassword | mysql --host=remotedb.us-east-1.rds.amazonaws.com --port=3306 --user=root -pRemoteRootPassword --database=remoteDbName
+
+```bash
+mysqldump dbname -u root -pRootPassword | mysql --host=remotedb.us-east-1.rds.amazonaws.com --port=3306 --user=root -pRemoteRootPassword --database=remoteDbName
+```
 
 * Secure database to one user from command line
 
-        mysql -e "grant all privileges ON myDBname.* TO dbaccount@localhost IDENTIFIED BY 'mypassword';" --user=root --password=myrootpassword
+
+```bash
+mysql -e "grant all privileges ON myDBname.* TO dbaccount@localhost IDENTIFIED BY 'mypassword';" --user=root --password=myrootpassword
+```
 
 * Troubleshooting
 
 
-        SHOW PROCESSLIST; show slow transactions
-        mysqladmin ext -i1 | grep Threads_running
+
+```bash
+SHOW PROCESSLIST; show slow transactions
+mysqladmin ext -i1 | grep Threads_running
+```
 
 
 ## Memcache
 
 * Install Memcached
 
-        yum install memcached
+
+```bash
+yum install memcached
+```
 
 * show version
 
-        memcached –i
+
+```bash
+memcached –i
+```
 
 * Edit Config
 
-        sudo nano /etc/init.d/memcached
+
+```bash
+sudo nano /etc/init.d/memcached
+```
 
 * Start
 
-        checkconfig memcached on
-        service memcached start
+
+```bash
+checkconfig memcached on
+service memcached start
+```
 
 * Install PHP Extension
 
-        yum install php54-pecl-memcache
-        add the memcache extension to your php.ini file, usually at /etc/php.ini.
-        extension=memcache.so
+
+```bash
+yum install php54-pecl-memcache
+add the memcache extension to your php.ini file, usually at /etc/php.ini.
+extension=memcache.so
+```
 
 ## GIT
 
@@ -4050,261 +4302,315 @@ cat city.json | jq '.tips[] | "\(.name) \(.type) \(.address)- \(.comment)"'
 
 * Install
 
-        yum install rsync
+
+```bash
+yum install rsync
+```
 
 * Sync from one server to another
 
-        sudo rsync -avz -e ssh root@prod.server.com:/var/www/server.com /var/www/
 
-
-## NewRelic
-
-* Install server monitor
-
-        rpm -Uvh http://yum.newrelic.com/pub/newrelic/el5/x86_64/newrelic-repo-5-3.noarch.rpm
-
-        yum install newrelic-sysmond
-
-        nrsysmond-config --set license_key=************
-
-        /etc/init.d/newrelic-sysmond start
-
-* Install php agent
-
-        yum install newrelic-php5
-
-        newrelic-install install
-
-        service httpd restart
-
-        sudo nano newrelic.cfg
-
-        license_key=REPLACE_WITH_REAL_KEY
-
-* Start php agent
-
-        /etc/init.d/newrelic-daemon restart
+```bash
+sudo rsync -avz -e ssh root@prod.server.com:/var/www/server.com /var/www/
+```
 
 
 ## Celery
 
 * Run deamon
 
-        celery multi start  w1 -A myapplication --loglevel=info
+
+```bash
+celery multi start  w1 -A myapplication --loglevel=info
+```
 
 * Run Flower in Supervisord
 
-        [program:flower]
-        command=celery flower --broker=redis://localhost ; the program (relative uses 		PATH, can take args)
-        process_name=%(program_name)s ; process_name expr (default %(program_name)s)
-        numprocs=1                    ; number of processes copies to start (def 1)
-        autostart=true
-        user=flower
+
+```ini
+[program:flower]
+command=celery flower --broker=redis://localhost ; the program (relative uses 		PATH, can take args)
+process_name=%(program_name)s ; process_name expr (default %(program_name)s)
+numprocs=1                    ; number of processes copies to start (def 1)
+autostart=true
+user=flower
+```
 
 
 ## Supervisor
 
 * Install
 
-        pip install supervisor
+
+```bash
+pip install supervisor
+```
 
 * Autoconfig
 
-        echo_supervisord_conf > /etc/supervisord.conf
+
+```bash
+echo_supervisord_conf > /etc/supervisord.conf
+```
 
 
 * Example Config for Django app
 
 
-        [program:myapp]
-        command=/usr/bin/gunicorn_django -w 4 -b 127.0.0.1:8000
-        directory=/home/ec2-user/django/application/app
-        user=nobody
-        autostart=true
-        autorestart=true
-        redirect_stderr=True
+
+```ini
+[program:myapp]
+command=/usr/bin/gunicorn_django -w 4 -b 127.0.0.1:8000
+directory=/home/ec2-user/django/application/app
+user=nobody
+autostart=true
+autorestart=true
+redirect_stderr=True
+```
 
 * Start Daemon
 
-        /usr/bin/supervisord
+
+```bash
+/usr/bin/supervisord
+```
 
 * Start Application
 
-        * usr/bin/supervisorctl
 
-         supervisorctl {start,status,stop} hello
+```bash
+* usr/bin/supervisorctl
+
+ supervisorctl {start,status,stop} hello
+```
 
 ## Nginx
 
 * Reload Config
 
-        sudo /etc/init.d/nginx reload
+
+```bash
+sudo /etc/init.d/nginx reload
+```
 
 * Test Config File
 
-        sudo /etc/init.d/nginx -t
+
+```bash
+sudo /etc/init.d/nginx -t
+```
 
 * Worker processes
 
     To take advantage of SMP and to enable good efficiency I would recommend changing this to read:
 
-        worker_processes  4;
+
+```nginx
+worker_processes  4;
+```
 
 * Max clients
 
     You can work out the maximum clients value by multiplying this and the worker_processes settings:
 
-        max_clients = worker_processes * worker_connections
+
+```nginx
+max_clients = worker_processes * worker_connections
+```
 
 * Keepalive
 
     The default is very high and can easily be reduced to a few seconds (an initial setting of 2 or 3 is a good place to start and you will rarely need more than that)
 
-        keepalive_timeout  0
 
-        # defaul: keepalive_timeout  65;
+```nginx
+keepalive_timeout  0
+
+# defaul: keepalive_timeout  65;
+```
 
 * Folder Permissions
 
     As the default permissions only allow us, the 'demo' user, to browse our home folder, let's start off by giving Nginx access to this folder as well:
 
-        chmod 755 /home/demo
 
-        mkdir -p /home/demo/public_html/domain1.com/{public,private,log,backup}
+```bash
+chmod 755 /home/demo
+
+mkdir -p /home/demo/public_html/domain1.com/{public,private,log,backup}
+```
 
 * Example Config for Django
 
-        server {
-        listen 80;
-        server_name example.org;
-        access_log  /var/log/nginx/example.log;
 
-        location /media/ {
-                # if asset versioning is used
-                if ($query_string) {
-                expires max;
-                }
-            }
+```nginx
+server {
+listen 80;
+server_name example.org;
+access_log  /var/log/nginx/example.log;
 
-        location /admin/media/ {
-                # this changes depending on your python version
-                root /path/to/test/lib/python2.6/site-packages/django/contrib;
-                }
-
-        location / {
-                proxy_pass http://127.0.0.1:8000;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                }
-
+location /media/ {
+        # if asset versioning is used
+        if ($query_string) {
+        expires max;
         }
+    }
+
+location /admin/media/ {
+        # this changes depending on your python version
+        root /path/to/test/lib/python2.6/site-packages/django/contrib;
+        }
+
+location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+}
+```
 
 
 
 
 * root
 
-        This is the key to serving static sites. If you are just trying to lay down some html and css, the root directive specifies the directory that you have stored your files in. I like to store my sites in /var/www,
-
+This is the key to serving static sites. If you are just trying to lay down some html and css, the root directive specifies the directory that you have stored your files in. I like to store my sites in /var/www,
 
 * location
 
-        $uri is whatever someone typed after the domain name is $uri = /whatever.  try_files 		will look in root directory for a file with a name matching the uri. if not, it will 		send to index.html
 
-        Location takes two parameters, a string/regex and a block. The string/regex is a 		matcher for a specific location. So if you wanted anyone who went to example.com/		whatever to hit a specific page, you would use ‘whatever’ as the uri.
-        Also note that this / uri will match all urls, since it’s treated as a regex. If you want a location block to match only an exact string, you can preface it with an equals sign, as shown below. But in this case, it’s ok for it to match all urls.
+$uri is whatever someone typed after the domain name is $uri = /whatever. try_files will look in root directory for a file with a name matching the uri. if not, it will send to index.html
 
-        location = / { ... }
+Location takes two parameters, a string/regex and a block. The string/regex is a matcher for a specific location. So if you wanted anyone who went to example.com/whatever to hit a specific page, you would use ‘whatever’ as the uri.
+Also note that this / uri will match all urls, since it’s treated as a regex. If you want a location block to match only an exact string, you can preface it with an equals sign, as shown below. But in this case, it’s ok for it to match all urls.
 
-        location / {     try_files $uri $uri/ /index.html;
-          }
+```nginx
+location = / { ... }
 
-        We can use another directive inside the block to serve a file called try_files. Try 		files takes a list of filenames or patterns that it will try to find in you root 		directory, and it will serve the first one it finds. For our simple static server, we 		want to try to find a file with the name of whatever comes after the slash, like 		‘whatever.html’. If there is nothing after the slash, it should go for index.html.
+location / {     try_files $uri $uri/ /index.html;
+  }
+```
+
+We can use another directive inside the block to serve a file called try_files. Try files takes a list of filenames or patterns that it will try to find in you root directory, and it will serve the first one it finds. For our simple static server, we want to try to find a file with the name of whatever comes after the slash, like ‘whatever.html’. If there is nothing after the slash, it should go for index.html.
 
 * SSL
 
-        ssl on;
-        listen 443 default ssl;
-        ssl_certificate /etc/nginx/ssl_hostname.com/ssl-unified.crt;
-        ssl_certificate_key /etc/nginx/ssl_hostname.com/ssl.key;
+
+```nginx
+ssl on;
+listen 443 default ssl;
+ssl_certificate /etc/nginx/ssl_hostname.com/ssl-unified.crt;
+ssl_certificate_key /etc/nginx/ssl_hostname.com/ssl.key;
+```
 
 * Permissions for SSL Certs
 
-        Nginx's processes are laid out like this:
-            - 1 nginx master process running as *root*
-            - x nginx workers running as *www-data*
-        Nginx's master process reads the SSL key, not the workers. Because of that, we can 		simply allow only root to read the private key
+
+Nginx's processes are laid out like this:
+- 1 nginx master process running as *root*
+- x nginx workers running as *www-data*
+
+Nginx's master process reads the SSL key, not the workers. Because of that, we can simply allow only root to read the private key
 
 * Permissions for Files
 
-        One permission requirement that is often overlooked is a user needs x permissions in 		every parent directory of a file to access that file. Check the permissions on /, /		home, /home/demo, etc. for www-data x access. My guess is that /home is probably 770 		and www-data can't chdir through it to get to any subdir. If it is, try
+One permission requirement that is often overlooked is a user needs x permissions in every parent directory of a file to access that file. Check the permissions on /, /home, /home/demo, etc. for www-data x access. My guess is that /home is probably 770 and www-data can't chdir through it to get to any subdir. If it is, try
 
-        chmod o+x /		home (or whatever dir is denying the request).
+```bash
+chmod o+x /home (or whatever dir is denying the request).
+```
 
-        To easily display all the permissions on a path, you can use namei -om /path/to/check
+To easily display all the permissions on a path, you can use `namei -om /path/to/check`
 
 * To Enable services through firewall
 
-        sudo firewall-cmd --permanent --zone=public --add-service=http
-        sudo firewall-cmd --permanent --zone=public --add-service=https
-        sudo firewall-cmd --reload
+
+```bash
+sudo firewall-cmd --permanent --zone=public --add-service=http
+sudo firewall-cmd --permanent --zone=public --add-service=https
+sudo firewall-cmd --reload
+```
 
 * Auto start service
 
-        sudo systemctl enable nginx.service
+
+```bash
+sudo systemctl enable nginx.service
+```
 
 ## Rsyslog
 
 * Config File
 
-        /etc/syslog.conf
+
+```bash
+/etc/syslog.conf
+```
 
 * Define where logs are sent
 
-        mail.*  /var/log/maillog  #defines where to send mail logs. use @@hostname to send to 									a remote host over tcp
+```bash
+mail.*  /var/log/maillog  #defines where to send mail logs. use @@hostname to send to a remote host over tcp
+```
 
 * Send messages to Loggly over TCP using the template.
 
-        *.*             @@logs-01.loggly.com:514;LogglyFormat
+
+```bash
+*.*             @@logs-01.loggly.com:514;LogglyFormat
+```
 
 ## Tmux
 
 * Commands
 
-        tmux ls = list sessions
-        tmux new = new session
-        tmux attach = attach to old session, keep existing sessions open
-        tmux attach -b =  attach to session, disconnect other connections
-        tmux kill-session
+
+```bash
+tmux ls = list sessions
+tmux new = new session
+tmux attach = attach to old session, keep existing sessions open
+tmux attach -b =  attach to session, disconnect other connections
+tmux kill-session
+```
 
 * Keys
 
-        Ctrl-b-d = detach from current session
-        Ctrl-b-n  = creates new window
-        Ctrl-b-0 = go to window 0
-        Ctrl-b-tab = toggle between windows
-        Ctrl-b-c = create new window
-        Ctrl-b-? = see bindings
-        Ctrl-b-x = close current window/pane
-        Ctrl-b-o = switch to other pane
-        Ctrl-b-q = show panes
-        Ctrl-b-V = new vertical pane
-        Ctrl-b-arrow = switch panes
-        Ctrl-b-[-arrow = scroll
+
+```bash
+Ctrl-b-d = detach from current session
+Ctrl-b-n  = creates new window
+Ctrl-b-0 = go to window 0
+Ctrl-b-tab = toggle between windows
+Ctrl-b-c = create new window
+Ctrl-b-? = see bindings
+Ctrl-b-x = close current window/pane
+Ctrl-b-o = switch to other pane
+Ctrl-b-q = show panes
+Ctrl-b-V = new vertical pane
+Ctrl-b-arrow = switch panes
+Ctrl-b-[-arrow = scroll
+```
 
 ## Ansible
 
 * Run Playbook locally
-    ansible-playbook -i "localhost," -c local
-* finding Modules information:
----------------------------
-ansible-doc -l -> to list out all modules
-ansible-doc -l | grep package -> to grep specific modules
-ansible-doc package -> to list out all information
-also >> ansible-doc -s yum -> also works for details of any modules
->> ansible all -m ping -o -> to display in single line
-if we are using sudo user then specify -s at the end to run cmd in sudo
+
+```bash
+ansible-playbook -i "localhost," -c local
+```
+
+* Finding Modules information
+
+```bash
+ansible-doc -l                       # list out all modules
+ansible-doc -l | grep package        # grep specific modules
+ansible-doc package                  # list out all information
+ansible-doc -s yum                   # details of any modules
+ansible all -m ping -o               # display in single line
+# if we are using sudo user then specify -s at the end to run cmd in sudo
+```
 
 ## VIM
 
@@ -4650,13 +4956,15 @@ sudo journalctl --vacuum-size=1G
 ```
 
 ## SystemD (Generic)
-----
 
 * Create a service
 
-        sudo nano /etc/systemd/system/my.service
-        sudo systemctl enable /etc/systemd/system/my.service
-        sudo systemctl start my.service
+
+```bash
+sudo nano /etc/systemd/system/my.service
+sudo systemctl enable /etc/systemd/system/my.service
+sudo systemctl start my.service
+```
 
 * Edit Service Config
 
@@ -4760,7 +5068,7 @@ Let’s multiply the price by the quantity of the products to find out how much 
 ```sql
 SELECT
     name
-     price*quantity  AS total_price
+    price*quantity AS total_price
 FROM purchase;
 ```
 
@@ -4994,8 +5302,8 @@ $                                    # match at the end of a line/string
 .$                                   # match a single character at the end of line/string
 ^ $                                  # match line with a single space
 ^[A-Z]                               # match any line beginning with any char from A to Z
-* The ^ (caret) fixes your pattern to the beginning of the line. For example the pattern ^1 matches any line starting with a 1.
-* The $ (dollar) fixes your pattern to the end of the sentence. For example, 9$ matches any line ending with a 9.
+*                                    # The ^ (caret) fixes your pattern to the beginning of the line. For example the pattern ^1 matches any line starting with a 1.
+*                                    # The $ (dollar) fixes your pattern to the end of the sentence. For example, 9$ matches any line ending with a 9.
 ```
 
 ## FFMpeg
