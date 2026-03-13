@@ -1,6 +1,6 @@
 Linux Admin Guide
 =================
-** Guide to administering Linux **
+**Guide to administering Linux**
 
 
 ## Table Of Contents
@@ -49,7 +49,6 @@ Linux Admin Guide
   - [YUM](#yum)
 
 ## Boot
----
 
 * 6 Levels to booting
     - BIOS
@@ -75,22 +74,22 @@ Linux Admin Guide
 
 ```bash
 
-        If you have multiple kernel images installed on your system, you can choose which one to be executed.
-        GRUB displays a splash screen, waits for few seconds, if you don’t enter anything, it loads the default kernel image as specified in the grub configuration file.
-        GRUB has the knowledge of the filesystem (the older Linux loader LILO didn’t understand filesystem).
-        Grub configuration file is /boot/grub/grub.conf (/etc/grub.conf is a link to this). The following is sample grub.conf of CentOS.
+If you have multiple kernel images installed on your system, you can choose which one to be executed.
+GRUB displays a splash screen, waits for few seconds, if you don’t enter anything, it loads the default kernel image as specified in the grub configuration file.
+GRUB has the knowledge of the filesystem (the older Linux loader LILO didn’t understand filesystem).
+Grub configuration file is /boot/grub/grub.conf (/etc/grub.conf is a link to this). The following is sample grub.conf of CentOS.
 
-        boot=/dev/sda
-        default=0
-        timeout=5
-        splashimage=(hd0,0)/boot/grub/splash.xpm.gz
-        hiddenmenu
-        title CentOS (2.6.18-194.el5PAE)
-        root (hd0,0)
-        kernel /boot/vmlinuz-2.6.18-194.el5PAE ro root=LABEL=/
-        initrd /boot/initrd-2.6.18-194.el5PAE.img</strong></span>
-        As you notice from the above info, it contains kernel and initrd image.
-        So, in simple terms GRUB just loads and executes Kernel and initrd images.
+boot=/dev/sda
+default=0
+timeout=5
+splashimage=(hd0,0)/boot/grub/splash.xpm.gz
+hiddenmenu
+title CentOS (2.6.18-194.el5PAE)
+root (hd0,0)
+kernel /boot/vmlinuz-2.6.18-194.el5PAE ro root=LABEL=/
+initrd /boot/initrd-2.6.18-194.el5PAE.img
+As you notice from the above info, it contains kernel and initrd image.
+So, in simple terms GRUB just loads and executes Kernel and initrd images.
 
 ```
 
@@ -106,37 +105,37 @@ Linux Admin Guide
 * Init
 
 ```bash
-    Looks at the /etc/inittab file to decide the Linux run level.
-    Following are the available run levels
-    0 – halt
-    1 – Single user mode
-    2 – Multiuser, without NFS
-    3 – Full multiuser mode
-    4 – unused
-    5 – X11
-    6 – reboot
-    Init identifies the default initlevel from /etc/inittab and uses that to load all appropriate program.
-    Execute ‘grep initdefault /etc/inittab’ on your system to identify the default run level
-    If you want to get into trouble, you can set the default run level to 0 or 6. Since you know what 0 and 6 means, probably you might not do that.
-    Typically you would set the default run level to either 3 or 5.
+Looks at the /etc/inittab file to decide the Linux run level.
+Following are the available run levels
+0 – halt
+1 – Single user mode
+2 – Multiuser, without NFS
+3 – Full multiuser mode
+4 – unused
+5 – X11
+6 – reboot
+Init identifies the default initlevel from /etc/inittab and uses that to load all appropriate program.
+Execute ‘grep initdefault /etc/inittab’ on your system to identify the default run level
+If you want to get into trouble, you can set the default run level to 0 or 6. Since you know what 0 and 6 means, probably you might not do that.
+Typically you would set the default run level to either 3 or 5.
 ```
 * Runlevel
 
 ```bash
-    Depending on your default init level setting, the system will execute the programs from one of the following directories.
-    Run level 0 – /etc/rc.d/rc0.d/
-    Run level 1 – /etc/rc.d/rc1.d/
-    Run level 2 – /etc/rc.d/rc2.d/
-    Run level 3 – /etc/rc.d/rc3.d/
-    Run level 4 – /etc/rc.d/rc4.d/
-    Run level 5 – /etc/rc.d/rc5.d/
-    Run level 6 – /etc/rc.d/rc6.d/
-    Please note that there are also symbolic links available for these directory under /etc directly. So, /etc/rc0.d is linked to /etc/rc.d/rc0.d.
-    Under the /etc/rc.d/rc*.d/ directories, you would see programs that start with S and K.
-    Programs starts with S are used during startup. S for startup.
-    Programs starts with K are used during shutdown. K for kill.
-    There are numbers right next to S and K in the program names. Those are the sequence number in which the programs should be started or killed.
-    For example, S12syslog is to start the syslog deamon, which has the sequence number of 12. S80sendmail is to start the sendmail daemon, which has the sequence number of 80. So, syslog program will be started before sendmail.
+Depending on your default init level setting, the system will execute the programs from one of the following directories.
+Run level 0 – /etc/rc.d/rc0.d/
+Run level 1 – /etc/rc.d/rc1.d/
+Run level 2 – /etc/rc.d/rc2.d/
+Run level 3 – /etc/rc.d/rc3.d/
+Run level 4 – /etc/rc.d/rc4.d/
+Run level 5 – /etc/rc.d/rc5.d/
+Run level 6 – /etc/rc.d/rc6.d/
+Please note that there are also symbolic links available for these directory under /etc directly. So, /etc/rc0.d is linked to /etc/rc.d/rc0.d.
+Under the /etc/rc.d/rc*.d/ directories, you would see programs that start with S and K.
+Programs starts with S are used during startup. S for startup.
+Programs starts with K are used during shutdown. K for kill.
+There are numbers right next to S and K in the program names. Those are the sequence number in which the programs should be started or killed.
+For example, S12syslog is to start the syslog deamon, which has the sequence number of 12. S80sendmail is to start the sendmail daemon, which has the sequence number of 80. So, syslog program will be started before sendmail.
 ```
 
 * Shutdown the system after 10 minutes.
@@ -386,7 +385,7 @@ Much more user-friendly
 adduser user1
 ```
 
-** Add System User
+**Add System User**
 
 System user (can't login normally)
 Shell set to /usr/sbin/nologin (can't get interactive shell)
@@ -429,10 +428,10 @@ Defaults    timestamp_timeout=<value>
 
         Nano /etc/group
 
-    ```bash
-        cdrom:x:24:vivek,student13,raj
-        Where, group_name: It is the name of group. If you run ls -l command, you will see this name printed in the group field.  Password: Generally password is not used, hence it is empty/blank. It can store encrypted password. This is useful to implement privileged groups. Group ID (GID): Each user must be assigned a group ID. You can see this number in your /etc/passwd file.  Group List: It is a list of user names of users who are members of the group. The user names, must be separated by commas.
-    ```
+```bash
+cdrom:x:24:vivek,student13,raj
+Where, group_name: It is the name of group. If you run ls -l command, you will see this name printed in the group field.  Password: Generally password is not used, hence it is empty/blank. It can store encrypted password. This is useful to implement privileged groups. Group ID (GID): Each user must be assigned a group ID. You can see this number in your /etc/passwd file.  Group List: It is a list of user names of users who are members of the group. The user names, must be separated by commas.
+```
 
 * Variables
 
@@ -674,21 +673,21 @@ http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/
 * inodes
 
 ```bash
-        An inode stores basic information about a regular file, directory, or other file system object
-        iNode number also called as index number, it consists following attributes:
+An inode stores basic information about a regular file, directory, or other file system object
+iNode number also called as index number, it consists following attributes:
 
-        File type (executable, block special etc)
-        Permissions (read, write etc)
-        Owner
-        Group
-        File Size
-        File access, change and modification time (remember UNIX or Linux never stores file creation
-        time, this is favorite question asked in UNIX/Linux sys admin job interview)
-        File deletion time
-        Number of links (soft/hard)
-        Extended attribute such as append only or no one can delete file including root user
-        (immutability)
-        Access Control List (ACLs)
+File type (executable, block special etc)
+Permissions (read, write etc)
+Owner
+Group
+File Size
+File access, change and modification time (remember UNIX or Linux never stores file creation
+time, this is favorite question asked in UNIX/Linux sys admin job interview)
+File deletion time
+Number of links (soft/hard)
+Extended attribute such as append only or no one can delete file including root user
+(immutability)
+Access Control List (ACLs)
 ```
 
 * Show inodes of files and folders
@@ -783,7 +782,7 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 * Show Physical Volumes
 
 ```bash
-         pvdisplay
+pvdisplay
 ```
 
 * Create Volume Group
@@ -791,217 +790,217 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
     A group of physical volumes or disks are combined together into a single storage file which is referred to as the LVM volume group.
 
 ```bash
-        sudo vgcreate <volume-name> <device-1> <device-2> <device-3>
+sudo vgcreate <volume-name> <device-1> <device-2> <device-3>
 ```
 
 * Create Logical Volumes
 
 ```bash
-        sudo lvcreate –name <logical-volume-name> –size <size-of-volume> <volume-group-name>
+sudo lvcreate –name <logical-volume-name> –size <size-of-volume> <volume-group-name>
 ```
 
 * Display Logical Volumes
 
 ```bash
-        sudo lvdisplay
+sudo lvdisplay
 ```
 
 * Format Logical Volume
 
 ```bash
-        mkfs -t ext4 /dev/<lvm-name>
+mkfs -t ext4 /dev/<lvm-name>
 ```
 
 * Zero Out all blocks for performance
 
 ```bash
-        if=/dev/zero of=/dev/xvdf bs=1M
+if=/dev/zero of=/dev/xvdf bs=1M
 ```
 
 * Create Raid0
 
 ```bash
-        mdadm --create --verbose /dev/md0 --level=stripe --raid- devices=number_of_volumes device_name1 device_name2
+mdadm --create --verbose /dev/md0 --level=stripe --raid- devices=number_of_volumes device_name1 device_name2
 ```
 
 * Resize Filesystem
 
 ```bash
-        resize2fs
+resize2fs
 ```
 
 * Raid Levels
 
 ```bash
-        0 - Striped set without parity or Striping
-        1 - Mirrored set without parity or Mirroring
-        0+1 -  (increased speed) arrays are created and they are each mirrored via an overall RAID 1 (data backup) array. By definition, this configuration requires at least 4 drives.
-        5 - Provides both backup and increased speed. Additionally, a RAID 5 array can continue normally operating if one of its drives fails. The performance speed of the array will be reduced until the failed drive is replaced, but no data loss would occur. This array requires a minimum of 3 drives.
-        1+0 Mirrors two drives together and then creates a striped set with the pair.
+0 - Striped set without parity or Striping
+1 - Mirrored set without parity or Mirroring
+0+1 -  (increased speed) arrays are created and they are each mirrored via an overall RAID 1 (data backup) array. By definition, this configuration requires at least 4 drives.
+5 - Provides both backup and increased speed. Additionally, a RAID 5 array can continue normally operating if one of its drives fails. The performance speed of the array will be reduced until the failed drive is replaced, but no data loss would occur. This array requires a minimum of 3 drives.
+1+0 Mirrors two drives together and then creates a striped set with the pair.
 ```
 
 * Mount a new file system
 
 ```bash
-        fdisk /dev/hda1  #create new partision
-        mkfs /dev/hda1  #create file system
-        mount -a        # causes all filesystems mentioned in fstab to be mounted
+fdisk /dev/hda1  #create new partision
+mkfs /dev/hda1  #create file system
+mount -a        # causes all filesystems mentioned in fstab to be mounted
 ```
 
 * Define boot disk
 
 ```bash
-        cat /etc/fstab
-        # UUID=9246707a-30ab-47be-b78f-bb7b24a459a8 /     ext4    defaults     1 1
-        # ext4= filesystem , defaults = mount on boot
+cat /etc/fstab
+# UUID=9246707a-30ab-47be-b78f-bb7b24a459a8 /     ext4    defaults     1 1
+# ext4= filesystem , defaults = mount on boot
 ```
 
 * Copy Files from Remote Machine to Local Machine
 
 ```bash
-        scp root@www.server.com:/root/file.sql /home/ec2-user
+scp root@www.server.com:/root/file.sql /home/ec2-user
 ```
 
 * Copy Local directory to remote machine
 
 ```bash
-        scp -rp sourcedirectory user@dest:/path
+scp -rp sourcedirectory user@dest:/path
 ```
 
 * Copy Remote directory to local path
 
 ```bash
-        scp -r user@your.server.example.com:/path/to/foo /home/user/Desktop/
+scp -r user@your.server.example.com:/path/to/foo /home/user/Desktop/
 ```
 
 * Copy hello.txt from local computer to remote home directory
 
 ```bash
-         scp hello.txt awshost1:~/
+scp hello.txt awshost1:~/
 ```
 
 * Copy hello.txt from local to remote home directory, renaming it foo.txt
 
 ```bash
-        scp hello.txt awshost1:~/foo.txt
+scp hello.txt awshost1:~/foo.txt
 ```
 
 * Copying ~/foo.txt from the remote computer to the current local director
 
 ```bash
-        scp awshost1:~/foo.txt .
+scp awshost1:~/foo.txt .
 ```
 
 * Copying ~/foo.txt from remote to local directory cc, renaming it a.b
 
 ```bash
-        scp awshost1:~/foo.txt cc/a.b
+scp awshost1:~/foo.txt cc/a.b
 ```
 
 * Compress a directory
 
 ```bash
-        tar -zcvf archive-name.tar.gz directory-name
-        -c = create
-        -f = following is archive name
-        -v = verbose
-        -z = gzip
+tar -zcvf archive-name.tar.gz directory-name
+-c = create
+-f = following is archive name
+-v = verbose
+-z = gzip
 ```
 
 * To append file to archive
 
 ```bash
-        tar rvf archive_name.tar new file.txt
+tar rvf archive_name.tar new file.txt
 ```
 
 * Encrypt a file:
 
 ```bash
-        gpg -o [outputfilename.gpg] -c [target file]
+gpg -o [outputfilename.gpg] -c [target file]
 ```
 
 * Decrypt a file:
 
 ```bash
-        gpg -o [outputfilename] -d [target.gpg]
+gpg -o [outputfilename] -d [target.gpg]
 ```
 
 * Uncompress file
 
 ```bash
-        unzip filename.zip
+unzip filename.zip
 ```
 
 * Open a compressed .tgz or .tar.gz file:
 
 ```bash
-        tar -xvf [target.tgz]
-        tar -xvf —strip-components 1  # extracts without its parent folder
-        tar -xvf -C  # extracts to a different directory
+tar -xvf [target.tgz]
+tar -xvf —strip-components 1  # extracts without its parent folder
+tar -xvf -C  # extracts to a different directory
 ```
 
 * Find Files
 
 ```bash
-        Find . -name http*
+Find . -name http*
 ```
 
 * Find all files not owned by root:
 
 ```bash
-        find . \! -user root -print
+find . \! -user root -print
 ```
 
 * Find all files not with permissions 644:
 
 ```bash
-        find . \! -perm 644 root -print
+find . \! -perm 644 root -print
 ```
 
 * Find files matching [filename]:
 
 ```bash
-        locate [filename]
+locate [filename]
 ```
 
 * Show a file type
 
 ```bash
-        file image.jpg
+file image.jpg
 ```
 
 * Show uncommented items in config files
 
 ```bash
-        grep -v "#" file.conf
+grep -v "#" file.conf
 ```
 
 * Search for a given string in all files recursively
 
 ```bash
-        grep -r "ramesh" *
+grep -r "ramesh" *
 ```
 
 * View the differences between two files:
 
 ```bash
-        diff [file 1] [file 2]
+diff [file 1] [file 2]
 ```
 
 * Change File Permissions
 
 ```bash
-        chmod 775 filename
-        chmod o+r file.txt  # o=other +=add r=read
-        7 = Read + Write + Execute
-        6 = Read + Write
-        5 = Read + Execute
-        4 = Read
-        3 = Write + Execute
-        2 = Write
-        1 = Execute
-        0 = All access denied
-        First number is for the owner, second for the group, and third for everyon
+chmod 775 filename
+chmod o+r file.txt  # o=other +=add r=read
+7 = Read + Write + Execute
+6 = Read + Write
+5 = Read + Execute
+4 = Read
+3 = Write + Execute
+2 = Write
+1 = Execute
+0 = All access denied
+First number is for the owner, second for the group, and third for everyon
 ```
         http://permissions-calculator.org/
 
@@ -1010,36 +1009,36 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 * Permissions On Folders
 
 ```bash
-        r: read only the names of the files in the directory
-        w: create and delete of the files in the directory
-        x: traverse the directory
+r: read only the names of the files in the directory
+w: create and delete of the files in the directory
+x: traverse the directory
 ```
 
 * Permissions On files
 
 ```bash
-        r: open a file for reading (e.g. with the cat command)
-        w: write a file (e.g. use sed -i (inplace) on it)
-        x: execute a file
-        It is important to note that a script can be executed even by a user who doesn’t have the execute permission on it. Passing a python script path to the python executable will cause python to open the file for reading and then interpret it. So it is not safe to rely on the executable permission for security. This goes for php, perl, ruby, javascript, etc, etc
+r: open a file for reading (e.g. with the cat command)
+w: write a file (e.g. use sed -i (inplace) on it)
+x: execute a file
+It is important to note that a script can be executed even by a user who doesn’t have the execute permission on it. Passing a python script path to the python executable will cause python to open the file for reading and then interpret it. So it is not safe to rely on the executable permission for security. This goes for php, perl, ruby, javascript, etc, etc
 ```
 
 * Copy permissions of one file onto another
 
 ```bash
-        getfacl FILE1 | setfacl –set-file=- FILE2
+getfacl FILE1 | setfacl –set-file=- FILE2
 ```
 
 * Show permissions on all directories in a tree
 
 ```bash
-        namei -om /var/www/iddb.com/static
+namei -om /var/www/iddb.com/static
 ```
 
 * Remove directory
 
 ```bash
-        rmdir directory
+rmdir directory
 ```
 
 * Logs
@@ -1184,7 +1183,7 @@ ln -s /path/to/original /path/to/symlink
 * Change the open files limit from 1024 to 10240 d
 
 ```bash
-        ulimit -n 10240                    # This is only valid within the shell
+ulimit -n 10240                    # This is only valid within the shell
 ```
 
 * Login users and applications can be configured in /etc/security/limits.conf
@@ -1192,19 +1191,19 @@ ln -s /path/to/original /path/to/symlink
 * System wide limits
 
 ```bash
-    sysctl -a                          # View all system limits
-    sysctl fs.file-max                 # View max open files limit
-    sysctl fs.file-max=102400          # Change max open files limit
-    echo "1024 50000" > /proc/sys/net/ipv4/ip_local_port_range  # port range
-    cat /etc/sysctl.conf
-    fs.file-max=102400                   # Permanent entry in sysctl.conf
-    cat /proc/sys/fs/file-nr           # How many file descriptors are in use
+sysctl -a                          # View all system limits
+sysctl fs.file-max                 # View max open files limit
+sysctl fs.file-max=102400          # Change max open files limit
+echo "1024 50000" > /proc/sys/net/ipv4/ip_local_port_range  # port range
+cat /etc/sysctl.conf
+fs.file-max=102400                   # Permanent entry in sysctl.conf
+cat /proc/sys/fs/file-nr           # How many file descriptors are in use
 ```
 
 * Find opened files on a mount point with fuser
 
 ```bash
-        fuser -m /home
+fuser -m /home
 ```
 
 ## Performance
@@ -1222,14 +1221,14 @@ ln -s /path/to/original /path/to/symlink
 * Show running services with their ports
 
 ```bash
-        lsof -i # monitors network connections in real time (mac/linux)
+lsof -i # monitors network connections in real time (mac/linux)
 ```
 
 * Show what files a process has open
 
 ```bash
-        lsof -p $PID
-        netstat -lptu
+lsof -p $PID
+netstat -lptu
 ```
 
 * top
@@ -1242,44 +1241,44 @@ ln -s /path/to/original /path/to/symlink
 
 ```bash
 
-    * check i/o wait for server slowness - Represents CPU waiting for disk I/O. if it is low then you can rule out disk access. GT > 10% is high means Disk is slow
-    * CPU idle. higher the number the more bandwidth available to server. Should be >25%
-    * User Time - if idle time is low, you can expect this to be high. Find process taking up cpu
-    *  Memory usage: don't look at the "free" memory -- it's misleading. To get the actual memory available, subtract the "cached" memory from the "used" memory. This is because Linux caches things liberally, and often the memory can be freed up when it's needed
-    * Stealtime = virtual machines are competing for resources. If %st increases on all VM's, means your VM is using too much cpu. elif %st increases on just one VM = Physical is oversold
-    * cpu: usertime (time spent on processor running your program). System is the time spent in operating system kernel
-    * iowait: time cpu waiting for disk or network io.
-    * load: is how many processes are waiting to run
-        - < 0.7 = healthy (on single core machine)
-        - 1.0 = system is fully used (on single core machine)
-        - 1.0 on single core, 4.0 on quad core
-        - broken down by one minute, 5 minutes, 15 minutes
-        - lscpu: shows how many cores
-    * Memory: true memory usage is memory used - swap cached
-    * swap: cached: caches files in the filesystem in memory for better performance. Uses spare memory
-    * SwapTotal, SwapFree. If they are equal there is no swapping going on
+* check i/o wait for server slowness - Represents CPU waiting for disk I/O. if it is low then you can rule out disk access. GT > 10% is high means Disk is slow
+* CPU idle. higher the number the more bandwidth available to server. Should be >25%
+* User Time - if idle time is low, you can expect this to be high. Find process taking up cpu
+*  Memory usage: don't look at the "free" memory -- it's misleading. To get the actual memory available, subtract the "cached" memory from the "used" memory. This is because Linux caches things liberally, and often the memory can be freed up when it's needed
+* Stealtime = virtual machines are competing for resources. If %st increases on all VM's, means your VM is using too much cpu. elif %st increases on just one VM = Physical is oversold
+* cpu: usertime (time spent on processor running your program). System is the time spent in operating system kernel
+* iowait: time cpu waiting for disk or network io.
+* load: is how many processes are waiting to run
+    - < 0.7 = healthy (on single core machine)
+    - 1.0 = system is fully used (on single core machine)
+    - 1.0 on single core, 4.0 on quad core
+    - broken down by one minute, 5 minutes, 15 minutes
+    - lscpu: shows how many cores
+* Memory: true memory usage is memory used - swap cached
+* swap: cached: caches files in the filesystem in memory for better performance. Uses spare memory
+* SwapTotal, SwapFree. If they are equal there is no swapping going on
 
 ```
 
 * Show open tcp sockets
 
 ```bash
-        lsof -nPi tcp
+lsof -nPi tcp
 
-        -n	: This option inhibits the conversion  of  network  numbers  to  host  names  for  network  files.
-         Inhibiting  conversion may make lsof run faster.  It is also useful when host name lookup is not
-         working properly.
-        -P : This option inhibits the conversion of port numbers to port names for network files.  Inhibiting
-         the  conversion  may  make lsof run a little faster.  It is also useful when port name lookup is
-         not working properly.
-        -i [tcp] : This  option  selects  the  listing  of  files any of whose Internet address matches the address
-         specified in i.
+-n	: This option inhibits the conversion  of  network  numbers  to  host  names  for  network  files.
+ Inhibiting  conversion may make lsof run faster.  It is also useful when host name lookup is not
+ working properly.
+-P : This option inhibits the conversion of port numbers to port names for network files.  Inhibiting
+ the  conversion  may  make lsof run a little faster.  It is also useful when port name lookup is
+ not working properly.
+-i [tcp] : This  option  selects  the  listing  of  files any of whose Internet address matches the address
+ specified in i.
 ```
 
 * Show bandwidth usage per connection
 
 ```bash
-        iftop
+iftop
 ```
 
 * Show which apps are using the connection
@@ -1291,157 +1290,157 @@ ss -p
 * Show Ports listening with thir process id
 
 ```bash
-        netstat -tlnp (show ports listening with their process id)
+netstat -tlnp (show ports listening with their process id)
 
-        -l, --listening : Show only listening sockets.  (These are omitted by default.)
-        -n, --numeric : Show numerical addresses instead of trying to determine symbolic host, port or user names.
-        -p, --program : Show the PID and name of the program to which each socket belongs.
-        -t, --tcp : Show only tcp
+-l, --listening : Show only listening sockets.  (These are omitted by default.)
+-n, --numeric : Show numerical addresses instead of trying to determine symbolic host, port or user names.
+-p, --program : Show the PID and name of the program to which each socket belongs.
+-t, --tcp : Show only tcp
 ```
 
 * Show Ports listening - Mac only
 
 ```bash
-        nettop
+nettop
 ```
 
 * Show bandwith ussage per process
 
 ```bash
 
-        nethogs
+nethogs
 ```
 
 * Show running services
 
 ```bash
 
-        ps –ax
-        ps –eaf
-        pstree
-        ps aux
-        a = show processes for all users
-        u = display the process's user/owner
-        x = also show processes not attached to a terminal
+ps –ax
+ps –eaf
+pstree
+ps aux
+a = show processes for all users
+u = display the process's user/owner
+x = also show processes not attached to a terminal
 ```
 
 * Like top, but with a better, cleaner interface:
 
 ```bash
-        htop
+htop
 ```
 
 * Stop a process from using all system resources and lagging computer:
 
 ```bash
-        nice [process name]
-        nice command is used for changing priority of the jobs.
-        Syntax: nice [OPTION] [COMMAND [ARG]…]
-        Range of priority goes from -20 (highest priority) to 19 (lowest).Priority is given to a job so that the most important job is executed first by the kernel and then the other least important job
+nice [process name]
+nice command is used for changing priority of the jobs.
+Syntax: nice [OPTION] [COMMAND [ARG]…]
+Range of priority goes from -20 (highest priority) to 19 (lowest).Priority is given to a job so that the most important job is executed first by the kernel and then the other least important job
 ```
 
 * Show all ruby-related PIDs and processes
 
 ```bash
 
-        pgrep -fl ruby
+pgrep -fl ruby
 ```
 
 * Whats a process doing?
 
 ```bash
-        strace -f -p $PID
+strace -f -p $PID
 ```
 
 * Keep running the same command over and over
 
 ```bash
-        watch 'ps aux | grep ruby'
+watch 'ps aux | grep ruby'
 ```
 
 * How much memory is left
 
 ```bash
-        free -m
+free -m
 
-        Free: memory that is currently not used for anything. It should be small since memory shouldn’t be wasted
-        Available: amount available for allocation to new process. Modern operating systems go out of their way to keep as little memory free as possible. Memory that is free is actually harder to use because it has to be transitioned from free to in use. Memory that is already in use, that is, memory that is available but not free, can easily be switched to another use.
-        The "buffers" and "cached" will be released by the kernal if they are needed.
+Free: memory that is currently not used for anything. It should be small since memory shouldn’t be wasted
+Available: amount available for allocation to new process. Modern operating systems go out of their way to keep as little memory free as possible. Memory that is free is actually harder to use because it has to be transitioned from free to in use. Memory that is already in use, that is, memory that is available but not free, can easily be switched to another use.
+The "buffers" and "cached" will be released by the kernal if they are needed.
 ```
 
 * Are we swapping
 
 ```bash
-        vmstat 1
+vmstat 1
 ```
 
 * Top 10 memory hogs
 
 ```bash
-        ps aux --sort=-resident|head -11
+ps aux --sort=-resident|head -11
 ```
 
 * Tail all queries running against mysql
 
 ```bash
-        pt-query-digest --processlist h=localhost --print --no-report --user xxxx --password *****
+pt-query-digest --processlist h=localhost --print --no-report --user xxxx --password *****
 ```
 
 * Check readwrite per sec on disk
 
 ```bash
-        iostat -xnk 5
+iostat -xnk 5
 ```
 
 * How much io disk or network is getting or sending
 
 ```bash
-        dstat
+dstat
 ```
 
 * Show every call a program is making
 
 ```bash
-        strace python myprogram.py #dont run on production db
-        opensnoop -p pid  #same as strace but won't slow u down
+strace python myprogram.py #dont run on production db
+opensnoop -p pid  #same as strace but won't slow u down
 ```
 
 * Show current directory disk size
 
 ```bash
-        du -hs
+du -hs
 ```
 
 * What is using the IO? Is MySQL sucking up the resources? Is it your PHP processes?
 
 ```bash
-        dstat --top-io --top-bio
+dstat --top-io --top-bio
 ```
 
 * top 10 memory hogs
 
 ```bash
-        ps aux --sort=-resident|head -11
+ps aux --sort=-resident|head -11
 ```
 
 * Tracroute but Avoid tcp blockage
 
 ```bash
-        tcptraceroute google.com
+tcptraceroute google.com
 ```
 
 * is the host oversold
 
 ```bash
-        top, look for %st. Stealtime = virtual machines are competing for resources.
-         If %st increases on all VM's, means your VM is using too much cpu.
-         elif %st increases on just one VM = Physical is oversold
+top, look for %st. Stealtime = virtual machines are competing for resources.
+ If %st increases on all VM's, means your VM is using too much cpu.
+ elif %st increases on just one VM = Physical is oversold
 ```
 
 * Disk performance
 
 ```bash
-        A sustained increase of VolumeQueueLength way above 1 on a standard EBS volume should be treated as exhausting the throughput of that EBS volume. We recommend that you target a queue length between 4 and 8 for volumes with 2,000 to 4,000 provisioned IOPS, or a queue length of 1 for every 500 IOPS provisioned for volumes with fewer than 2,000 provisioned IOPS
+A sustained increase of VolumeQueueLength way above 1 on a standard EBS volume should be treated as exhausting the throughput of that EBS volume. We recommend that you target a queue length between 4 and 8 for volumes with 2,000 to 4,000 provisioned IOPS, or a queue length of 1 for every 500 IOPS provisioned for volumes with fewer than 2,000 provisioned IOPS
 ```
 
 * Bandwidth available between two computers
@@ -1516,14 +1515,14 @@ https://www.howtogeek.com/562941/how-to-use-the-awk-command-on-linux/
 * Awk (continued)
 
 ```bash
-    awk '{ print $2, $1 }' file                  # Print and inverse first two columns
-    awk '{printf("%5d : %s\n", NR,$0)}' file     # Add line number left aligned
-    awk '{print FNR "\t" $0}' files              # Add line number right aligned
-    awk NF test.txt                              # remove blank lines (same as grep '.')
-    awk 'length > 80'                            # print line longer than 80 char)
-    $0											Represents the entire line of text.
-    $1											Represents the first field.
-    $NF											Stands for “number of fields,” and represents the last field.
+awk '{ print $2, $1 }' file                  # Print and inverse first two columns
+awk '{printf("%5d : %s\n", NR,$0)}' file     # Add line number left aligned
+awk '{print FNR "\t" $0}' files              # Add line number right aligned
+awk NF test.txt                              # remove blank lines (same as grep '.')
+awk 'length > 80'                            # print line longer than 80 char)
+$0					     # Represents the entire line of text.
+$1					     # Represents the first field.
+$NF					     # Stands for “number of fields,” and represents the last field.
 ```
 
 * Awk (output field seperators)
@@ -1531,7 +1530,7 @@ https://www.howtogeek.com/562941/how-to-use-the-awk-command-on-linux/
 put a / after each output
 
 ```bash
-    date | awk 'OFS="/" {print$2,$3,$6}'
+date | awk 'OFS="/" {print$2,$3,$6}'
 ```
 
 * Awk (begin and ends)
@@ -1579,17 +1578,17 @@ cut -f2 -d "."
 * Sed
 
 ```bash
-    sed 's/string1/string2/g'                    # Replace string1 with string2
-    sed -i 's/wroong/wrong/g' *.txt              # Replace a recurring word with g
-    sed 's/\(.*\)1/\12/g'                        # Modify anystring1 to anystring2
-    sed '/<p>/,/<\/p>/d' t.xhtml                 # Delete lines that start with <p>
-                                                # and end with </p>
-    sed '/ *#/d; /^ *$/d'                        # Remove comments and blank lines
-    sed 's/[ \t]*$//'                            # Remove trailing spaces (use tab as \t)
-    sed 's/^[ \t]*//;s/[ \t]*$//'                # Remove leading and trailing spaces
-    sed 's/[^*]/[&]/'                            # Enclose first char with [] top->[t]op
-    sed = file | sed 'N;s/\n/\t/' > file.num     # Number lines on a file
-    Regular Expressions
+sed 's/string1/string2/g'                    # Replace string1 with string2
+sed -i 's/wroong/wrong/g' *.txt              # Replace a recurring word with g
+sed 's/\(.*\)1/\12/g'                        # Modify anystring1 to anystring2
+sed '/<p>/,/<\/p>/d' t.xhtml                 # Delete lines that start with <p>
+                                            # and end with </p>
+sed '/ *#/d; /^ *$/d'                        # Remove comments and blank lines
+sed 's/[ \t]*$//'                            # Remove trailing spaces (use tab as \t)
+sed 's/^[ \t]*//;s/[ \t]*$//'                # Remove leading and trailing spaces
+sed 's/[^*]/[&]/'                            # Enclose first char with [] top->[t]op
+sed = file | sed 'N;s/\n/\t/' > file.num     # Number lines on a file
+Regular Expressions
 ```
     http://www.grymoire.com/Unix/Sed.html
 
@@ -1698,7 +1697,7 @@ Mac:
 * Configure defaul shell
 
 ```bash
-        defshell -bash
+defshell -bash
 ```
 
 * Adding aliases
@@ -1706,71 +1705,71 @@ Mac:
 in your .bashrc
 
 ```bash
-        alias dev='ssh fooey@dev.example.com -p 22000'
+alias dev='ssh fooey@dev.example.com -p 22000'
 ```
 
 * Make bash history 10,0000
 
 ```bash
-        export HISTSIZE=100000 SAVEHIST=100000 HISTFILE=~/.bash_history
+export HISTSIZE=100000 SAVEHIST=100000 HISTFILE=~/.bash_history
 ```
 
 * Configure command line completion using up and down arrows
 
 ```bash
-        Create ~/.inputrc and fill it with this:
-        "\e[A": history-search-backward
-        "\e[B": history-search-forward
-        set show-all-if-ambiguous on
-        set completion-ignore-case on
+Create ~/.inputrc and fill it with this:
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+set show-all-if-ambiguous on
+set completion-ignore-case on
 ```
 
 * Colorize Bash Prompt
 
 ```bash
-        add to .bash_profile
-        export PS1="[\[\e[32;1m\]\u@\h \[\e[33;1m\]\W\[\033[m\]]\[\e[37;1m\]\$ "
+add to .bash_profile
+export PS1="[\[\e[32;1m\]\u@\h \[\e[33;1m\]\W\[\033[m\]]\[\e[37;1m\]\$ "
 ```
 
 * to run a command from history use exclamation !
 
 ```bash
-        !680
+!680
 ```
 
 * Prompt for input in a bash script
 
 ```bash
-        read -p “Do you want to continue” variable
+read -p “Do you want to continue” variable
 ```
 
 * Cut off the first column in a text file
 
 ```bash
-        cat filename | cut -d" " -f1
+cat filename | cut -d" " -f1
 ```
 
 * Redirection of output
 
 ```bash
-        &> for redirection, it redirects both the standard output and standard error
+&> for redirection, it redirects both the standard output and standard error
 ```
 
 * Find what a command does
 
 ```bash
-        whatis
-        The whatis command displays a summary line from the man page for the specified command.
+whatis
+The whatis command displays a summary line from the man page for the specified command.
 ```
 
 * Navigation
 
 ```bash
-        ctrl-w - delete the last word
-        ctrl-u - delete start of the line
-        ctrl-l - clear the screen
-        cd -  : go back to previous working dir
-        option-left/right - move word by word
+ctrl-w - delete the last word
+ctrl-u - delete start of the line
+ctrl-l - clear the screen
+cd -  : go back to previous working dir
+option-left/right - move word by word
 ```
 
 * Bash Shebang
@@ -1802,31 +1801,31 @@ done
 * Base64 Decode
 
 ```bash
-    echo "word" | base64 -d
+echo "word" | base64 -d
 ```
 
 * set variable
 
 ```bash
-    FOO="bar"
+FOO="bar"
 ```
 
 * unset variable
 
 ```bash
-    unset FOO
+unset FOO
 ```
 
 * recalling your variable by prepending it with a dollar sign ($).
 
 ```bash
-    echo $FOO
+echo $FOO
 ```
 
 * preserves any special characters that might appear in the variable;
 
 ```bash
-    echo "${FOO}"
+echo "${FOO}"
 ```
 
 * Prepending
@@ -1852,21 +1851,21 @@ done
 * Bash loop
 
 ```bash
-    for f in * ;
-        do file $f ;
-    done
+for f in * ;
+    do file $f ;
+done
 
-    for CurDay in Monday Tuesday Wednesday Thursday Friday Saturday Sunday
-    do
-        printf "%s\n" "$CurDay"
-    done
+for CurDay in Monday Tuesday Wednesday Thursday Friday Saturday Sunday
+do
+    printf "%s\n" "$CurDay"
+done
 ```
 
     or 1 liner
 
 ```bash
-    for f in * ; do convert $f -scale 33% tmp/$f ; done // or
-    for i in {1..4}; do echo "$i"; done
+for f in * ; do convert $f -scale 33% tmp/$f ; done // or
+for i in {1..4}; do echo "$i"; done
 ```
 
 * Zshell
@@ -1877,97 +1876,97 @@ done
 * Redirects
 
 ```bash
-    # cmd 1> file                         # Redirect stdout to file.
-    # cmd 2> file                         # Redirect stderr to file.
-    # cmd 1>> file                        # Redirect and append stdout to file.
-    # cmd &> file                         # Redirect both stdout and stderr to file.
-    # cmd >file 2>&1                      # Redirects stderr to stdout and then to file.
-    # cmd1 | cmd2                         # pipe stdout to cmd2
-    # cmd1 2>&1 | cmd2                    # pipe stdout and stderr to cmd2
+# cmd 1> file                         # Redirect stdout to file.
+# cmd 2> file                         # Redirect stderr to file.
+# cmd 1>> file                        # Redirect and append stdout to file.
+# cmd &> file                         # Redirect both stdout and stderr to file.
+# cmd >file 2>&1                      # Redirects stderr to stdout and then to file.
+# cmd1 | cmd2                         # pipe stdout to cmd2
+# cmd1 2>&1 | cmd2                    # pipe stdout and stderr to cmd2
 ```
 
 * Variables
 
 ```bash
-    MESSAGE="Hello World"                        # Assign a string
-    PI=3.1415                                    # Assign a decimal number
+MESSAGE="Hello World"                        # Assign a string
+PI=3.1415                                    # Assign a decimal number
 ```
 
 * Arguments
 
 ```bash
-    $0, $1, $2, ...                              # $0 is the command itself
-    $#                                           # The number of arguments
-    $*                                           # All arguments (also $@)
+$0, $1, $2, ...                              # $0 is the command itself
+$#                                           # The number of arguments
+$*                                           # All arguments (also $@)
 ```
 
 * Special Variables
 
 ```bash
-        $$                                           # The current process ID
-        $?                                           # exit status of last command
-        command
-        if [ $? != 0 ]; then
-            echo "command failed"
-        fi
-        mypath=`pwd`
-        mypath=${mypath}/file.txt
-        echo ${mypath##*/}                           # Display the filename only
-        echo ${mypath%%.*}                           # Full path without extention
-        foo=/tmp/my.dir/filename.tar.gz
-        path = ${foo%/*}                             # Full path without extention
-        var2=${var:=string}                          # Use var if set, otherwise use string
-                                                    # assign string to var and then to var2.
-        size=$(stat -c%s "$file")                    # get file size in bourne script
-        filesize=${size:=-1}
+$$                                           # The current process ID
+$?                                           # exit status of last command
+command
+if [ $? != 0 ]; then
+    echo "command failed"
+fi
+mypath=`pwd`
+mypath=${mypath}/file.txt
+echo ${mypath##*/}                           # Display the filename only
+echo ${mypath%%.*}                           # Full path without extention
+foo=/tmp/my.dir/filename.tar.gz
+path = ${foo%/*}                             # Full path without extention
+var2=${var:=string}                          # Use var if set, otherwise use string
+                                            # assign string to var and then to var2.
+size=$(stat -c%s "$file")                    # get file size in bourne script
+filesize=${size:=-1}
 ```
 
 * Constructs
 
 ```bash
-    for file in `ls`
-    do
-        echo $file
-    done
+for file in `ls`
+do
+    echo $file
+done
 
-    count=0
-    while [ $count -lt 5 ]; do
-        echo $count
-        sleep 1
-        count=$(($count + 1))
-    done
+count=0
+while [ $count -lt 5 ]; do
+    echo $count
+    sleep 1
+    count=$(($count + 1))
+done
 
-    myfunction() {
-        # $1 is first argument of the function
-        find . -type f -name "*.$1" -print
-    }
-    myfunction "txt"
+myfunction() {
+    # $1 is first argument of the function
+    find . -type f -name "*.$1" -print
+}
+myfunction "txt"
 
 ```
 
 * Generate a file
 
 ```bash
-    MYHOME=/home/colin
-    cat > testhome.sh << _EOF
-    # All of this goes into the file testhome.sh
-    if [ -d "$MYHOME" ] ; then
-        echo $MYHOME exists
-    else
-        echo $MYHOME does not exist
-    fi
-    _EOF
-    sh testhome.sh
+MYHOME=/home/colin
+cat > testhome.sh << _EOF
+# All of this goes into the file testhome.sh
+if [ -d "$MYHOME" ] ; then
+    echo $MYHOME exists
+else
+    echo $MYHOME does not exist
+fi
+_EOF
+sh testhome.sh
 ```
 * Assigning output of one command to variable
 
 ```bash
-    #!/bin/bash
-    for node in $(cat nodes.txt)
-    do
-        node_name=$(echo $node | tr -d '"');
-        echo $node_name
-    done
+#!/bin/bash
+for node in $(cat nodes.txt)
+do
+    node_name=$(echo $node | tr -d '"');
+    echo $node_name
+done
 ```
 
 * Iterating a json file
@@ -1983,19 +1982,19 @@ done
 * Checking for existence of arguments
 
 ```bash
-    if [ $# -eq 0 ]; then
-        echo "Please enter an argument"
-        exit 1
-    fi
+if [ $# -eq 0 ]; then
+    echo "Please enter an argument"
+    exit 1
+fi
 ```
 
 * Check for environment variable
 
 ```bash
-    if [ -z "${GITHUB_TOKEN}" ]; then
-        echo "Missing GITHUB_TOKEN environment variable"
-        exit 1
-    fi
+if [ -z "${GITHUB_TOKEN}" ]; then
+    echo "Missing GITHUB_TOKEN environment variable"
+    exit 1
+fi
 ```
 
 
@@ -2010,19 +2009,19 @@ fi
 * Checking the output of last command and prompt to continue
 
 ```bash
-     if [[ $? -ne 0 ]]; then
-        echo "command failed"
-        read ABCD
-     fi
+if [[ $? -ne 0 ]]; then
+   echo "command failed"
+   read ABCD
+fi
 ```
 
 * Iterate over a list
 
 ```bash
-    namespaces=(ns1 ns2 ns3)
-    for n in ${namespaces[@]}; do
-        echo "*** $n ***" ;
-    done
+namespaces=(ns1 ns2 ns3)
+for n in ${namespaces[@]}; do
+    echo "*** $n ***" ;
+done
 ```
 
 * Iterate over a file
@@ -2131,12 +2130,12 @@ The `set -e` option instructs bash to immediately exit if any command [1] has a 
 
 Affects variables. When set, a reference to any variable you haven't previously defined - with the exceptions of $* and $@ - is an error, and causes the program to immediately exit. Languages like Python, C, Java and more all behave the same way, for all sorts of good reasons. One is so typos don't create new variables without you realizing it. For example:
 
-    ```bash
-    #!/bin/bash
-    firstName="Aaron"
-    fullName="$firstname Maxwell"
-    echo "$fullName"
-    ```
+```bash
+#!/bin/bash
+firstName="Aaron"
+fullName="$firstname Maxwell"
+echo "$fullName"
+```
 Take a moment and look. Do you see the error? The right-hand side of the third line says "firstname", all lowercase, instead of the camel-cased "firstName". Without the -u option, this will be a silent error. But with the -u option, the script exits on that line with an exit code of 1, printing the message "firstname: unbound variable" to stderr.
 
 This is what you want: have it fail explicitly and immediately, rather than create subtle bugs that may be discovered too late.
@@ -2145,52 +2144,52 @@ This is what you want: have it fail explicitly and immediately, rather than crea
 * set -o pipefail
 
 
-30 years ago, when the first users of Bourne shell were burned by this problem, a shell option called “pipefail” was introduced. Enabling this option changes the shell’s behavior so that, when any command in a pipeline series fails, the entire pipeline fails. However, this option is not enabled by default, so it’s widely recommended as best practice that all scripts should start by enabling this (and a few other) (options)[https://sipb.mit.edu/doc/safe-shell/].
+30 years ago, when the first users of Bourne shell were burned by this problem, a shell option called “pipefail” was introduced. Enabling this option changes the shell’s behavior so that, when any command in a pipeline series fails, the entire pipeline fails. However, this option is not enabled by default, so it’s widely recommended as best practice that all scripts should start by enabling this (and a few other) [options](https://sipb.mit.edu/doc/safe-shell/).
 
 This setting prevents errors in a pipeline from being masked. If any command in a pipeline fails, that return code will be used as the return code of the whole pipeline. By default, the pipeline's return code is that of the last command even if it succeeds. Imagine finding a sorted list of matching lines in a file:
 
-    ```bash
-    $ grep some-string /non/existent/file | sort
-    grep: /non/existent/file: No such file or directory
-    % echo $?
-    0
-    ```
+```bash
+$ grep some-string /non/existent/file | sort
+grep: /non/existent/file: No such file or directory
+% echo $?
+0
+```
 
 - Here, grep has an exit code of 2, writes an error message to stderr, and an empty string to stdout.
 - This empty string is then passed through sort, which happily accepts it as valid input, and returns a status code of 0.
 - This is fine for a command line, but bad for a shell script: you almost certainly want the script to exit right then with a nonzero exit code... like this:
 
-    ```bash
-    $ set -o pipefail
-    $ grep some-string /non/existent/file | sort
-    grep: /non/existent/file: No such file or directory
-    $ echo $?
-    2
-    ```
+```bash
+$ set -o pipefail
+$ grep some-string /non/existent/file | sort
+grep: /non/existent/file: No such file or directory
+$ echo $?
+2
+```
 
 * Setting IFS
 
 The IFS variable - which stands for Internal Field Separator - controls what Bash calls word splitting. When set to a string, each character in the string is considered by Bash to separate words. This governs how bash will iterate through a sequence. For example, this script:
 
-    ```bash
-    #!/bin/bash
-    IFS=$' '
-    items="a b c"
-    for x in $items; do
-        echo "$x"
-    done
+```bash
+#!/bin/bash
+IFS=$' '
+items="a b c"
+for x in $items; do
+    echo "$x"
+done
 
-    IFS=$'\n'
-    for y in $items; do
-        echo "$y"
-    done
-    ... will print out this:
+IFS=$'\n'
+for y in $items; do
+    echo "$y"
+done
+... will print out this:
 
-    a
-    b
-    c
-    a b c
-    ```
+a
+b
+c
+a b c
+```
 In the first for loop, IFS is set to $' '. (The $'...' syntax creates a string, with backslash-escaped characters replaced with special characters - like "\t" for tab and "\n" for newline.) Within the for loops, x and y are set to whatever bash considers a "word" in the original sequence.
 
 For the first loop, IFS is a space, meaning that words are separated by a space character.
@@ -2198,49 +2197,49 @@ For the second loop, "words" are separated by a newline, which means bash consid
 
 Got all that? The next question is, why are we setting IFS to a string consisting of a tab character and a newline? Because it gives us better behavior when iterating over a loop. By "better", I mean "much less likely to cause surprising and confusing bugs". This is apparent in working with bash arrays:
 
-    ```bash
-    #!/bin/bash
-    names=(
-    "Aaron Maxwell"
-    "Wayne Gretzky"
-    "David Beckham"
-    )
+```bash
+#!/bin/bash
+names=(
+"Aaron Maxwell"
+"Wayne Gretzky"
+"David Beckham"
+)
 
-    echo "With default IFS value..."
-    for name in ${names[@]}; do
-    echo "$name"
-    done
+echo "With default IFS value..."
+for name in ${names[@]}; do
+echo "$name"
+done
 
-    echo ""
-    echo "With strict-mode IFS value..."
-    IFS=$'\n\t'
-    for name in ${names[@]}; do
-    echo "$name"
-    done
+echo ""
+echo "With strict-mode IFS value..."
+IFS=$'\n\t'
+for name in ${names[@]}; do
+echo "$name"
+done
 
-    ```
-    ```bash
-    ## Output
-    With default IFS value...
-    Aaron
-    Maxwell
-    Wayne
-    Gretzky
-    David
-    Beckham
+```
+```bash
+## Output
+With default IFS value...
+Aaron
+Maxwell
+Wayne
+Gretzky
+David
+Beckham
 
-    With strict-mode IFS value...
-    Aaron Maxwell
-    Wayne Gretzky
-    David Beckham
-    ```
+With strict-mode IFS value...
+Aaron Maxwell
+Wayne Gretzky
+David Beckham
+```
 Or consider a script that takes filenames as command line arguments:
 
-    ```bash
-    for arg in $@; do
-        echo "doing something with file: $arg"
-    done
-    ```
+```bash
+for arg in $@; do
+    echo "doing something with file: $arg"
+done
+```
 If you invoke this as myscript.sh notes todo-list 'My Resume.doc', then with the default IFS value, the third argument will be mis-parsed as two separate files - named "My" and "Resume.doc". When actually it's a file that has a space in it, named "My Resume.doc".
 
 Which behavior is more generally useful? The second, of course - where we have the ability to not split on spaces. If we have an array of strings that in general contain spaces, we normally want to iterate through them item by item, and not split an individual item into several.
@@ -2256,44 +2255,44 @@ By default, bash sets this to $' \n\t' - space, newline, tab - which is too eage
 * Show Hostname
 
 ```bash
-        hostname -f
+hostname -f
 ```
 
 * Set hostname
 
 ```bash
-        hostname acme.dev.nul
-        or /etc/sysconfig/network
+hostname acme.dev.nul
+or /etc/sysconfig/network
 ```
 
 * Change Time Zone
 
 ```bash
-        ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime
-        export TZ=Australia/Sydney
+ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime
+export TZ=Australia/Sydney
 ```
 
 * Show IP
 
 ```bash
-        hostname -I
-        ip addr show
-        sudo ethtool eth0 - show connection status
+hostname -I
+ip addr show
+sudo ethtool eth0 - show connection status
 ```
 
 * Set IP
 
 ```bash
-        ifconfig eth0 192.168.0.10 netmask 255.255.255.0
-        system-config-network
-        /etc/sysconfig/network-scripts/
-        ip address add 192.168.0.1 dev eth0
+ifconfig eth0 192.168.0.10 netmask 255.255.255.0
+system-config-network
+/etc/sysconfig/network-scripts/
+ip address add 192.168.0.1 dev eth0
 ```
 
 * Add Default Gateway
 
 ```bash
-        route add default gw xx.xx.xx.1
+route add default gw xx.xx.xx.1
 ```
 
 * Show Routes
@@ -2305,55 +2304,55 @@ netstat -r
 * Restart Nic
 
 ```bash
-        service network restart
-        /etc/init.d/network restart
-        ifup eth0
+service network restart
+/etc/init.d/network restart
+ifup eth0
 ```
 
 * Configure DNS
 
 ```bash
-        nano /etc/resolv.conf
+nano /etc/resolv.conf
 ```
 
 * Configure DNS for specific suffix
 
 ```bash
-         cat /etc/resolver/private
-         nameserver 192.168.99.100
+cat /etc/resolver/private
+nameserver 192.168.99.100
 ```
 
 * Query DNS
 
 ```bash
-        dig +short txt 20120113._domainkey.gmail.com @8.8.8.8 #query text records
-        dig -x host #reverse
-        dig +nocmd +noall +answer www.blah.com #shows TTL
-        dig +short txt u123455.wl0000.sendgrid.net #query spf txt records
-        dig +short mx company.com # query mx records
+dig +short txt 20120113._domainkey.gmail.com @8.8.8.8 #query text records
+dig -x host #reverse
+dig +nocmd +noall +answer www.blah.com #shows TTL
+dig +short txt u123455.wl0000.sendgrid.net #query spf txt records
+dig +short mx company.com # query mx records
 ```
 
 * Wget
 
 ```bash
-        * Download file setting target directory:
-        wget -P ~/dest/dir www.foo.com/myfile.png
-        * Download file but save as different name
-        wget -O taglist.zip http://www.vim.org/scripts/download_script.php
+* Download file setting target directory:
+wget -P ~/dest/dir www.foo.com/myfile.png
+* Download file but save as different name
+wget -O taglist.zip http://www.vim.org/scripts/download_script.php
 ```
 
 * Curl
 
 ```bash
-        curl -I www.server.com			# -I to show headers only, -i to show headers
-        curl -D- www.server.com |less  # shows detailed tcp stuff
+curl -I www.server.com			# -I to show headers only, -i to show headers
+curl -D- www.server.com |less  # shows detailed tcp stuff
 
 ```
 
 * Curl loop
 
 ```bash
-        while true; do curl --write-out " - HTTP Response: %{http_code} - Total time: %{time_total} \n" https://google.com; done #continous
+while true; do curl --write-out " - HTTP Response: %{http_code} - Total time: %{time_total} \n" https://google.com; done #continous
 ```
 
 * Show IP address
@@ -2365,22 +2364,22 @@ curl ipinfo.io
 * Siege
 
 ```bash
-        * Benchmark  20 connections for 30 seconds.
-        siege -c20 www.google.com -b -t30s
+* Benchmark  20 connections for 30 seconds.
+siege -c20 www.google.com -b -t30s
 ```
 
 * Ngrep
 
 ```bash
-        * Similar to wireshark
-        ngrep -q -W byline "^(GET|POST) .*" # -W byline  preserves linesbreaks, -q  #supresses output about 		non-matching packets
-        ngrep -q -W byline "search" host www.google.com and port 80
+* Similar to wireshark
+ngrep -q -W byline "^(GET|POST) .*" # -W byline  preserves linesbreaks, -q  #supresses output about 		non-matching packets
+ngrep -q -W byline "search" host www.google.com and port 80
 ```
 
         * Show packets going to a website on network
 
 ```bash
-        ngrep -d mywebsite
+ngrep -d mywebsite
 ```
 
 ## Netcat
@@ -2389,40 +2388,42 @@ curl ipinfo.io
 * Portscan
 
 ```bash
-        nc -z example.com 20-100 	#scan port 20-100
+nc -z example.com 20-100 	#scan port 20-100
 ```
 * Copy files between two hosts
 
 ```bash
-        Server: $ nc -l 9090 | tar -xzf -
-        Client: tar -czf dir/ | nc server 9090
+# Server:
+$ nc -l 9090 | tar -xzf -
+# Client:
+tar -czf dir/ | nc server 9090
 ```
 
 * Expose a shell over port 8080
 
 ```bash
-        server:
-        $ mkfifo backpipe $ nc -l 8080  0<backpipe | /bin/bash > backpipe
-        Client:
-        nc example.com 8080
+# server:
+$ mkfifo backpipe $ nc -l 8080  0<backpipe | /bin/bash > backpipe
+# Client:
+nc example.com 8080
 ```
 
 * receive file
 
 ```bash
-        nc -l 9931 > bigfile
+nc -l 9931 > bigfile
 ```
 
 * send file
 
 ```bash
-        cat bigfile | nc ipaddress 9931
+cat bigfile | nc ipaddress 9931
 ```
 
 ```bash
-        nc -l -p 1234 #starts a server on port 1234
-        nc destination_host 1234 # connect to server from client
-        tar cfp - /some/dir | compress -c | nc -w 3 destination_host 1234 # compress file and send to remove
+nc -l -p 1234 #starts a server on port 1234
+nc destination_host 1234 # connect to server from client
+tar cfp - /some/dir | compress -c | nc -w 3 destination_host 1234 # compress file and send to remove
 ```
 
 
@@ -2432,7 +2433,7 @@ curl ipinfo.io
 * Tunnel traffic to any server you have ssh access to including dns
 
 ```bash
-        sshuttle -r <server> --dns 0/0
+sshuttle -r <server> --dns 0/0
 ```
 
 ## Mitmproxy
@@ -2442,37 +2443,37 @@ curl ipinfo.io
 * Automatically strip all cache control headers and make sure you always get fresh connection
 
 ```bash
-        mitmproxy --anticache
+mitmproxy --anticache
 ```
 
 * Record a session
 
 ```bash
-        mitmdump -w user-signup
+mitmdump -w user-signup
 ```
 * Replay a sessio
 
 ```bash
-        mitmdump -c user-signup | tail -n1 | grep 200 && echo "OK" || echo "FAIL"
+mitmdump -c user-signup | tail -n1 | grep 200 && echo "OK" || echo "FAIL"
 ```
 * Disable ping to avoid ICMP flood
 
 ```bash
-        Set following in /etc/sysctl.conf : net.ipv4.icmp_echo_ignore_all = 1
-        Then “sysctl -p”
+Set following in /etc/sysctl.conf : net.ipv4.icmp_echo_ignore_all = 1
+Then “sysctl -p”
 ```
 
 * Show Public IP Address
 
 ```bash
-        ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
 ```
 * Show SYN Flood
 
 ```bash
-        ss -a | grep SYN-RECV | awk '{print $4}' | awk -F":" '{print $1}' | sort | uniq -c | sort -n
-        or
-        netstat -antp | grep SYN_RECV|awk '{print $4}'|sort|uniq -c | sort -n
+ss -a | grep SYN-RECV | awk '{print $4}' | awk -F":" '{print $1}' | sort | uniq -c | sort -n
+or
+netstat -antp | grep SYN_RECV|awk '{print $4}'|sort|uniq -c | sort -n
 ```
 
 
@@ -2481,7 +2482,7 @@ curl ipinfo.io
 * Config File
 
 ```bash
-        ~/.screenrc
+~/.screenrc
 ```
 
 * Commands
@@ -2510,47 +2511,47 @@ screen -r #reattach to screen
 * update pip (Python package manager):
 
 ```bash
-        pip install -U pip
+pip install -U pip
 ```
 * search pip repos
 
 ```bash
-        pip
+pip
 ```
 * create a virtual python environment
 
 ```bash
-        virtualenv [dirname] --no-site-packages
+virtualenv [dirname] --no-site-packages
 ```
 * connect to a virtual python environment
 
 ```bash
-        source [dirname]/bin/activate
+source [dirname]/bin/activate
 ```
 * disconnect from a python environment:
 
 ```bash
-        deactivate
+deactivate
 ```
 * install package into virtual python environment from outsie:
 
 ```bash
-        pip install [packagename]==[version_number] -E [dirname]
+pip install [packagename]==[version_number] -E [dirname]
 ```
 * export python virtual environment into a shareable format:
 
 ```bash
-        pip freeze -E [dirname] > requirements.txt
+pip freeze -E [dirname] > requirements.txt
 ```
 * import python virtual environment from a requirements.txt file:
 
 ```bash
-        pip install -E [dirname] -r requirements.txt
+pip install -E [dirname] -r requirements.txt
 ```
 * Share all files in current folder over port 8080
 
 ```bash
-        python -m SimpleHTTPServer 8080
+python -m SimpleHTTPServer 8080
 ```
 
 
@@ -2561,23 +2562,23 @@ screen -r #reattach to screen
 * Show config
 
 ```bash
-        iptables -L -v
+iptables -L -v
 ```
 * Edit config
 
 ```bash
-        /etc/sysconfig/iptables
+/etc/sysconfig/iptables
 ```
 * Allow connections for all tcp connections attempts at web connections.
 
 ```bash
-        sudo iptables -I INPUT 2 -p tcp  --dport 80 -j ACCEPT
+sudo iptables -I INPUT 2 -p tcp  --dport 80 -j ACCEPT
 ```
 
 * Lockdown connections to any IP address lying in the range of 192.168.1.0 - 192.168.1.255
 
 ```bash
-        sudo iptables -I INPUT 2 -p tcp --dport 22 -s 192.168.1.0/24 -j ACCEPT
+sudo iptables -I INPUT 2 -p tcp --dport 22 -s 192.168.1.0/24 -j ACCEPT
 ```
 * Lockdown SSH to kick anyone after 3 attempts
 
@@ -2595,13 +2596,13 @@ iptables -A INPUT -p tcp --dport 22 -m recent ! --rcheck --seconds 60 --hitcount
 
 
 ```bash
-        -A      	Append
-        -I          Inserts rule to position in chain
-        -m          Connection State
-        -j          jump to target: Accept, Drop, Log
-        --dport     destination port
-        -s          source ip
-        -p protocol
+-A      	Append
+-I          Inserts rule to position in chain
+-m          Connection State
+-j          jump to target: Accept, Drop, Log
+--dport     destination port
+-s          source ip
+-p protocol
 ```
 
 * Save config
@@ -2854,23 +2855,23 @@ look for EXTRA_OPTS="-L 2” -L is how verbose
 * SSHD Config
 
 ```bash
-        nano /etc/ssh/sshd_config
+nano /etc/ssh/sshd_config
 ```
 
 * User Config File
 
 ```bash
-        ~/.ssh/config
+~/.ssh/config
 ```
 
 * Example Config
 
 ```bash
-        Host dev
-            HostName dev.example.com
-            Port 22000
-            User phooey
-            IdentityFile ~/.ssh/github.key
+Host dev
+    HostName dev.example.com
+    Port 22000
+    User phooey
+    IdentityFile ~/.ssh/github.key
 ```
 
 * Port Forwarding
@@ -2878,76 +2879,77 @@ look for EXTRA_OPTS="-L 2” -L is how verbose
 * Local client  will use 9906 and use ssh and connect over to 3306
 
 ```bash
-        ssh -f -N -L 9906:127.0.0.1:3306 user@remoteserver.com
+ssh -f -N -L 9906:127.0.0.1:3306 user@remoteserver.com
 ```
 
 * Lightweight Proxy for Geoblocked content:
 
 ```bash
-        ssh -D 9090 user@remoteserver.com
+ssh -D 9090 user@remoteserver.com
 
-        Exposes the local port 9090 as a SOCKS proxy. You can then alter your browser settings to use your local SOCKS proxy to route browsing traffic.
+Exposes the local port 9090 as a SOCKS proxy. You can then alter your browser settings to use your local SOCKS proxy to route browsing traffic.
 ```
 
 * Port Forwarding Shortcut
 
+Add this to your ssh config to make it easier to call tunnel
+
 ```bash
-    Add this to your ssh config to make it easier to call tunnel
-
-        Host tunnel
-            Host name remoteserver.com
-            Local forward 9906 127.0.0.1:3306
-
-        ssh -f -N tunnel
+Host tunnel
+Host name remoteserver.com
+Local forward 9906 127.0.0.1:3306
+# tunnel
+ssh -f -N tunnel
 ```
 
 * Create a new user on the server
 
+
+
 ```bash
-    Generate a SSH key on local machine
-    ssh-keygen -t rsa -C "your_email@example.com"
+# Generate a SSH key on local machine
+ssh-keygen -t rsa -C "your_email@example.com"
+# Upload the key to the server and add it website user’s authorised keys
+scp i secure_keypair.pem ~/.ssh/id_rsa.pub ec2-user@newwebsite.com:/tmp/
+cd ~/
+mkdir .ssh
+cat /tmp/id_rsa.pub > .ssh/authorized_keys
+chmod 700 .ssh
+chmod 600 .ssh/authorized_keys
+sudo rm /tmp/id_rsa.pub
 
-    Upload the key to the server and add it website user’s authorised keys
-   scp i secure_keypair.pem ~/.ssh/id_rsa.pub ec2-user@newwebsite.com:/tmp/
-     cd ~/
-      mkdir .ssh
-      cat /tmp/id_rsa.pub > .ssh/authorized_keys
-      chmod 700 .ssh
-      chmod 600 .ssh/authorized_keys
-    sudo rm /tmp/id_rsa.pub
-
-    Or Upload key to server ussing ssh-copy-id
+Or Upload key to server ussing ssh-copy-id
     ssh-copy-id [-i [identity_file]] [user@]machine
 ```
 
 * Configure SSH Login using Keys
 
 ```bash
-        nano /home/deploy/.ssh/authorized_keys
+nano /home/deploy/.ssh/authorized_keys
 
-        Add the contents of the id_rsa.pub on your local machine and any other public keys that you want to have access to this server to this file
+Add the contents of the id_rsa.pub on your local machine and any other public keys that you want to have access to this server to this file
 
-        chmod 600 .ssh/authorized_keys
+chmod 600 .ssh/authorized_keys
 ```
 
 * Configure SSH For Certain Users or logins
 
 ```bash
-        nano /etc/ssh/sshd_config
+nano /etc/ssh/sshd_config
 
-        Add these lines to the file, inserting the ip address from where you will be connecting:
+Add these lines to the file, inserting the ip address from where you will be connecting:
 
-        PermitRootLogin no
+PermitRootLogin no
 
-        PasswordAuthentication no
+PasswordAuthentication no
 
-        AllowUsers user@(your-ip) user@(another-ip-if-any)
+AllowUsers user@(your-ip) user@(another-ip-if-any)
 ```
 
 * Run Commands on remote machine
 
 ```bash
-        ssh -l <username> <servername> "/bin/cat -n /etc/group"
+ssh -l <username> <servername> "/bin/cat -n /etc/group"
 ```
 
 * Access Localhost pages on remote system
@@ -2963,19 +2965,16 @@ Now you can access http://localhost:8081 and it will be as if you would issue th
 * Prevent Idle SSH sessions being killed
 
 ```bash
-    Client config
-
-        ServerAliveInterval = 60
-
-    Server config
-
-        ClientAliveInternal = 60
+Client config
+ServerAliveInterval = 60
+Server config
+ClientAliveInternal = 60
 ```
 
 * Retreive the public key from a private key
 
 ```bash
-        ssh-keygen -y -e -f myfile.pem
+ssh-keygen -y -e -f myfile.pem
 ```
 
 * Enable Bastion Host
@@ -2983,30 +2982,30 @@ Now you can access http://localhost:8081 and it will be as if you would issue th
 On local machine enable SSH Agent forwarding
 
 ```bash
-        ssh -A user@bastion
+ssh -A user@bastion
 
-        or
+or
 
-        Host bastion
-              ForwardAgent yes
+Host bastion
+      ForwardAgent yes
 ```
 
 Then configure ProxyCommand setting for the remote instances in your SSH configuration file.
 
 ```bash
-        Host private1
-              IdentityFile ~/.ssh/rsa_private_key
-              ProxyCommand ssh user@bastion -W %h:%p
+Host private1
+      IdentityFile ~/.ssh/rsa_private_key
+      ProxyCommand ssh user@bastion -W %h:%p
 
-        Host bastion
-              IdentityFile ~/.ssh/bastion_rsa_key
-              ForwardAgent yes
+Host bastion
+      IdentityFile ~/.ssh/bastion_rsa_key
+      ForwardAgent yes
 ```
 
 Finally, connect to private instance
 
 ```bash
-        ssh user@private1
+ssh user@private1
 ```
 
 SSH will establish a connection to the bastion host and then from the bastion host connect to “private1”, using the specified keys at each step along the way.
@@ -3017,10 +3016,10 @@ SSH will establish a connection to the bastion host and then from the bastion ho
 SSH multiplexing is the ability to carry multiple SSH sessions over a single TCP connection. This can result in speed increases that can add up when repeatedly running commands against remote SSH hosts.
 
 ```bash
-        Host demo-server.domain.com
-              ControlPath ~/.ssh/cm-%r@%h:%p
-              ControlMaster auto
-              ControlPersist 10m
+Host demo-server.domain.com
+      ControlPath ~/.ssh/cm-%r@%h:%p
+      ControlMaster auto
+      ControlPersist 10m
 ```
 
 The ControlPath entry specifies where to store the “control socket” for the multiplexed connections. In this case, %r refers to the remote login name, %h refers to the target host name, and %p refers to the destination port.
@@ -3035,9 +3034,9 @@ Finally, the ControlPersist setting keeps the master connection alive for the sp
 Custom SSH configuration file is useless without explicitly telling Ansible to use these settings when connecting to Ansible-managed hosts. This is accomplished by creating (or modifying) ansible.cfg and adding the following setings:
 
 ```bash
-    [ssh_connection]
-    ssh_args = -F ./ssh.cfg -o ControlMaster=auto -o ControlPersist=30m
-    control_path = ~/.ssh/ansible-%%r@%%h:%%p
+[ssh_connection]
+ssh_args = -F ./ssh.cfg -o ControlMaster=auto -o ControlPersist=30m
+control_path = ~/.ssh/ansible-%%r@%%h:%%p
 ```
 
 * Do programs remain running when you disconnect?
@@ -3062,72 +3061,72 @@ ec2-user@ec1-2-3-4.us-west-2.compute.amazonaws.com -v
 * Install
 
 ```bash
-        sudo yum install httpd mod_ssl
-        sudo yum install httpd24 mod_ssl
+sudo yum install httpd mod_ssl
+sudo yum install httpd24 mod_ssl
 ```
 
 * Make DocumentRoot
 
 ```bash
-        mkdir /var/www/website.com
+mkdir /var/www/website.com
 ```
 
 * Edit config
 
 ```bash
-        sudo nano /etc/httpd/conf/httpd.conf
+sudo nano /etc/httpd/conf/httpd.conf
 ```
 
 * ServerAdmin
 
 ```apacheconf
-        ServerAdmin admin@website.com
+ServerAdmin admin@website.com
 ```
 
 * ServerName
 
 ```bash
-        www.website.com
+www.website.com
 ```
 * DocumentRoot
 
 ```apacheconf
-        DocumentRoot "/var/www/website.com"
+DocumentRoot "/var/www/website.com"
 ```
 
 * Directory Options
 
 ```apacheconf
-        <Directory "/var/www/website.com">
-        Options FollowSymLinks 	#Comment out Indexes to prevent browsing of directories
+<Directory "/var/www/website.com">
+Options FollowSymLinks 	#Comment out Indexes to prevent browsing of directories
 ```
 
 * ServerTokens
 
 ```bash
-        ServerTokens Prod 	# only shows Apache
-        * Default: full
+ServerTokens Prod 	# only shows Apache
+# Default: full
 ```
 
 * Timeout
 
 ```bash
-        Timeout 30  # is the max time to wait for a response, action it and respond. Forces visitors to wait in line.
-        * Default : 60
+Timeout 30  # is the max time to wait for a response, action it and respond. Forces visitors to wait in line.
+# Default : 60
 ```
 
 * MaxKeepAliveRequests
 
 ```bash
-        MaxKeepAliveRequests 200 #max number of requests per connection
-        *Default : 100
+MaxKeepAliveRequests 200 #max number of requests per connection
+# Default : 100
 ```
 
 * KeepAliveTimeout
 
 ```bash
-        KeepAliveTimeout 3 #time that the connection waits for client to request something. But new connections will be on hold. Lower is best
-        * Default : 5
+KeepAliveTimeout 3 #time that the connection waits for client to request something. But new connections will be on hold. Lower is best
+# Default : 5
 ```
 
 * LoadModule
@@ -3192,8 +3191,8 @@ LoadModule disk_cache_module modules/mod_disk_cache.so
 * Server Signature
 
 ```bash
-        ServerSignature Off
-        * Default: On
+ServerSignature Off
+# Default: On
 ```
 
 * Virtual Host
@@ -3246,13 +3245,13 @@ Restrict /admin website to only canada and australia
 
 
 ```apacheconf
-    SetEnvIf CF-IPCountry AU AllowCountry=1
-    SetEnvIf CF-IPCountry CA AllowCountry=1
-    <Directory /var/www/website.com/admin>
-      <RequireAll>
-        Require env AllowCountry
-      </RequireAll>
-    </Directory>
+SetEnvIf CF-IPCountry AU AllowCountry=1
+SetEnvIf CF-IPCountry CA AllowCountry=1
+<Directory /var/www/website.com/admin>
+  <RequireAll>
+    Require env AllowCountry
+  </RequireAll>
+</Directory>
 ```
 
 
@@ -3290,47 +3289,47 @@ Restrict /admin website to only canada and australia
 * Enable Compression
 
 ```bash
-        #AdditionalCompression
-        AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/x-javascript
+#AdditionalCompression
+AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/x-javascript
 ```
 
 * Add permissions writable directories
 
 ```bash
-        chown apache:apache -R /var/www/website.com/images/dir1
-        chown apache:apache -R /var/www/website.com/images/dir2
+chown apache:apache -R /var/www/website.com/images/dir1
+chown apache:apache -R /var/www/website.com/images/dir2
 ```
 
 * Restart
 
 ```bash
-        /etc/init.d/httpd restart
+/etc/init.d/httpd restart
 ```
 
 * Autostart
 
 ```bash
-        sudo /sbin/chkconfig --levels 235 httpd on
+sudo /sbin/chkconfig --levels 235 httpd on
 ```
 
 * Reload Config
 
 ```bash
-        sudo /etc/init.d/httpd reload
+sudo /etc/init.d/httpd reload
 ```
 
 * See loaded modules
 
 ```bash
-        /usr/sbin/httpd -M
+/usr/sbin/httpd -M
 ```
 
 * Security Testing
 
 ```bash
-        wget -P ~/tools http://www.cirt.net/nikto/nikto-current.tar.gz
-        tar -xzvf nikto-current.tar.gz
-        perl nikto.pl -h localhost
+wget -P ~/tools http://www.cirt.net/nikto/nikto-current.tar.gz
+tar -xzvf nikto-current.tar.gz
+perl nikto.pl -h localhost
 ```
 
 ## SSL
@@ -3353,23 +3352,23 @@ Restrict /admin website to only canada and australia
 
 ```bash
 
-        [ req ]
-        prompt = no
-        default_bits       = 2048
-        distinguished_name = req_distinguished_name
-        req_extensions     = req_ext
-        [ req_distinguished_name ]
-        countryName                = CA
-        stateOrProvinceName        = Ontario
-        localityName               = Toronto
-        organizationName           = Company
-        organizationalUnitName     = MyBusinessUnit
-        commonName                 = server.domain.com
-        [ req_ext ]
-        subjectAltName = @alt_names
-        [alt_names]
-        DNS.1   = server1.domain.com
-        DNS.2   = server2.domain.com
+[ req ]
+prompt = no
+default_bits       = 2048
+distinguished_name = req_distinguished_name
+req_extensions     = req_ext
+[ req_distinguished_name ]
+countryName                = CA
+stateOrProvinceName        = Ontario
+localityName               = Toronto
+organizationName           = Company
+organizationalUnitName     = MyBusinessUnit
+commonName                 = server.domain.com
+[ req_ext ]
+subjectAltName = @alt_names
+[alt_names]
+DNS.1   = server1.domain.com
+DNS.2   = server2.domain.com
 ```
 
 * Create CSR with SAN config
@@ -3450,33 +3449,33 @@ You can also use OpenSSL's s_client by trying to connect to a server that you kn
 
 * Certificate Formats
 
-.csr - This is a Certificate Signing Request. Some applications can generate these for submission to certificate-authorities. The actual format is PKCS10 which is defined in RFC 2986. It includes some/all of the key details of the requested certificate such as subject, organization, state, whatnot, as well as the public key of the certificate to get signed. These get signed by the CA and a certificate is returned. The returned certificate is the public certificate (which includes the public key but not the private key), which itself can be in a couple of formats.
+- .csr - This is a Certificate Signing Request. Some applications can generate these for submission to certificate-authorities. The actual format is PKCS10 which is defined in RFC 2986. It includes some/all of the key details of the requested certificate such as subject, organization, state, whatnot, as well as the public key of the certificate to get signed. These get signed by the CA and a certificate is returned. The returned certificate is the public certificate (which includes the public key but not the private key), which itself can be in a couple of formats.
 
-.pem - Defined in RFCs 1421 through 1424, this is a container format that may include just the public certificate (such as with Apache installs, and CA certificate files /etc/ssl/certs), or may include an entire certificate chain including public key, private key, and root certificates. Confusingly, it may also encode a CSR (e.g. as used here) as the PKCS10 format can be translated into PEM. The name is from Privacy Enhanced Mail (PEM), a failed method for secure email but the container format it used lives on, and is a base64 translation of the x509 ASN.1 keys.
+- .pem - Defined in RFCs 1421 through 1424, this is a container format that may include just the public certificate (such as with Apache installs, and CA certificate files /etc/ssl/certs), or may include an entire certificate chain including public key, private key, and root certificates. Confusingly, it may also encode a CSR (e.g. as used here) as the PKCS10 format can be translated into PEM. The name is from Privacy Enhanced Mail (PEM), a failed method for secure email but the container format it used lives on, and is a base64 translation of the x509 ASN.1 keys.
 
-.key - This is a PEM formatted file containing just the private-key of a specific certificate and is merely a conventional name and not a standardized one. In Apache installs, this frequently resides in /etc/ssl/private. The rights on these files are very important, and some programs will refuse to load these certificates if they are set wrong.
+- .key - This is a PEM formatted file containing just the private-key of a specific certificate and is merely a conventional name and not a standardized one. In Apache installs, this frequently resides in /etc/ssl/private. The rights on these files are very important, and some programs will refuse to load these certificates if they are set wrong.
 
-.pkcs12 .pfx .p12 - Originally defined by RSA in the Public-Key Cryptography Standards (abbreviated PKCS), the "12" variant was originally enhanced by Microsoft, and later submitted as RFC 7292. This is a passworded container format that contains both public and private certificate pairs. Unlike .pem files, this container is fully encrypted. Openssl can turn this into a .pem file with both public and private keys: openssl pkcs12 -in file-to-convert.p12 -out converted-file.pem -nodes
+- .pkcs12 .pfx .p12 - Originally defined by RSA in the Public-Key Cryptography Standards (abbreviated PKCS), the "12" variant was originally enhanced by Microsoft, and later submitted as RFC 7292. This is a passworded container format that contains both public and private certificate pairs. Unlike .pem files, this container is fully encrypted. Openssl can turn this into a .pem file with both public and private keys: openssl pkcs12 -in file-to-convert.p12 -out converted-file.pem -nodes
 A few other formats that show up from time to time:
 
-.der - A way to encode ASN.1 syntax in binary, a .pem file is just a Base64 encoded .der file. OpenSSL can convert these to .pem (openssl x509 -inform der -in to-convert.der -out converted.pem). Windows sees these as Certificate files. By default, Windows will export certificates as .DER formatted files with a different extension. Like...
+- .der - A way to encode ASN.1 syntax in binary, a .pem file is just a Base64 encoded .der file. OpenSSL can convert these to .pem (openssl x509 -inform der -in to-convert.der -out converted.pem). Windows sees these as Certificate files. By default, Windows will export certificates as .DER formatted files with a different extension. Like...
 .cert .cer .crt - A .pem (or rarely .der) formatted file with a different extension, one that is recognized by Windows Explorer as a certificate, which .pem is not.
 
-.pub - public key created by openssl.
+- .pub - public key created by openssl.
 
-.p7b .keystore - Defined in RFC 2315 as PKCS number 7, this is a format used by Windows for certificate interchange. Java understands these natively, and often uses .keystore as an extension instead. Unlike .pem style certificates, this format has a defined way to include certification-path certificates.
+- .p7b .keystore - Defined in RFC 2315 as PKCS number 7, this is a format used by Windows for certificate interchange. Java understands these natively, and often uses .keystore as an extension instead. Unlike .pem style certificates, this format has a defined way to include certification-path certificates.
 
-.crl - A certificate revocation list. Certificate Authorities produce these as a way to de-authorize certificates before expiration. You can sometimes download them from CA websites.
+- .crl - A certificate revocation list. Certificate Authorities produce these as a way to de-authorize certificates before expiration. You can sometimes download them from CA websites.
 
 In summary, there are four different ways to present certificates and their components:
 
-PEM - Governed by RFCs, its used preferentially by open-source software. It can have a variety of extensions (.pem, .key, .cer, .cert, more)
+- PEM - Governed by RFCs, its used preferentially by open-source software. It can have a variety of extensions (.pem, .key, .cer, .cert, more)
 
-PKCS7 - An open standard used by Java and supported by Windows. Does not contain private key material.
+- PKCS7 - An open standard used by Java and supported by Windows. Does not contain private key material.
 
-PKCS12 - A Microsoft private standard that was later defined in an RFC that provides enhanced security versus the plain-text PEM format. This can contain private key material. Its used preferentially by Windows systems, and can be freely converted to PEM format through use of openssl.
+- PKCS12 - A Microsoft private standard that was later defined in an RFC that provides enhanced security versus the plain-text PEM format. This can contain private key material. Its used preferentially by Windows systems, and can be freely converted to PEM format through use of openssl.
 
-DER - The parent format of PEM. It's useful to think of it as a binary version of the base64-encoded PEM file. Not routinely used very much outside of Windows.
+- DER - The parent format of PEM. It's useful to think of it as a binary version of the base64-encoded PEM file. Not routinely used very much outside of Windows.
 
 ## PHP
 
@@ -3524,11 +3523,10 @@ DER - The parent format of PEM. It's useful to think of it as a binary version o
 
 * Database types:
 
-```bash
 The two most popular storage engines in MySQL are InnoDB and MyISAM
 InnoDB supports some newer features like transactions, row-level locking, foreign keys. It's optimized for read/write high volume operations and high performance.
 MyISAM is simpler and better optimized for read only operations. It has limited feature set as compared to InnoDB.
-```
+
 
 * Get help:
 
@@ -3659,11 +3657,11 @@ MyISAM is simpler and better optimized for read only operations. It has limited 
 * Manual Config
 
 ```bash
-* Login to MySQL
+# Login to MySQL
 mysql -u root
 
 
-* Change root password
+# Change root password
 USE mysql
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('somesecret');
 -Remove anonymous user and account without password
