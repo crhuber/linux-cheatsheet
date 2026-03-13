@@ -73,7 +73,7 @@ Linux Admin Guide
 
 * GRUB
 
-```
+```bash
 
         If you have multiple kernel images installed on your system, you can choose which one to be executed.
         GRUB displays a splash screen, waits for few seconds, if you don’t enter anything, it loads the default kernel image as specified in the grub configuration file.
@@ -105,7 +105,7 @@ Linux Admin Guide
 
 * Init
 
-```
+```bash
     Looks at the /etc/inittab file to decide the Linux run level.
     Following are the available run levels
     0 – halt
@@ -122,7 +122,7 @@ Linux Admin Guide
 ```
 * Runlevel
 
-```
+```bash
     Depending on your default init level setting, the system will execute the programs from one of the following directories.
     Run level 0 – /etc/rc.d/rc0.d/
     Run level 1 – /etc/rc.d/rc1.d/
@@ -141,7 +141,7 @@ Linux Admin Guide
 
 * Shutdown the system after 10 minutes.
 
-```
+```bash
 shutdown -h +10
 ```
 * Process States
@@ -196,7 +196,7 @@ Sends an interupt to kernel if it wasn’t to write a file. Rings are so program
 
 * Become system administrator:
 
-```
+```bash
 sudo -s
 sudo su
 ```
@@ -206,14 +206,14 @@ are specified in /etc/sudoers, which is edited with the visudo utility. By defau
 
 * Switch user
 
-```
+```bash
 su - user2
 ```
 argument "-" Provides an environment similar to what the user would expect had the user logged in directly.
 
 * Password file syntax
 
-```
+```bash
 /etc/passwd
 ```
 
@@ -234,13 +234,13 @@ argument "-" Provides an environment similar to what the user would expect had t
 
 * Change password
 
-```
+```bash
 passwd
 ```
 
 * Change password expiration
 
-```
+```bash
 chage
 
 chage -E never username  (sets to never expire)
@@ -249,7 +249,7 @@ chage -E never username  (sets to never expire)
 
 * Lock user password
 
-```
+```bash
 usermod -L username
 
 or
@@ -257,7 +257,7 @@ passwd -l username
 ```
 * check if a user has a password set:
 
-```
+```bash
 sudo passwd -S username
 
 This will show something like:
@@ -275,13 +275,13 @@ P = Password is set and account is unlocked
 
 * prevent ssh login
 
-```
+```bash
 sudo usermod -s /usr/sbin/username syncthing
 ```
 
 * check current shell to see if they can login
 
-```
+```bash
 grep syncthing /etc/passwd
 
 You'll see something like:
@@ -293,7 +293,7 @@ The last field is the shell. If it's /bin/sh, /bin/bash, etc., the user CAN logi
 
 * Check logins
 
-```
+```bash
 grep "Accepted publickey for" /var/log/auth.log
 grep "Accepted password for" /var/log/auth.log
 ```
@@ -301,20 +301,20 @@ grep "Accepted password for" /var/log/auth.log
 
 * Extract the hash of their password
 
-```
+```bash
 sudo grep syncthing /etc/shadow > hash.txt
 ```
 * crack hash
 Use tools like John the Ripper or hashcat
 
-```
+```bash
    john hash.txt
    hashcat -m 1800 hash.txt wordlist.txt
 ```
 
 * Define default attributes for new users (UID, Password Expiriny, HomeDir)
 
-```
+```bash
 nano /etc/login.defs
 ```
 
@@ -329,38 +329,38 @@ nano /etc/login.defs
 
 * Kill all users processes
 
-```
+```bash
 killall -u username
 ```
 
 * Kill all processes by name
 
-```
+```bash
 killall firefox
 pkill -9 firefox
 ```
 
 * Get process id
 
-```
+```bash
 pgrep bash
 ```
 
 * Reload process
 
-```
+```bash
 sudo kill -HUP pid_of_apache
 ```
 
 * Display users using file/folder
 
-```
+```bash
 fuser -u file/folder
 ```
 
 * Kill processes using file/folder
 
-```
+```bash
 fuser -k file/folder
 ```
 
@@ -382,7 +382,7 @@ Asks for full name, room number, etc.
 Much more user-friendly
 
 
-```
+```bash
 adduser user1
 ```
 
@@ -393,13 +393,13 @@ Shell set to /usr/sbin/nologin (can't get interactive shell)
 No password set (account locked)
 Can't SSH in (no password + no shell)
 
-```
+```bash
 adduser --system --no-create-home --shell /usr/sbin/nologin syncthing
 ```
 
 * Show last logged in
 
-```
+```bash
 last
 last Log
 last reboot  # shows last reboot
@@ -407,13 +407,13 @@ last reboot  # shows last reboot
 
 * Show users groups
 
-```
+```bash
 groups {username}
 ```
 
 * Add User to Sudo
 
-```
+```bash
 usermod -a -G sudo user1
 ```
 
@@ -421,7 +421,7 @@ usermod -a -G sudo user1
 
 add to /etc/sudoers
 
-```
+```bash
 Defaults    timestamp_timeout=<value>
 ```
 
@@ -429,14 +429,14 @@ Defaults    timestamp_timeout=<value>
 
         Nano /etc/group
 
-    ```
+    ```bash
         cdrom:x:24:vivek,student13,raj
         Where, group_name: It is the name of group. If you run ls -l command, you will see this name printed in the group field.  Password: Generally password is not used, hence it is empty/blank. It can store encrypted password. This is useful to implement privileged groups. Group ID (GID): Each user must be assigned a group ID. You can see this number in your /etc/passwd file.  Group List: It is a list of user names of users who are members of the group. The user names, must be separated by commas.
     ```
 
 * Variables
 
-```
+```bash
 echo $PATH #shows path variable
 export -p #shows all defined
 export MYAPP=1 #sets variable my app to value 1
@@ -445,37 +445,37 @@ EDITOR="nano"
 
 * Add path to system path
 
-```
+```bash
 export PATH=$PATH:/usr/local/bin
 ```
 
 * Print usernames of logged in users:
 
-```
+```bash
 users
 ```
 
 * Write one line to another user from your terminal:
 
-```
+```bash
 talk
 ```
 
 * show info on current user
 
-```
+```bash
 id
 ```
 
 * show all users and host where logged in from
 
-```
+```bash
 who -umH
 ```
 
 * To temporarily prevent logins system wide (for all users but root) use nologin. The message in nologin will be displayed (might not work with ssh pre-shared keys).
 
-```
+```bash
 echo "Sorry no login now" > /etc/nologin
 ```
 
@@ -485,35 +485,35 @@ echo "Sorry no login now" > /etc/nologin
 
 * Print full date and time:
 
-```
+```bash
 date
 
 ```
 * Print the hostname of this machine:
 
 
-```
+```bash
 echo $HOSTNAME
 ```
 
 
 * Print the default file permissions(subtract from 777):
 
-```
+```bash
 echo $umask
 ```
 
 
 * Print the session timeout:
 
-```
+```bash
 echo $tmout
 ```
 
 * Print information about current linux distro:
 
 
-```
+```bash
 lsb_release -a
 cat /etc/*-release
 cat /proc/version
@@ -521,55 +521,55 @@ cat /proc/version
 
 * Print linux kernel version:
 
-```
+```bash
 uname -a
 ```
 
 * Print information about kernel modules:
 
-```
+```bash
 lsmod
 ```
 
 * Configure kernel modules (never do this):
 
-```
+```bash
 modprobe
 ```
 
 * Look for messages from drivers:
 
-```
+```bash
 dmesg
 ```
 
 * View Installed packages:
 
-```
+```bash
 dpkg --get-selections
 ```
 
 * Print environment variables:
 
-```
+```bash
 printenv
 ```
 
 * List hardware connected via PCI ports:
 
-```
+```bash
 lspci
 ```
 
 * List hardware connected via USB ports:
 
-```
+```bash
 lsusb
 ```
 
 * Print hardware info stored in BIOS:
 
-```
+```bash
 dmidecode
 sysreport
 ```
@@ -577,31 +577,31 @@ sysreport
 
 * Dump captured data off of wireless card:
 
-```
+```bash
 dumpcap
 ```
 
 * Dump info about keyboard drivers:
 
-```
+```bash
 dumpkeys
 ```
 
 * Print information about ethernet
 
-```
+```bash
 ethtool
 ```
 
 * Make a bootable USB
 
-```
+```bash
 dd if=efidisk.img of=/dev/usb (usb device name)
 ```
 
 * Make a swap file
 
-```
+```bash
 dd if=/dev/zero of=/opt/myswap bs=1024 count=4
 mkswap /opt/myswap
 swapon -a
@@ -612,19 +612,19 @@ For adding this myswap at boot time, add following in /etc/fstab file:
 
 * Show default kernel
 
-```
+```bash
 grubby –default-kernel
 ```
 
 * Modify kernel parameters
 
-```
+```bash
 nano /etc/sysctl.conf
 ```
 
 * Backup & Restore MBR
 
-```
+```bash
 To backup: dd if=/dev/sda of=/tmp/mbr.img_backup bs=512 count=1
 To restore: dd if=/tmp/mbr.img of=/dev/sda bs=512 count=1
 The MBR  is a 512 byte segment on the very first sector of your hard drive composed of three parts: 1) the boot code which is 446 bytes long, 2) the partiton table which is 64 bytes long, and 3) the boot code signature which is 2 bytes long.
@@ -632,7 +632,7 @@ The MBR  is a 512 byte segment on the very first sector of your hard drive compo
 
 * Sync NTP time
 
-```
+```bash
 sudo service ntp stop
 sudo ntpdate -s time.nist.gov
 sudo service ntp start
@@ -640,19 +640,19 @@ sudo service ntp start
 
 * Show Memory information
 
-```
+```bash
 cat /proc/meminfo
 ```
 
 * Show number of cores
 
-```
+```bash
 lscpu
 ```
 
 * Hardware Info
 
-```
+```bash
 cat /proc/cpuinfo                  # CPU model
 cat /proc/meminfo                  # Hardware memory
 grep MemTotal /proc/meminfo        # Display the physical memory
@@ -673,7 +673,7 @@ http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/
 
 * inodes
 
-```
+```bash
         An inode stores basic information about a regular file, directory, or other file system object
         iNode number also called as index number, it consists following attributes:
 
@@ -693,50 +693,50 @@ http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/
 
 * Show inodes of files and folders
 
-```
+```bash
 ls -i
 stat
 ```
 * Find where a commmand is executed from
 
-```
+```bash
 which
 ie: which python  > /usr/bin
 ```
 
 * list directories and recurse into subdirectories
 
-```
+```bash
 ls -r
 ```
 
 * Find files bigger than 100m
 
-```
+```bash
 find . -size +100M
 ```
 
 * Find largest directories in current directory
 
-```
+```bash
 du -hs */ | sort -hr | head
 ```
 
 * Find files created within last 7 days
 
-```
+```bash
 find . -mtime -7
 ```
 
 * Find files accessed within last 7 days
 
-```
+```bash
 find . -atime -7
 ```
 
 * Find Disk Usage by Directory
 
-```
+```bash
 du -sh /home/*
 
 #Using the -c option with the du command will show the grand total of used space for the designated directory
@@ -744,25 +744,25 @@ du -sh /home/*
 
 * check for bad blocks
 
-```
+```bash
 sudo badblocks -s /dev/sda
 ```
 
 * Read speed test
 
-```
+```bash
 sudo hdparm -tT /dev/sda
 ```
 
 * Write speed test. 16KB random write operations
 
-```
+```bash
 fio --directory=/media/p_iops_vol0 --name fio_test_file --direct=1 --rw=randwrite --bs=16k --size=1G --numjobs=16 --time_based --runtime=180 --group_reporting --norandommap
 ```
 
 * Display mountpounts
 
-```
+```bash
 lsblk
 findmnt #show mountpoints
 sudo fdisk -l
@@ -772,7 +772,7 @@ df -h --output=source,target
 
 * Add a new EBS disk to  server
 
-```
+```bash
 lsblk  #find drive which is not mounted
 sudo mkfs -t ext4 /dev/xvdf #makes file system on /dev/xvdf)
     (or sudo mkfs -it xfs /dev/xvdf #makes file system on /dev/xvdf)
@@ -782,7 +782,7 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 
 * Show Physical Volumes
 
-```
+```bash
          pvdisplay
 ```
 
@@ -790,49 +790,49 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 
     A group of physical volumes or disks are combined together into a single storage file which is referred to as the LVM volume group.
 
-```
+```bash
         sudo vgcreate <volume-name> <device-1> <device-2> <device-3>
 ```
 
 * Create Logical Volumes
 
-```
+```bash
         sudo lvcreate –name <logical-volume-name> –size <size-of-volume> <volume-group-name>
 ```
 
 * Display Logical Volumes
 
-```
+```bash
         sudo lvdisplay
 ```
 
 * Format Logical Volume
 
-```
+```bash
         mkfs -t ext4 /dev/<lvm-name>
 ```
 
 * Zero Out all blocks for performance
 
-```
+```bash
         if=/dev/zero of=/dev/xvdf bs=1M
 ```
 
 * Create Raid0
 
-```
+```bash
         mdadm --create --verbose /dev/md0 --level=stripe --raid- devices=number_of_volumes device_name1 device_name2
 ```
 
 * Resize Filesystem
 
-```
+```bash
         resize2fs
 ```
 
 * Raid Levels
 
-```
+```bash
         0 - Striped set without parity or Striping
         1 - Mirrored set without parity or Mirroring
         0+1 -  (increased speed) arrays are created and they are each mirrored via an overall RAID 1 (data backup) array. By definition, this configuration requires at least 4 drives.
@@ -842,7 +842,7 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 
 * Mount a new file system
 
-```
+```bash
         fdisk /dev/hda1  #create new partision
         mkfs /dev/hda1  #create file system
         mount -a        # causes all filesystems mentioned in fstab to be mounted
@@ -850,7 +850,7 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 
 * Define boot disk
 
-```
+```bash
         cat /etc/fstab
         # UUID=9246707a-30ab-47be-b78f-bb7b24a459a8 /     ext4    defaults     1 1
         # ext4= filesystem , defaults = mount on boot
@@ -858,49 +858,49 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 
 * Copy Files from Remote Machine to Local Machine
 
-```
+```bash
         scp root@www.server.com:/root/file.sql /home/ec2-user
 ```
 
 * Copy Local directory to remote machine
 
-```
+```bash
         scp -rp sourcedirectory user@dest:/path
 ```
 
 * Copy Remote directory to local path
 
-```
+```bash
         scp -r user@your.server.example.com:/path/to/foo /home/user/Desktop/
 ```
 
 * Copy hello.txt from local computer to remote home directory
 
-```
+```bash
          scp hello.txt awshost1:~/
 ```
 
 * Copy hello.txt from local to remote home directory, renaming it foo.txt
 
-```
+```bash
         scp hello.txt awshost1:~/foo.txt
 ```
 
 * Copying ~/foo.txt from the remote computer to the current local director
 
-```
+```bash
         scp awshost1:~/foo.txt .
 ```
 
 * Copying ~/foo.txt from remote to local directory cc, renaming it a.b
 
-```
+```bash
         scp awshost1:~/foo.txt cc/a.b
 ```
 
 * Compress a directory
 
-```
+```bash
         tar -zcvf archive-name.tar.gz directory-name
         -c = create
         -f = following is archive name
@@ -910,31 +910,31 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 
 * To append file to archive
 
-```
+```bash
         tar rvf archive_name.tar new file.txt
 ```
 
 * Encrypt a file:
 
-```
+```bash
         gpg -o [outputfilename.gpg] -c [target file]
 ```
 
 * Decrypt a file:
 
-```
+```bash
         gpg -o [outputfilename] -d [target.gpg]
 ```
 
 * Uncompress file
 
-```
+```bash
         unzip filename.zip
 ```
 
 * Open a compressed .tgz or .tar.gz file:
 
-```
+```bash
         tar -xvf [target.tgz]
         tar -xvf —strip-components 1  # extracts without its parent folder
         tar -xvf -C  # extracts to a different directory
@@ -942,55 +942,55 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 
 * Find Files
 
-```
+```bash
         Find . -name http*
 ```
 
 * Find all files not owned by root:
 
-```
+```bash
         find . \! -user root -print
 ```
 
 * Find all files not with permissions 644:
 
-```
+```bash
         find . \! -perm 644 root -print
 ```
 
 * Find files matching [filename]:
 
-```
+```bash
         locate [filename]
 ```
 
 * Show a file type
 
-```
+```bash
         file image.jpg
 ```
 
 * Show uncommented items in config files
 
-```
+```bash
         grep -v "#" file.conf
 ```
 
 * Search for a given string in all files recursively
 
-```
+```bash
         grep -r "ramesh" *
 ```
 
 * View the differences between two files:
 
-```
+```bash
         diff [file 1] [file 2]
 ```
 
 * Change File Permissions
 
-```
+```bash
         chmod 775 filename
         chmod o+r file.txt  # o=other +=add r=read
         7 = Read + Write + Execute
@@ -1009,7 +1009,7 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 
 * Permissions On Folders
 
-```
+```bash
         r: read only the names of the files in the directory
         w: create and delete of the files in the directory
         x: traverse the directory
@@ -1017,7 +1017,7 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 
 * Permissions On files
 
-```
+```bash
         r: open a file for reading (e.g. with the cat command)
         w: write a file (e.g. use sed -i (inplace) on it)
         x: execute a file
@@ -1026,26 +1026,26 @@ sudo mount /dev/xvdf /mnt/my-data #mount device
 
 * Copy permissions of one file onto another
 
-```
+```bash
         getfacl FILE1 | setfacl –set-file=- FILE2
 ```
 
 * Show permissions on all directories in a tree
 
-```
+```bash
         namei -om /var/www/iddb.com/static
 ```
 
 * Remove directory
 
-```
+```bash
         rmdir directory
 ```
 
 * Logs
 
 
-```
+```bash
 auth.log				Authentication logs
 boot.log				Boot logs
 btmp					Invalid login attempts
@@ -1064,7 +1064,7 @@ wtmp					User logins and logouts
 
 * Check Logs
 
-```
+```bash
 less /var/log/messages
 less /var/log/secure
 less /var/log/auth
@@ -1072,13 +1072,13 @@ less /var/log/auth
 
 * Check disk space
 
-```
+```bash
 df -H # H is for human readable
 ```
 
 * Config Files
 
-```
+```bash
 /etc/login.def - default settings template for new user accounts
 /etc/motd - message of the day
 /etc/inittab - defines default runlevel #id:3:initdefault:
@@ -1086,7 +1086,7 @@ df -H # H is for human readable
 
 * System Startup Files
 
-```
+```bash
 /etc/rc.d  - scripts run from this subdir
 /etc/init.d - hard location for startup scripts. Linked to /etc/rc.d/rc0.d ..etc.
 /etc/rc.d/rc - file responsible for starting stopping services
@@ -1097,7 +1097,7 @@ df -H # H is for human readable
 
 * To start any script
 
-```
+```bash
 run /etc/init.d/smb start
 
 # To prevent startup delete sum link
@@ -1105,7 +1105,7 @@ run /etc/init.d/smb start
 
 * To create new startup script
 
-```
+```bash
 put script in /etc/init.d/myservice
 
 /etc/rc3.d ln s ../init.d/myservice
@@ -1113,7 +1113,7 @@ put script in /etc/init.d/myservice
 
 * Check for systemd or sysvinit
 
-```
+```bash
 pidof /sbin/init && echo "sysvinit" || echo "other"
 
 pidof systemd && echo "systemd" || echo "other"
@@ -1121,26 +1121,26 @@ pidof systemd && echo "systemd" || echo "other"
 
 * Show Current Runlevel
 
-```
+```bash
 runlevel
 who -r
 ```
 
 * Change default runlevel
 
-```
+```bash
 nano /etc/inittab. change id:3:initdefault. to different number
 ```
 
 * Change runlevel
 
-```
+```bash
 init 1 (single user mode)
 ```
 
 * Check file system consistency
 
-```
+```bash
 Goto single user mode:
 # init 1
 Unmount file system:
@@ -1151,25 +1151,25 @@ Now run fsck command:
 
 * Check a files type
 
-```
+```bash
 file <filename>
 ```
 
 * Generate md5
 
-```
+```bash
 md5 <filename>
 ```
 
 * Generate sha256
 
-```
+```bash
 openssl sha -sha256 <filename> (mac)
 ```
 
 * Symbolic Links
 
-```
+```bash
 ┌── ln(1) link, ln -- make links
 │   ┌── Create a symbolic link.
 │   │                         ┌── the path to the intended symlink
@@ -1183,7 +1183,7 @@ ln -s /path/to/original /path/to/symlink
 
 * Change the open files limit from 1024 to 10240 d
 
-```
+```bash
         ulimit -n 10240                    # This is only valid within the shell
 ```
 
@@ -1191,7 +1191,7 @@ ln -s /path/to/original /path/to/symlink
 
 * System wide limits
 
-```
+```bash
     sysctl -a                          # View all system limits
     sysctl fs.file-max                 # View max open files limit
     sysctl fs.file-max=102400          # Change max open files limit
@@ -1203,7 +1203,7 @@ ln -s /path/to/original /path/to/symlink
 
 * Find opened files on a mount point with fuser
 
-```
+```bash
         fuser -m /home
 ```
 
@@ -1221,13 +1221,13 @@ ln -s /path/to/original /path/to/symlink
 
 * Show running services with their ports
 
-```
+```bash
         lsof -i # monitors network connections in real time (mac/linux)
 ```
 
 * Show what files a process has open
 
-```
+```bash
         lsof -p $PID
         netstat -lptu
 ```
@@ -1240,7 +1240,7 @@ ln -s /path/to/original /path/to/symlink
 
     lowercase c shows full command
 
-```
+```bash
 
     * check i/o wait for server slowness - Represents CPU waiting for disk I/O. if it is low then you can rule out disk access. GT > 10% is high means Disk is slow
     * CPU idle. higher the number the more bandwidth available to server. Should be >25%
@@ -1263,7 +1263,7 @@ ln -s /path/to/original /path/to/symlink
 
 * Show open tcp sockets
 
-```
+```bash
         lsof -nPi tcp
 
         -n	: This option inhibits the conversion  of  network  numbers  to  host  names  for  network  files.
@@ -1278,19 +1278,19 @@ ln -s /path/to/original /path/to/symlink
 
 * Show bandwidth usage per connection
 
-```
+```bash
         iftop
 ```
 
 * Show which apps are using the connection
 
-```
+```bash
 ss -p
 ```
 
 * Show Ports listening with thir process id
 
-```
+```bash
         netstat -tlnp (show ports listening with their process id)
 
         -l, --listening : Show only listening sockets.  (These are omitted by default.)
@@ -1301,20 +1301,20 @@ ss -p
 
 * Show Ports listening - Mac only
 
-```
+```bash
         nettop
 ```
 
 * Show bandwith ussage per process
 
-```
+```bash
 
         nethogs
 ```
 
 * Show running services
 
-```
+```bash
 
         ps –ax
         ps –eaf
@@ -1327,13 +1327,13 @@ ss -p
 
 * Like top, but with a better, cleaner interface:
 
-```
+```bash
         htop
 ```
 
 * Stop a process from using all system resources and lagging computer:
 
-```
+```bash
         nice [process name]
         nice command is used for changing priority of the jobs.
         Syntax: nice [OPTION] [COMMAND [ARG]…]
@@ -1342,26 +1342,26 @@ ss -p
 
 * Show all ruby-related PIDs and processes
 
-```
+```bash
 
         pgrep -fl ruby
 ```
 
 * Whats a process doing?
 
-```
+```bash
         strace -f -p $PID
 ```
 
 * Keep running the same command over and over
 
-```
+```bash
         watch 'ps aux | grep ruby'
 ```
 
 * How much memory is left
 
-```
+```bash
         free -m
 
         Free: memory that is currently not used for anything. It should be small since memory shouldn’t be wasted
@@ -1371,68 +1371,68 @@ ss -p
 
 * Are we swapping
 
-```
+```bash
         vmstat 1
 ```
 
 * Top 10 memory hogs
 
-```
+```bash
         ps aux --sort=-resident|head -11
 ```
 
 * Tail all queries running against mysql
 
-```
+```bash
         pt-query-digest --processlist h=localhost --print --no-report --user xxxx --password *****
 ```
 
 * Check readwrite per sec on disk
 
-```
+```bash
         iostat -xnk 5
 ```
 
 * How much io disk or network is getting or sending
 
-```
+```bash
         dstat
 ```
 
 * Show every call a program is making
 
-```
+```bash
         strace python myprogram.py #dont run on production db
         opensnoop -p pid  #same as strace but won't slow u down
 ```
 
 * Show current directory disk size
 
-```
+```bash
         du -hs
 ```
 
 * What is using the IO? Is MySQL sucking up the resources? Is it your PHP processes?
 
-```
+```bash
         dstat --top-io --top-bio
 ```
 
 * top 10 memory hogs
 
-```
+```bash
         ps aux --sort=-resident|head -11
 ```
 
 * Tracroute but Avoid tcp blockage
 
-```
+```bash
         tcptraceroute google.com
 ```
 
 * is the host oversold
 
-```
+```bash
         top, look for %st. Stealtime = virtual machines are competing for resources.
          If %st increases on all VM's, means your VM is using too much cpu.
          elif %st increases on just one VM = Physical is oversold
@@ -1440,7 +1440,7 @@ ss -p
 
 * Disk performance
 
-```
+```bash
         A sustained increase of VolumeQueueLength way above 1 on a standard EBS volume should be treated as exhausting the throughput of that EBS volume. We recommend that you target a queue length between 4 and 8 for volumes with 2,000 to 4,000 provisioned IOPS, or a queue length of 1 for every 500 IOPS provisioned for volumes with fewer than 2,000 provisioned IOPS
 ```
 
@@ -1459,7 +1459,7 @@ ss -p
 
 * Runlevels
 
-```
+```bash
 Red Hat as well as most of its derivatives (such as CentOS) uses runlevels like this:
 
 
@@ -1515,7 +1515,7 @@ https://www.howtogeek.com/562941/how-to-use-the-awk-command-on-linux/
 
 * Awk (continued)
 
-```
+```bash
     awk '{ print $2, $1 }' file                  # Print and inverse first two columns
     awk '{printf("%5d : %s\n", NR,$0)}' file     # Add line number left aligned
     awk '{print FNR "\t" $0}' files              # Add line number right aligned
@@ -1530,14 +1530,14 @@ https://www.howtogeek.com/562941/how-to-use-the-awk-command-on-linux/
 
 put a / after each output
 
-```
+```bash
     date | awk 'OFS="/" {print$2,$3,$6}'
 ```
 
 * Awk (begin and ends)
 
 put a line before everything runs
-```
+```bash
 awk 'BEGIN {print "Dennis Ritchie"} {print $0}' dennis_ritchie.txt
 ```
 
@@ -1545,7 +1545,7 @@ awk 'BEGIN {print "Dennis Ritchie"} {print $0}' dennis_ritchie.txt
 
 If you want awk to work with text that doesn’t use whitespace to separate fields, you have to tell it which character the text uses as the field separator. For example, the /etc/passwd file uses a colon (:) to separate fields.
 
-```
+```bash
 awk -F: '{print $1,$6}' /etc/passwd
 ```
 
@@ -1553,32 +1553,32 @@ awk -F: '{print $1,$6}' /etc/passwd
 
 If all we’re interested in are regular user accounts, we can include a pattern with our print action to filter out all other entries. Because User ID numbers are equal to, or greater than, 1,000, we can base our filter on that information.
 
-```
+```bash
 awk -F: '$3 >= 1000 {print $1,$6}' /etc/passwd
 ```
 
 * Awk with an IF statement
 
-```
+```bash
 k get pdb | awk '{ if ($4 == 0) print $1;}'
 ```
 
 * AWK print colum if string is in the column
 
-```
+```bash
 k get node | awk '$4 ~ "d" {print $1, $3, $4;}'
 ```
 
 * cut
 
 Get the second field delimited by a dot
-```
+```bash
 cut -f2 -d "."
 ```
 
 * Sed
 
-```
+```bash
     sed 's/string1/string2/g'                    # Replace string1 with string2
     sed -i 's/wroong/wrong/g' *.txt              # Replace a recurring word with g
     sed 's/\(.*\)1/\12/g'                        # Modify anystring1 to anystring2
@@ -1662,7 +1662,7 @@ cut -f2 -d "."
         &> file redirects stdout and stderr to file
 * Write output to a file
 
-```
+```bash
 cat <<EOF> ~/.kube/config
 
 apiVersion: v1
@@ -1674,7 +1674,7 @@ EOF
 
 ## Bash
 
-```
+```bash
 Login vs Non-Login:
      Login: When you login via SSH or via console without GUI. (Mac: Terminal, iTerm), Fabric
      Non-Login: from desktop if you open xterm (except on mac), screen command
@@ -1697,7 +1697,7 @@ Mac:
 
 * Configure defaul shell
 
-```
+```bash
         defshell -bash
 ```
 
@@ -1705,19 +1705,19 @@ Mac:
 
 in your .bashrc
 
-```
+```bash
         alias dev='ssh fooey@dev.example.com -p 22000'
 ```
 
 * Make bash history 10,0000
 
-```
+```bash
         export HISTSIZE=100000 SAVEHIST=100000 HISTFILE=~/.bash_history
 ```
 
 * Configure command line completion using up and down arrows
 
-```
+```bash
         Create ~/.inputrc and fill it with this:
         "\e[A": history-search-backward
         "\e[B": history-search-forward
@@ -1727,45 +1727,45 @@ in your .bashrc
 
 * Colorize Bash Prompt
 
-```
+```bash
         add to .bash_profile
         export PS1="[\[\e[32;1m\]\u@\h \[\e[33;1m\]\W\[\033[m\]]\[\e[37;1m\]\$ "
 ```
 
 * to run a command from history use exclamation !
 
-```
+```bash
         !680
 ```
 
 * Prompt for input in a bash script
 
-```
+```bash
         read -p “Do you want to continue” variable
 ```
 
 * Cut off the first column in a text file
 
-```
+```bash
         cat filename | cut -d" " -f1
 ```
 
 * Redirection of output
 
-```
+```bash
         &> for redirection, it redirects both the standard output and standard error
 ```
 
 * Find what a command does
 
-```
+```bash
         whatis
         The whatis command displays a summary line from the man page for the specified command.
 ```
 
 * Navigation
 
-```
+```bash
         ctrl-w - delete the last word
         ctrl-u - delete start of the line
         ctrl-l - clear the screen
@@ -1775,13 +1775,13 @@ in your .bashrc
 
 * Bash Shebang
 
-```
+```bash
 #!/bin/bash
 ```
 
 * Loop through text file
 
-```
+```bash
 for repo in $(cat repos.txt)
 do
     echo $repo
@@ -1790,7 +1790,7 @@ done
 
 * Loop through folders
 
-```
+```bash
 for d in */ ; do
     echo "$d"
     cd $d
@@ -1825,7 +1825,7 @@ done
 
 * preserves any special characters that might appear in the variable;
 
-```
+```bash
     echo "${FOO}"
 ```
 
@@ -1845,7 +1845,7 @@ done
 
 * Bash script header
 
-```
+```bash
 #!/bin/bash
 ```
 
@@ -1876,7 +1876,7 @@ done
 
 * Redirects
 
-```
+```bash
     # cmd 1> file                         # Redirect stdout to file.
     # cmd 2> file                         # Redirect stderr to file.
     # cmd 1>> file                        # Redirect and append stdout to file.
@@ -2255,27 +2255,27 @@ By default, bash sets this to $' \n\t' - space, newline, tab - which is too eage
 
 * Show Hostname
 
-```
+```bash
         hostname -f
 ```
 
 * Set hostname
 
-```
+```bash
         hostname acme.dev.nul
         or /etc/sysconfig/network
 ```
 
 * Change Time Zone
 
-```
+```bash
         ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime
         export TZ=Australia/Sydney
 ```
 
 * Show IP
 
-```
+```bash
         hostname -I
         ip addr show
         sudo ethtool eth0 - show connection status
@@ -2283,7 +2283,7 @@ By default, bash sets this to $' \n\t' - space, newline, tab - which is too eage
 
 * Set IP
 
-```
+```bash
         ifconfig eth0 192.168.0.10 netmask 255.255.255.0
         system-config-network
         /etc/sysconfig/network-scripts/
@@ -2292,19 +2292,19 @@ By default, bash sets this to $' \n\t' - space, newline, tab - which is too eage
 
 * Add Default Gateway
 
-```
+```bash
         route add default gw xx.xx.xx.1
 ```
 
 * Show Routes
 
-```
+```bash
 netstat -r
 ```
 
 * Restart Nic
 
-```
+```bash
         service network restart
         /etc/init.d/network restart
         ifup eth0
@@ -2312,20 +2312,20 @@ netstat -r
 
 * Configure DNS
 
-```
+```bash
         nano /etc/resolv.conf
 ```
 
 * Configure DNS for specific suffix
 
-```
+```bash
          cat /etc/resolver/private
          nameserver 192.168.99.100
 ```
 
 * Query DNS
 
-```
+```bash
         dig +short txt 20120113._domainkey.gmail.com @8.8.8.8 #query text records
         dig -x host #reverse
         dig +nocmd +noall +answer www.blah.com #shows TTL
@@ -2335,7 +2335,7 @@ netstat -r
 
 * Wget
 
-```
+```bash
         * Download file setting target directory:
         wget -P ~/dest/dir www.foo.com/myfile.png
         * Download file but save as different name
@@ -2344,7 +2344,7 @@ netstat -r
 
 * Curl
 
-```
+```bash
         curl -I www.server.com			# -I to show headers only, -i to show headers
         curl -D- www.server.com |less  # shows detailed tcp stuff
 
@@ -2352,26 +2352,26 @@ netstat -r
 
 * Curl loop
 
-```
+```bash
         while true; do curl --write-out " - HTTP Response: %{http_code} - Total time: %{time_total} \n" https://google.com; done #continous
 ```
 
 * Show IP address
 
-```
+```bash
 curl ipinfo.io
 ```
 
 * Siege
 
-```
+```bash
         * Benchmark  20 connections for 30 seconds.
         siege -c20 www.google.com -b -t30s
 ```
 
 * Ngrep
 
-```
+```bash
         * Similar to wireshark
         ngrep -q -W byline "^(GET|POST) .*" # -W byline  preserves linesbreaks, -q  #supresses output about 		non-matching packets
         ngrep -q -W byline "search" host www.google.com and port 80
@@ -2379,7 +2379,7 @@ curl ipinfo.io
 
         * Show packets going to a website on network
 
-```
+```bash
         ngrep -d mywebsite
 ```
 
@@ -2388,19 +2388,19 @@ curl ipinfo.io
 
 * Portscan
 
-```
+```bash
         nc -z example.com 20-100 	#scan port 20-100
 ```
 * Copy files between two hosts
 
-```
+```bash
         Server: $ nc -l 9090 | tar -xzf -
         Client: tar -czf dir/ | nc server 9090
 ```
 
 * Expose a shell over port 8080
 
-```
+```bash
         server:
         $ mkfifo backpipe $ nc -l 8080  0<backpipe | /bin/bash > backpipe
         Client:
@@ -2409,17 +2409,17 @@ curl ipinfo.io
 
 * receive file
 
-```
+```bash
         nc -l 9931 > bigfile
 ```
 
 * send file
 
-```
+```bash
         cat bigfile | nc ipaddress 9931
 ```
 
-```
+```bash
         nc -l -p 1234 #starts a server on port 1234
         nc destination_host 1234 # connect to server from client
         tar cfp - /some/dir | compress -c | nc -w 3 destination_host 1234 # compress file and send to remove
@@ -2431,7 +2431,7 @@ curl ipinfo.io
 
 * Tunnel traffic to any server you have ssh access to including dns
 
-```
+```bash
         sshuttle -r <server> --dns 0/0
 ```
 
@@ -2441,35 +2441,35 @@ curl ipinfo.io
 
 * Automatically strip all cache control headers and make sure you always get fresh connection
 
-```
+```bash
         mitmproxy --anticache
 ```
 
 * Record a session
 
-```
+```bash
         mitmdump -w user-signup
 ```
 * Replay a sessio
 
-```
+```bash
         mitmdump -c user-signup | tail -n1 | grep 200 && echo "OK" || echo "FAIL"
 ```
 * Disable ping to avoid ICMP flood
 
-```
+```bash
         Set following in /etc/sysctl.conf : net.ipv4.icmp_echo_ignore_all = 1
         Then “sysctl -p”
 ```
 
 * Show Public IP Address
 
-```
+```bash
         ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
 ```
 * Show SYN Flood
 
-```
+```bash
         ss -a | grep SYN-RECV | awk '{print $4}' | awk -F":" '{print $1}' | sort | uniq -c | sort -n
         or
         netstat -antp | grep SYN_RECV|awk '{print $4}'|sort|uniq -c | sort -n
@@ -2480,13 +2480,13 @@ curl ipinfo.io
 
 * Config File
 
-```
+```bash
         ~/.screenrc
 ```
 
 * Commands
 
-```
+```bash
 screen -ls #show all screens
 CTRL a w # which screens are available
 CTRL a 0 # go to window 0
@@ -2509,47 +2509,47 @@ screen -r #reattach to screen
 
 * update pip (Python package manager):
 
-```
+```bash
         pip install -U pip
 ```
 * search pip repos
 
-```
+```bash
         pip
 ```
 * create a virtual python environment
 
-```
+```bash
         virtualenv [dirname] --no-site-packages
 ```
 * connect to a virtual python environment
 
-```
+```bash
         source [dirname]/bin/activate
 ```
 * disconnect from a python environment:
 
-```
+```bash
         deactivate
 ```
 * install package into virtual python environment from outsie:
 
-```
+```bash
         pip install [packagename]==[version_number] -E [dirname]
 ```
 * export python virtual environment into a shareable format:
 
-```
+```bash
         pip freeze -E [dirname] > requirements.txt
 ```
 * import python virtual environment from a requirements.txt file:
 
-```
+```bash
         pip install -E [dirname] -r requirements.txt
 ```
 * Share all files in current folder over port 8080
 
-```
+```bash
         python -m SimpleHTTPServer 8080
 ```
 
@@ -2560,28 +2560,28 @@ screen -r #reattach to screen
 
 * Show config
 
-```
+```bash
         iptables -L -v
 ```
 * Edit config
 
-```
+```bash
         /etc/sysconfig/iptables
 ```
 * Allow connections for all tcp connections attempts at web connections.
 
-```
+```bash
         sudo iptables -I INPUT 2 -p tcp  --dport 80 -j ACCEPT
 ```
 
 * Lockdown connections to any IP address lying in the range of 192.168.1.0 - 192.168.1.255
 
-```
+```bash
         sudo iptables -I INPUT 2 -p tcp --dport 22 -s 192.168.1.0/24 -j ACCEPT
 ```
 * Lockdown SSH to kick anyone after 3 attempts
 
-```
+```bash
 Replace default ssh rule with this one.
 The first rule records the IP address of each attempt to access port 22 using the recent module.
 The second rule checks to see if that IP address has attempted to connect 4 or more times within the last 60 seconds, and if not then the packet is accepted.
@@ -2594,7 +2594,7 @@ iptables -A INPUT -p tcp --dport 22 -m recent ! --rcheck --seconds 60 --hitcount
 * Command switches
 
 
-```
+```bash
         -A      	Append
         -I          Inserts rule to position in chain
         -m          Connection State
@@ -2606,13 +2606,13 @@ iptables -A INPUT -p tcp --dport 22 -m recent ! --rcheck --seconds 60 --hitcount
 
 * Save config
 
-```
+```bash
 /etc/init.d/iptables save
 ```
 
 * Restart Iptables
 
-```
+```bash
 sudo /sbin/service iptables restart
 ```
 
@@ -2623,7 +2623,7 @@ sudo /sbin/service iptables restart
 * Disable SE Linux
 
 
-```
+```bash
 cat /etc/selinux/config
 SELINUX=disabled
 SELINUXTYPE=targeted
@@ -2633,112 +2633,112 @@ SELINUXTYPE=targeted
 
 * Check repositories:
 
-```
+```bash
 nano /etc/yum.repos.d/CentOS-Base.repo
 sudo yum repolist
 ```
 
 * Install Repositories
 
-```
+```bash
 rpm -Uvh http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
 ```
 
 
 * Install package
 
-```
+```bash
 yum install PACKAGENAME
 ```
 
 * Remove package
 
-```
+```bash
 yum remove PACKAGENAME
 ```
 
 * Update package
 
-```
+```bash
 yum update PACKAGENAME
 ```
 
 
 * List available updates
 
-```
+```bash
 yum list updates
 ```
 
 * Update system
 
-```
+```bash
 yum update
 ```
 
 * Upgrade system to newest release (dangerous!)
 
-```
+```bash
 yum upgrade
 ```
 
 * Show package
 
-```
+```bash
 yum list PACKAGENAME
 ```
 
 * Search package repositories
 
-```
+```bash
 yum search SEARCHSTRING
 ```
 
 * Search particular version of a package
 
-```
+```bash
 yum --showduplicates list httpd | expand
 ```
 
 * List package groups
 
-```
+```bash
 yum grouplist
 ```
 
 * Install package group
 
-```
+```bash
 yum groupinstall 'GROUP NAME'
 ```
 
 * Update package group
 
-```
+```bash
 yum groupupdate 'GROUP NAME'
 ```
 
 * Remove package group
 
-```
+```bash
 yum groupremove 'GROUP NAME'
 ```
 
 * Install utitilites you would need to install most commonly
 
-```
+```bash
 yum groupinstall "Development Tools"
 ```
 
 * Show installed packages
 
-```
+```bash
 yum list installed
 ```
 
 * Show available updates
 
-```
+```bash
 yum list updates
 ```
 
@@ -2747,14 +2747,14 @@ yum list updates
 
 * Cron files
 
-```
+```bash
 /etc/cron.allow  # users allowed to submit jobs
 ```
 
 * Jobs submitted from following dirs
 
 
-```
+```bash
 /etc/crontab # root only jobs
 /etc/cron.d #
 /etc/cron.hourly #files placed in this dir run hourly
@@ -2764,7 +2764,7 @@ yum list updates
 
 * Crontab Commands
 
-```
+```bash
 export EDITOR=nano to specify a editor to open crontab file.
 crontab -e    		Edit your crontab file, or create one if it doesn’t already exist.
 crontab -l      	Display your crontab file.
@@ -2774,7 +2774,7 @@ crontab -v      	Display the last time you edited your crontab file. (This optio
 
 * Crontab file
 
-```
+```bash
 Crontab syntax :
 A crontab file has five fields for specifying day , date and time followed by the command to be run at that interval.
 *     *     *   *    *        command to be executed
@@ -2789,7 +2789,7 @@ A crontab file has five fields for specifying day , date and time followed by th
 
 * To Use Env Variables
 
-```
+```bash
 Example:
 * In crontab -e file:
 
@@ -2804,7 +2804,7 @@ some_other_cmd
 
 * To Run with Virtual Env
 
-```
+```bash
 * in cron.sh
 #!/bin/bash
 source $HOME/.bash_profile
@@ -2820,26 +2820,26 @@ from django.conf import settings
 
 * Generate log file
 
-```
+```bash
 30 18 * * * rm /home/someuser/tmp/* > /home/someuser/cronlogs/clean_tmp_dir.log
 ```
 
 * Find out what cron jobs are running
 
-```
+```bash
 ls /etc/cron* + cat for user in $(cat /etc/passwd | cut -f1 -d:); do crontab -l -u $user; done
 ```
 
 * To find out where is cron log
 
-```
+```bash
 grep -ic cron /var/log/* | grep -v :0
 grep cron /etc/rsyslog.conf
 ```
 
 * Check if cron configured to log
 
-```
+```bash
 cat /etc/default/cron
 look for EXTRA_OPTS="-L 2” -L is how verbose
 ```
@@ -2853,19 +2853,19 @@ look for EXTRA_OPTS="-L 2” -L is how verbose
 
 * SSHD Config
 
-```
+```bash
         nano /etc/ssh/sshd_config
 ```
 
 * User Config File
 
-```
+```bash
         ~/.ssh/config
 ```
 
 * Example Config
 
-```
+```bash
         Host dev
             HostName dev.example.com
             Port 22000
@@ -2877,13 +2877,13 @@ look for EXTRA_OPTS="-L 2” -L is how verbose
 
 * Local client  will use 9906 and use ssh and connect over to 3306
 
-```
+```bash
         ssh -f -N -L 9906:127.0.0.1:3306 user@remoteserver.com
 ```
 
 * Lightweight Proxy for Geoblocked content:
 
-```
+```bash
         ssh -D 9090 user@remoteserver.com
 
         Exposes the local port 9090 as a SOCKS proxy. You can then alter your browser settings to use your local SOCKS proxy to route browsing traffic.
@@ -2891,7 +2891,7 @@ look for EXTRA_OPTS="-L 2” -L is how verbose
 
 * Port Forwarding Shortcut
 
-```
+```bash
     Add this to your ssh config to make it easier to call tunnel
 
         Host tunnel
@@ -2903,7 +2903,7 @@ look for EXTRA_OPTS="-L 2” -L is how verbose
 
 * Create a new user on the server
 
-```
+```bash
     Generate a SSH key on local machine
     ssh-keygen -t rsa -C "your_email@example.com"
 
@@ -2922,7 +2922,7 @@ look for EXTRA_OPTS="-L 2” -L is how verbose
 
 * Configure SSH Login using Keys
 
-```
+```bash
         nano /home/deploy/.ssh/authorized_keys
 
         Add the contents of the id_rsa.pub on your local machine and any other public keys that you want to have access to this server to this file
@@ -2932,7 +2932,7 @@ look for EXTRA_OPTS="-L 2” -L is how verbose
 
 * Configure SSH For Certain Users or logins
 
-```
+```bash
         nano /etc/ssh/sshd_config
 
         Add these lines to the file, inserting the ip address from where you will be connecting:
@@ -2946,13 +2946,13 @@ look for EXTRA_OPTS="-L 2” -L is how verbose
 
 * Run Commands on remote machine
 
-```
+```bash
         ssh -l <username> <servername> "/bin/cat -n /etc/group"
 ```
 
 * Access Localhost pages on remote system
 
-```
+```bash
 Note that if you are working with a remote system via SSH, you can't directly access the remote box's localhost URL. A solution to this is to simply forward port from the remote machine to your local machine:
 
 ssh -f -N -L 8081:localhost:8081 your_user@your_remote_machine
@@ -2962,7 +2962,7 @@ Now you can access http://localhost:8081 and it will be as if you would issue th
 
 * Prevent Idle SSH sessions being killed
 
-```
+```bash
     Client config
 
         ServerAliveInterval = 60
@@ -2974,7 +2974,7 @@ Now you can access http://localhost:8081 and it will be as if you would issue th
 
 * Retreive the public key from a private key
 
-```
+```bash
         ssh-keygen -y -e -f myfile.pem
 ```
 
@@ -2982,7 +2982,7 @@ Now you can access http://localhost:8081 and it will be as if you would issue th
 
 On local machine enable SSH Agent forwarding
 
-```
+```bash
         ssh -A user@bastion
 
         or
@@ -2993,7 +2993,7 @@ On local machine enable SSH Agent forwarding
 
 Then configure ProxyCommand setting for the remote instances in your SSH configuration file.
 
-```
+```bash
         Host private1
               IdentityFile ~/.ssh/rsa_private_key
               ProxyCommand ssh user@bastion -W %h:%p
@@ -3005,7 +3005,7 @@ Then configure ProxyCommand setting for the remote instances in your SSH configu
 
 Finally, connect to private instance
 
-```
+```bash
         ssh user@private1
 ```
 
@@ -3016,7 +3016,7 @@ SSH will establish a connection to the bastion host and then from the bastion ho
 
 SSH multiplexing is the ability to carry multiple SSH sessions over a single TCP connection. This can result in speed increases that can add up when repeatedly running commands against remote SSH hosts.
 
-```
+```bash
         Host demo-server.domain.com
               ControlPath ~/.ssh/cm-%r@%h:%p
               ControlMaster auto
@@ -3034,7 +3034,7 @@ Finally, the ControlPersist setting keeps the master connection alive for the sp
 
 Custom SSH configuration file is useless without explicitly telling Ansible to use these settings when connecting to Ansible-managed hosts. This is accomplished by creating (or modifying) ansible.cfg and adding the following setings:
 
-```
+```bash
     [ssh_connection]
     ssh_args = -F ./ssh.cfg -o ControlMaster=auto -o ControlPersist=30m
     control_path = ~/.ssh/ansible-%%r@%%h:%%p
@@ -3046,12 +3046,12 @@ Custom SSH configuration file is useless without explicitly telling Ansible to u
 
 * Access RDS in a Private Subnet from Local Machine
 
-```
+```bash
 ssh -i "Private_key.pem" -f -N -L 3306:RDS_Instance_Endpoint:3306 ec2-user@EC2-Instance_Endpoint -v
 ```
 
 
-```
+```bash
 ssh -i  ~/.ssh/my.key -f -N -L  \
 3306:rdshostname.cluster-xyz.us-west-2.rds.amazonaws.com:3306 \
 ec2-user@ec1-2-3-4.us-west-2.compute.amazonaws.com -v
@@ -3061,78 +3061,78 @@ ec2-user@ec1-2-3-4.us-west-2.compute.amazonaws.com -v
 
 * Install
 
-```
+```bash
         sudo yum install httpd mod_ssl
         sudo yum install httpd24 mod_ssl
 ```
 
 * Make DocumentRoot
 
-```
+```bash
         mkdir /var/www/website.com
 ```
 
 * Edit config
 
-```
+```bash
         sudo nano /etc/httpd/conf/httpd.conf
 ```
 
 * ServerAdmin
 
-```
+```apacheconf
         ServerAdmin admin@website.com
 ```
 
 * ServerName
 
-```
+```bash
         www.website.com
 ```
 * DocumentRoot
 
-```
+```apacheconf
         DocumentRoot "/var/www/website.com"
 ```
 
 * Directory Options
 
-```
+```apacheconf
         <Directory "/var/www/website.com">
         Options FollowSymLinks 	#Comment out Indexes to prevent browsing of directories
 ```
 
 * ServerTokens
 
-```
+```bash
         ServerTokens Prod 	# only shows Apache
         * Default: full
 ```
 
 * Timeout
 
-```
+```bash
         Timeout 30  # is the max time to wait for a response, action it and respond. Forces visitors to wait in line.
         * Default : 60
 ```
 
 * MaxKeepAliveRequests
 
-```
+```bash
         MaxKeepAliveRequests 200 #max number of requests per connection
         *Default : 100
 ```
 
 * KeepAliveTimeout
 
-```
+```bash
         KeepAliveTimeout 3 #time that the connection waits for client to request something. But new connections will be on hold. Lower is best
         * Default : 5
 ```
 
 * LoadModule
 
-```
+```bash
 Remove Following
 LoadModule auth_basic_module modules/mod_auth_basic.so  -basic auth-
 LoadModule auth_digest_module modules/mod_auth_digest.so - md5 authentication
@@ -3191,14 +3191,14 @@ LoadModule disk_cache_module modules/mod_disk_cache.so
 
 * Server Signature
 
-```
+```bash
         ServerSignature Off
         * Default: On
 ```
 
 * Virtual Host
 
-```
+```apacheconf
 #Virtual Host
 <VirtualHost *:80>
     ServerAdmin admin@website.com
@@ -3245,7 +3245,7 @@ LoadModule disk_cache_module modules/mod_disk_cache.so
 Restrict /admin website to only canada and australia
 
 
-```
+```apacheconf
     SetEnvIf CF-IPCountry AU AllowCountry=1
     SetEnvIf CF-IPCountry CA AllowCountry=1
     <Directory /var/www/website.com/admin>
@@ -3258,7 +3258,7 @@ Restrict /admin website to only canada and australia
 
 * Pagespeed
 
-```
+```bash
 <IfModule pagespeed_module>
     # Uncomment the following line if you want to disable statistics entirely.
     # ModPagespeedStatistics off
@@ -3289,45 +3289,45 @@ Restrict /admin website to only canada and australia
 
 * Enable Compression
 
-```
+```bash
         #AdditionalCompression
         AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/x-javascript
 ```
 
 * Add permissions writable directories
 
-```
+```bash
         chown apache:apache -R /var/www/website.com/images/dir1
         chown apache:apache -R /var/www/website.com/images/dir2
 ```
 
 * Restart
 
-```
+```bash
         /etc/init.d/httpd restart
 ```
 
 * Autostart
 
-```
+```bash
         sudo /sbin/chkconfig --levels 235 httpd on
 ```
 
 * Reload Config
 
-```
+```bash
         sudo /etc/init.d/httpd reload
 ```
 
 * See loaded modules
 
-```
+```bash
         /usr/sbin/httpd -M
 ```
 
 * Security Testing
 
-```
+```bash
         wget -P ~/tools http://www.cirt.net/nikto/nikto-current.tar.gz
         tar -xzvf nikto-current.tar.gz
         perl nikto.pl -h localhost
@@ -3351,7 +3351,7 @@ Restrict /admin website to only canada and australia
 
 * Create a SAN config
 
-```
+```bash
 
         [ req ]
         prompt = no
@@ -3524,7 +3524,7 @@ DER - The parent format of PEM. It's useful to think of it as a binary version o
 
 * Database types:
 
-```
+```bash
 The two most popular storage engines in MySQL are InnoDB and MyISAM
 InnoDB supports some newer features like transactions, row-level locking, foreign keys. It's optimized for read/write high volume operations and high performance.
 MyISAM is simpler and better optimized for read only operations. It has limited feature set as compared to InnoDB.
@@ -3658,7 +3658,7 @@ MyISAM is simpler and better optimized for read only operations. It has limited 
 
 * Manual Config
 
-```
+```bash
 * Login to MySQL
 mysql -u root
 
@@ -3743,77 +3743,77 @@ DROP DATABASE test;
 
 * Install
 
-```
+```bash
 sudo yum install git
 ```
 
 * Generate key
 
-```
+```bash
 ssh-keygen -t rsa
 ```
 * Start a new git project:
 
-```
+```bash
 git init
 ```
 * Clone a git (target can be specified either locally or remotely, via any number of protocols):
-```
+```bash
 git clone [target]
 ```
 * Commit changes to a git:
-```
+```bash
 git commit -m "[message]"
 ```
 * Get info on current repository:
 
-```
+```bash
 git status
 ```
 * Show change log for current repository:
 
-```
+```bash
 git log
 ```
 
 * Update git directory from another repository:
 
-```
+```bash
 git pull [target]
 ```
 
 * Push branch to other repository:
 
-```
+```bash
 git push [target]
 ```
 
 * Create a new branch:
 
-```
+```bash
 git branch [branchname]
 ```
 * Switch to target branch:
 
-```
+```bash
 git checkout [branchname]
 ```
 
 * Delete a branch:
 
-```
+```bash
 git branch -d [branchname]
 ```
 
 * Merge two branches:
 
-```
+```bash
 git merge [branchname] [branchname]
 ```
 
 * Contributing
 
-```
+```bash
 1. Fork it
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
@@ -3823,7 +3823,7 @@ git merge [branchname] [branchname]
 
 * Branches
 
-```
+```bash
 1. Create a new branch (git branch my-new-feature)
 2. Switch to new branch (git checkout my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
@@ -3834,25 +3834,25 @@ git merge [branchname] [branchname]
 
 * Ensure ssh-agent is enabled
 
-```
+```bash
 eval "$(ssh-agent -s)"
 ```
 
 * Add your SSH key to the ssh-agen
 
-```
+```bash
 ssh-add ~/.ssh/id_rsa
 ```
 
 * See file changes
 
-```
+```bash
 git diff
 ```
 
 * Git Post-Receive Hook on server
 
-```
+```bash
 cat > hooks/postreceive
 #!/bin/sh
 GIT_WORK_TREE=/var/www/html
@@ -3863,45 +3863,45 @@ chmod +x hooks/postreceive
 
 * Add the remote repository to the local repository
 
-```
+```bash
 git push website+master:refs/heads/master [FIRST TIME ONLY]
 git push website master                   [ALL OTHER TIMES]
 ```
 
 * Add empty commit
 
-```
+```bash
 git commit --allow-empty
 ```
 
 * List all local branches
 
-```
+```bash
 git branch
 ```
 
 * List referenced remote branches
 
-```
+```bash
 git branch -r
 ```
 
 * Find which branches are already merged into master and can be removed
 
-```
+```bash
 git checkout master
 git branch --merged
 ```
 
 * Remove all outdated branches with:
 
-```
+```bash
 git branch -d old-merged-feature
 ```
 
 * Decide what to do with not merged branches
 
-```
+```bash
 git branch --no-merged
 ```
 
@@ -3909,12 +3909,12 @@ git branch --no-merged
 
 List the current configured remote repository for your fork.
 
-```
+```bash
 git remote -v
 ```
     Specify a new remote upstream repository that will be synced with the fork.
 
-```
+```bash
 git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
 ```
 
@@ -3922,25 +3922,25 @@ git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.gi
 
 Fetch the branches and their respective commits from the upstream repository. Commits to master will be stored in a local branch, upstream/master
 
-```
+```bash
 git fetch upstream
 ```
 
 Check out your fork's local master branch
 
-```
+```bash
 git checkout master
 ```
 
 Merge the changes from upstream/master into your local master branch. This brings your fork's master branch into sync with the upstream repository, without losing your local changes
 
-```
+```bash
 git merge upstream/master
 ```
 
 * Show dit diff of staged files
 
-```
+```bash
 git diff ---cached
 ```
 
@@ -3949,26 +3949,26 @@ git diff ---cached
 First fetch the new master from the upstream repository, then rebase your work branch on that:
 
 Option 1:
-```
+```bash
 git fetch origin            # Updates origin/master
 git rebase origin/master    # Rebases current branch onto origin/master
 ```
 
 Option 2: Newer
 
-```
+```bash
 git pull --rebase origin master
 ```
 
 * Undo last commit
 
-```
+```bash
 git reset --hard HEAD~1
 ```
 
 * Move last commit on master to different branch
 
-```
+```bash
 git checkout -b feature/istio-elb-timeout
 git merge master
 git checkout master
@@ -3979,7 +3979,7 @@ git status
 
 * Move currently worked on files to a new branch
 
-```
+```bash
 git stash
 git checkout master
 git pull
@@ -3989,7 +3989,7 @@ git stash pop
 
 * Undo deleting a file that was already committed
 
-```
+```bash
 git checkout main -- folder/deletefile.txt
 ```
 
@@ -3997,14 +3997,14 @@ git checkout main -- folder/deletefile.txt
 
 The '.' in the jq '.' command above is the simplest jq "filter." The dot takes the input JSON and outputs it as is. You can read more about filters here, but the bare minimum to know is that .keyname will filter the result to a property matching that key, and [index] will match an array value at that index
 
-```
+```bash
 $ USERX='{"name":"duchess","city":"Toronto","orders":[{"id":"x","qty":10},{"id":"y","qty":15}]}'
 $ echo $USERX | jq '.'
 ```
 
 And [] will match each item in an array:
 
-```
+```bash
 echo $USERX | jq '.orders[].id'
 "x"
 "y"
@@ -4012,7 +4012,7 @@ echo $USERX | jq '.orders[].id'
 
 Filtering output by value is also handy! Here we use | to output the result of one filter into the input of another filter and select(.qty>10) to select only orders with qty value greater than 10:
 
-```
+```bash
 echo $USERX | jq '.orders[]|select(.qty>10)'
 {
   "id": "y",
@@ -4022,7 +4022,7 @@ echo $USERX | jq '.orders[]|select(.qty>10)'
 
 One more trick: filtering by key name rather than value:
 
-```
+```bash
 $ ORDER='{"user_id":123,"user_name":"duchess","order_id":456,"order_status":"sent","vendor_id":789,"vendor_name":"Abe Books"}'
 $ echo $ORDER | jq '.'
 {
@@ -4043,7 +4043,7 @@ $ echo $ORDER | jq 'with_entries(select(.key|match("order_")))'
 
 Selecting multiple fields
 
-```
+```bash
 cat city.json | jq '.tips[] | "\(.name) \(.type) \(.address)- \(.comment)"'
 ```
 
@@ -4312,7 +4312,7 @@ if we are using sudo user then specify -s at the end to run cmd in sudo
 
 ### moving around
 
-```
+```bash
 h - right
 l - left
 j - down
@@ -4321,7 +4321,7 @@ k - up
 
 ### line movement
 
-```
+```bash
 0 or ^  - start of line
 $ - end of line
 f + any char - find character on line
@@ -4331,7 +4331,7 @@ number + G - move to line number
 ```
 
 ### word movements
-```
+```bash
 w - move to next word
 b - move backwords
 e - end of word
@@ -4339,14 +4339,14 @@ e - end of word
 
 ### screen movement
 
-```
+```bash
 control + f - move down screen
 control + d - move down half screen
 ```
 
 ### searching
 
-```
+```bash
 / <query>
 n - go to next search result
 N - go back in results
@@ -4355,7 +4355,7 @@ N - go back in results
 
 ### editing
 
-```
+```bash
 d - delete
 d + $ - delete to end of unline
 d + e - delete to end of word
@@ -4370,7 +4370,7 @@ u - undo
 
 ### copying
 
-```
+```bash
 y - copy
 yy - copy whole line
 4y - yank/copy 4 lines below
@@ -4378,7 +4378,7 @@ p - paste
 ```
 ### search & replace
 
-```
+```bash
 :%s/word/newword/g
 :%s/word/newword/c - ask for confirmation
 
@@ -4387,7 +4387,7 @@ p - paste
 
 ### multi line operations
 
-```
+```bash
 :g command run command on any lines matching a pattern
 :g/pattern/cmd
 
@@ -4402,7 +4402,7 @@ p - paste
 
 ### save
 
-```
+```bash
 :w - save/write
 :q
 :q! - quit without save
@@ -4412,7 +4412,7 @@ p - paste
 
 #### verbs
 
-```
+```bash
 d - delete
 c - change (delete and insert mode)
 v - visually select
@@ -4428,7 +4428,7 @@ ctrl R - redo
 
 #### nouns
 
-```
+```bash
 w - word
 b - back
 2j - down 2 lines
@@ -4443,7 +4443,7 @@ f<char> - find the next character on line
 
 #### search
 
-```
+```bash
 /<search> - search
 /<search> enter n - next results
 %s/old/new/gc - g is greedy, c is confirm
@@ -4452,27 +4452,27 @@ f<char> - find the next character on line
 
 ### plugins
 
-```
+```bash
 :PlugInstall - install plugins
 :PlugClean - clean plugin
 ```
 
 ### themes
 
-```
+```bash
 :col <tab> - change theme
 ```
 
 
 ### file management
 
-```
+```bash
 <leader>w - Save file
 <leader>gg - lazy git
 ```
 ### tabs
 
-```
+```bash
 :vs - vertical split
 :vs filename
 gt - next tab
@@ -4482,7 +4482,7 @@ gT - previus tab
 
 ### windows
 
-```
+```bash
 :sp or ctrl-w s - split holizontal
 :vsp or ctrl-w v - split vertical
 :vsp <tab> - split with a different file
@@ -4496,7 +4496,7 @@ ctrl-w o - close all other windows
 
 ### neotree
 
-```
+```bash
 space e - toggle file explorer
 space E - focus file explorer
 ```
@@ -4504,7 +4504,7 @@ space E - focus file explorer
 #### search
 While in the neo-tree window:
 
-```
+```bash
 / - Start searching (type to filter visible files)
 n - Go to next match
 N - Go to previous match
@@ -4513,7 +4513,7 @@ Escape - Clear search
 
 ### split navigation
 
-```
+```bash
 <leader>- - Split window below
 <leader>| - Split window right
 <leader>wd - Delete window
@@ -4526,14 +4526,14 @@ Ctrl-l - Move right
 
 ### Search:
 
-```
+```bash
 <leader>sg - Search with live grep (most commonly used)
 <leader>sw - Search for the word under cursor
 ```
 
 ### File finding:
 
-```
+```bash
 <leader>ff - Find files
 <leader>fr - Recent files
 <leader><space> - Find files (quick access)
@@ -4544,7 +4544,7 @@ Ctrl-l - Move right
 ## SystemD
 
 
-```
+```ini
 wget https://github.com/prometheus/node_exporter/releases/download/0.11.0/node_exporter-0.11.0.linux-amd64.tar.gz
 sudo mv node_exporter /usr/sbin/
 
@@ -4573,7 +4573,7 @@ sudo systemctl start node_exporter.service
 
 First set timezone before logging
 
-```
+```bash
 timedatectl list-timezones
 sudo timedatectl set-timezone zone
 timedatectl status
@@ -4581,13 +4581,13 @@ timedatectl status
 
 Logs since current boot
 
-```
+```bash
 journalctl -b
 ```
 
 To enable persistent logging:
 
-```
+```ini
 sudo nano /etc/systemd/journald.conf
 . . .
 [Journal]
@@ -4596,13 +4596,13 @@ Storage=persistent
 
 Show boots
 
-```
+```bash
 journalctl --list-boots
 ```
 
 Logs since jan
 
-```
+```bash
 journalctl --since "2015-01-10" --until "2015-01-11 03:00"
 journalctl --since 09:00 --until "1 hour ago"
 journalctl --since yesterday
@@ -4610,44 +4610,44 @@ journalctl --since yesterday
 
 By unit
 
-```
+```bash
 journalctl -u nginx.service -u php-fpm.service --since today
 ```
 
 By Process ID
 
-```
+```bash
 journalctl _PID=8088
 ```
 
 By User ID
 
-```
+```bash
 journalctl _UID=33 --since today
 ```
 
 Truncate output
 
-```
+```bash
 journalctl --no-full
 journalclt --no-pager
 ```
 
 Output to JSON
 
-```
+```bash
 journalctl -b -u nginx -o json-pretty
 ```
 
 See how much disk is being used
 
-```
+```bash
 journalctl --disk-usage
 ```
 
 Delete old logs
 
-```
+```bash
 sudo journalctl --vacuum-size=1G
 ```
 
@@ -4662,7 +4662,7 @@ sudo journalctl --vacuum-size=1G
 
 * Edit Service Config
 
-```
+```ini
 [Unit]
 Description=My Service
 Documentation=https://backplane.io/index
@@ -4678,7 +4678,7 @@ WantedBy=multi-user.target
 WHERE is for rows:
 When querying, we can use the WHERE clause to filter the rows we get back. To use WHERE we specify a condition like “population less than 1000”:
 
-```
+```sql
 SELECT *
 FROM city
 WHERE population < 1000;
@@ -4687,7 +4687,7 @@ WHERE population < 1000;
 SELECT is for Columns
 Conversely, if we want to get back only certain pieces of data (i.e. columns) of each row, we use SELECT:
 
-```
+```sql
 SELECT name, countrycode
 FROM city;
 ```
@@ -4695,7 +4695,7 @@ FROM city;
 Both at the Same Time
 And the real power of SQL is that we can combine both together:
 
-```
+```sql
 SELECT name, countrycode
 FROM city
 WHERE population < 1000;
@@ -4703,7 +4703,7 @@ WHERE population < 1000;
 
 multiple WHERE queries by using AND like:
 
-```
+```sql
 WHERE population < 1000 AND countrycode = 'AIA'
 ```
 
@@ -4715,7 +4715,7 @@ How do we get them both together? The only way is to create one big table using 
 It connects city.countrycode to country.code. So for each city row, I take the city.countrycode and find the matching country.code row in the country table. Then I take those two rows and add them together. They are now one, larger row.
 
 
-```
+```sql
 SELECT *
 FROM city
 JOIN country ON city.countrycode = country.code;
@@ -4726,7 +4726,7 @@ Create one big table with FROM and JOIN
 Pair down the rows with WHERE
 Pair down the columns with SELECT
 
-```
+```sql
 SELECT city.name, country.lifeexpectancy
 FROM city
 JOIN country ON country.code = city.countrycode
@@ -4746,7 +4746,7 @@ For each group
 All of the columns specified in the GROUP BY clause are already the same so they simply collapse down into that value.
 For the other columns, they get combined based on the aggregate function. In our case, we COUNT each row that exists and display the final number.
 
-```
+```sql
 SELECT
   countrycode,
   COUNT(language)
@@ -4759,7 +4759,7 @@ Multiply Two Columns:
 Our database has a table named purchase with data in the following columns: id, name, price, quantity, and discount_id.
 Let’s multiply the price by the quantity of the products to find out how much you paid for each item in your order.
 
-```
+```sql
 SELECT
     name
      price*quantity  AS total_price
@@ -4770,7 +4770,7 @@ Multiplying from Other Columns
 
 You can also use data from two columns coming from different tables. We have another table in our database named discount that has columns named id and value; the latter represents the percent discount on the item with the given ID.
 
-```
+```sql
 SELECT
     p.name,
      p.price*p.quantity*(100-d.value)/100  AS total_price
@@ -4782,7 +4782,7 @@ JOIN discount d ON d.id=p.discount_id;
 
 import CSV data with a single command, the table is created automatically:
 
-```
+```sql
 > .import --csv city.csv city
 > select count(*) from city;
 1117
@@ -4790,7 +4790,7 @@ import CSV data with a single command, the table is created automatically:
 
 Data could be exported as SQL, CSV, JSON, even Markdown and HTML. Takes just a couple of commands:
 
-```
+```sql
 .mode json
 .output city.json
 select city, foundation_year, timezone from city limit 10;
@@ -4799,7 +4799,7 @@ select city, foundation_year, timezone from city limit 10;
 
 Read json
 
-```
+```sql
 select
   json_extract(value, '$.iso.code') as code,
   json_extract(value, '$.iso.number') as num,
@@ -4829,18 +4829,18 @@ echo $status
 
 Fish shebang
 
-```
+```fish
 #!/usr/bin/env fish
 ```
 
 Set variable
 
-```
+```bash
 set foo 42
 ```
 The set builtin accepts the following flags to explicitly declare the scope of the variable:
 
-```
+```fish
 -l, --local: available only to the innermost block
 -g, --global: available outside blocks and by other functions
 -U, --universal: shared between all fish sessions and persisted across restarts of the shell
@@ -4849,25 +4849,25 @@ The set builtin accepts the following flags to explicitly declare the scope of t
 
 To set universal variable
 
-```
+```bash
 set -x -U foo 42
 ```
 
 Export variable
 
-```
+```bash
 set -x foo 42
 ```
 
 Show all vars
 
-```
+```fish
 set
 ```
 
 Set path persistently
 
-```
+```bash
 set -U fish_user_paths $fish_user_paths my_path
 
 # or to add a path to your PATH, globally, permanently, across all open shell sessions
@@ -4877,7 +4877,7 @@ fish_add_path /opt/whatever/bin
 
 Unset path persistently
 
-```
+```fish
 if set -l index (contains -i $my_path $PATH)
     set -e PATH[$index]
 end
@@ -4887,14 +4887,14 @@ Make a function
 
 To make this function available in future fish sessions save it to ~/.config/fish/functions/mkdirp.fish. Note: function name and file name should match
 
-```
+```fish
 function mkdirp
     mkdir -p $argv
 end
 ```
 or funsave
 
-```
+```fish
 funcsave mkdirp
 ```
 
@@ -4902,7 +4902,7 @@ funcsave mkdirp
 How do I access the arguments passed to a function in fish?
 Use the $argv variable.
 
-```
+```fish
 function Foo
     printf "%s\n" $argv
 end
@@ -4911,7 +4911,7 @@ end
 How do I parse command line arguments in fish?
 Use a for loop.
 
-```
+```fish
 for option in $argv
     switch "$option"
         case -f --foo
@@ -4924,13 +4924,13 @@ end
 
 Where's the .bash_profile or .bashrc equivalent in fish?
 
-```
+```fish
 Your fish configuration is saved to ~/.config/fish/config.fish.
 ```
 
 To read a file line by line, use the read builtin.
 
-```
+```fish
 while read -la line
     echo $line
 end < my_file
@@ -4938,13 +4938,13 @@ end < my_file
 
 To do a loop in a 1 liner
 
-```
+```fish
 for i in ns1 ns2 ns2 ; echo $i ; kubectl get pods --namespace=$i; end
 ```
 
 Loop based on a file
 
-```
+```fish
 for i in *.yaml
   echo $i
 end
@@ -4953,7 +4953,7 @@ end
 How do I read from stdin in fish?
 Use the read builtin.
 
-```
+```fish
 read --prompt "echo 'Name: ' " -l name
 ```
 
@@ -4985,7 +4985,7 @@ my_command 2>&1
 
 * Basics
 
-```
+```bash
 [\^$.|?*+()                          # special characters any other will match themselves
 \                                    # escapes special characters and treat as literal
 *                                    # repeat the previous item zero or more times
@@ -5006,13 +5006,13 @@ To use it, replace the libx264 codec with libx265, and push the compression leve
 
 mp4 to lower output
 
-```
+```bash
 ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
 ```
 
 Mov to mp4
 
-```
+```bash
 ffmpeg -i my-video.mov -vcodec h264 -acodec mp2 my-video.mp4
 ```
 
@@ -5055,7 +5055,7 @@ Decrypt file
 
 Init
 
-```
+```bash
 ipfs init
 ipfs daemon
 ```
@@ -5078,21 +5078,21 @@ download the posted encrypted file from your first computer from IPFS using the 
 
 Install
 
-```
+```bash
 sudo apt update && sudo apt install dnsutils #debian
 sudo yum install bind-utils #centos
 ```
 
 Query the linux.org domain:
 
-```
+```bash
 dig linux.org
 ```
 
 
 The first line of the output prints the installed dig version, and the queried domain name. The second line shows the global options (by default, only cmd).
 
-```
+```bash
 ; <<>> DiG 9.13.3 <<>> linux.org
 ;; global options: +cmd
 ```
@@ -5100,7 +5100,7 @@ If you don’t want those lines to be included in the output, use the +nocmd opt
 
 The next section includes technical details about the answer received from the requested authority (DNS server). The header shows the opcode (the action performed by dig) and the status of the action. In this example, the status is NOERROR, which means that the requested authority served the query without any issue.
 
-```
+```bash
 ;; Got answer:
 ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 37159
 ;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 2, ADDITIONAL: 5
@@ -5109,7 +5109,7 @@ This section can be removed using the +nocomments option, which also disables so
 
 The “OPT” pseudo section is shown only in the newer versions of the dig utility. You can read more about the Extension mechanisms for DNS (EDNS) here .
 
-```
+```bash
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags:; udp: 4096
 ```
@@ -5117,7 +5117,7 @@ To exclude this section from the output, use the +noedns option.
 
 In the “QUESTION” section dig shows the query (question). By default, dig requests the A record.
 
-```
+```bash
 ;; QUESTION SECTION:
 ;linux.org.			IN	A
 ```
@@ -5125,7 +5125,7 @@ You can disable this section using the +noquestion option.
 
 The “ANSWER” section provides us with an answer to our question. As we already mentioned, by default dig will request the A record. Here, we can see that the domain linux.org points to the 104.18.59.123 IP address.
 
-```
+```bash
 ;; ANSWER SECTION:
 linux.org.		300	IN	A	104.18.59.123
 linux.org.		300	IN	A	104.18.58.123
@@ -5134,7 +5134,7 @@ Usually, you do not want to turn off the answer, but you can remove this section
 
 The “AUTHORITY” section tells us what server(s) are the authority for answering DNS queries about the queried domain.
 
-```
+```bash
 ;; AUTHORITY SECTION:
 linux.org.		86379	IN	NS	lia.ns.cloudflare.com.
 linux.org.		86379	IN	NS	mark.ns.cloudflare.com.
@@ -5143,7 +5143,7 @@ You can disable this section of the output using the +noauthority option.
 
 The “ADDITIONAL” section gives us information about the IP addresses of the authoritative DNS servers shown in the authority section.
 
-```
+```bash
 ;; ADDITIONAL SECTION:
 lia.ns.cloudflare.com.	84354	IN	A	173.245.58.185
 lia.ns.cloudflare.com.	170762	IN	AAAA	2400:cb00:2049:1::adf5:3ab9
@@ -5154,7 +5154,7 @@ The +noadditional option disables the additional section of a reply.
 
 The last section of the dig output includes statistics about the query.
 
-```
+```bash
 ;; Query time: 58 msec
 ;; SERVER: 192.168.1.1#53(192.168.1.1)
 ;; WHEN: Fri Oct 12 11:46:46 CEST 2018
@@ -5168,7 +5168,7 @@ Generally, you would want to get only a short answer to your dig query.
 1. Get a Short Answer
 To get a short answer to your query, use the +short option:
 
-```
+```bash
 dig linux.org +short
 
 104.18.59.123
@@ -5180,7 +5180,7 @@ The output will include only the IP addresses of the A record.
 
 For more a detailed answer, turn off all the results using the +noall options and then turn on only the answer section with the +answer option.
 
-```
+```bash
 dig linux.org +noall +answer
 
 ; <<>> DiG 9.13.3 <<>> linux.org +noall +answer
@@ -5194,7 +5194,7 @@ By default, if no name server is specified, dig uses the servers listed in /etc/
 To specify a name server against which the query will be executed, use the @ (at) symbol followed by the name server IP address or hostname.
 For example, to query the Google name server (8.8.8.8) for information about the linux.org domain you would use:
 
-```
+```bash
 dig linux.org @8.8.8.8
 
 ; <<>> DiG 9.13.3 <<>> linux.org @8.8.8.8
@@ -5224,7 +5224,7 @@ Dig allows you to perform any valid DNS query by appending the record type to th
 1. Querying A records
 To get a list of all the address(es) for a domain name, use the a option:
 
-```
+```bash
 dig +nocmd google.com a +noall +answer
 
 google.com.		128	IN	A	216.58.206.206
@@ -5234,7 +5234,7 @@ As you already know, if no DNS record type is specified, dig will request the A 
 2. Querying CNAME records
 To find the alias domain name use the cname option:
 
-```
+```bash
 dig +nocmd mail.google.com cname +noall +answer
 
 mail.google.com.	553482	IN	CNAME	googlemail.l.google.com.
@@ -5243,7 +5243,7 @@ mail.google.com.	553482	IN	CNAME	googlemail.l.google.com.
 3. Querying TXT records
 Use the txt option to retrieve all the TXT records for a specific domain:
 
-```
+```bash
 dig +nocmd google.com txt +noall +answer
 
 google.com.		300	IN	TXT	"facebook-domain-verification=22rm551cu4k0ab0bxsw536tlds4h95"
@@ -5254,7 +5254,7 @@ google.com.		300	IN	TXT	"docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e"
 To get a list of all the mail servers for a specific domain use the mx option:
 
 
-```
+```bash
 dig +nocmd google.com mx +noall +answer
 
 google.com.		494	IN	MX	30 alt2.aspmx.l.google.com.
@@ -5266,7 +5266,7 @@ google.com.		494	IN	MX	20 alt1.aspmx.l.google.com.
 5. Querying NS records
 To find the authoritative name servers for our specific domain use the ns option:
 
-```
+```bash
 dig +nocmd google.com ns +noall +answer
 
 google.com.		84527	IN	NS	ns1.google.com.
@@ -5278,7 +5278,7 @@ google.com.		84527	IN	NS	ns3.google.com.
 6. Querying All Records
 Use the any option to get a list of all DNS records for a specific domain:
 
-```
+```bash
 dig +nocmd google.com any +noall +answer
 
 google.com.		299	IN	A	216.58.212.14
@@ -5303,12 +5303,12 @@ Reverse DNS Lookup
 To query the hostname associated with a specific IP address use the -x option.
 For example, to perform a reverse lookup on 208.118.235.148 you would type:
 
-```
+```bash
 dig -x 208.118.235.148 +noall +answer
 ```
 As you can see from the output below the IP address 208.118.235.148 is associated with the hostname wildebeest.gnu.org.
 
-```
+```bash
 ; <<>> DiG 9.13.3 <<>> -x 208.118.235.148 +noall +answer
 ;; global options: +cmd
 148.235.118.208.in-addr.arpa. 245 IN	PTR	wildebeest.gnu.org.
@@ -5318,13 +5318,13 @@ As you can see from the output below the IP address 208.118.235.148 is associate
 
 * Download and Install
 
-```
+```bash
 https://github.com/FiloSottile/age
 ```
 
 * Generate a New Key Par
 
-```
+```bash
 mkdir ~/.age
 age-keygen -o ~/.age/key.txt
 ```
@@ -5333,19 +5333,19 @@ Share the public key with recipient
 
 * Encrypt a file with recipient's public key
 
-```
+```bash
 age -r [receipient public key] example.txt > example.txt.age
 ```
 
 * Decrypt a file
 
-```
+```bash
 age --decrypt example.txt.age -i ~/.age/key.txt -o example.txt
 ```
 
 * Encrypt & Decrypt using a passphrase
 
-```
+```bash
 # encrypt
 age -p secrets.txt > secrets.txt.age
 Enter passphrase (leave empty to autogenerate a secure one):
@@ -5359,7 +5359,7 @@ Enter passphrase:
 
 * Config
 
-```
+```bash
 #config.fish
 3.9.19
 set -gx --prepend PATH /Users/username/.asdf/shims
@@ -5370,7 +5370,7 @@ set -gx --prepend PATH /Users/username/.asdf/shims
 
 * Pyenv replacement
 
-```
+```bash
 $ asdf plugin add python
 
 $ asdf install python
@@ -5381,7 +5381,7 @@ $ asdf set -u python 3.9.19 This sets python 3.9.19 as our default python versio
 
 * Rbenv
 
-```
+```bash
 $ asdf plugin add ruby
 
 $ asdf install ruby latest # We can omit the version number. Currently installs 2.7.1
@@ -5392,7 +5392,7 @@ $ asdf set -u ruby 2.7.1
 
 * Goenv
 
-```
+```bash
 $ asdf plugin add golang
 
 $ asdf install golang latest # 1.14.6
@@ -5402,7 +5402,7 @@ $ asdf set -u golang 1.14.6
 
 * Nvm
 
-```
+```bash
 $ asdf plugin add nodejs
 
 $ asdf install nodejs 12.18.2
@@ -5414,7 +5414,7 @@ $ asdf set -u nodejs 12.18.2
 
 Using asdf set -u creates a file under your HOME directory called .tool-versions. This lets asdf know which versions to use. And of course, in contrast to global, there is also the local keyword that creates another .tool-versions. This is useful when projects require different version.
 
-```
+```bash
 $ cat ~/.tool-versions
 
 python 3.8.4
@@ -5431,17 +5431,17 @@ nodejs 12.18.2
 
 Luckily Terraform allows for plugins caching. So, whenever plugin has to be downloaded and is present in the cache directory, it will be copied into the project instead. This can save some time and bandwidth.
 
-```
+```bash
 touch ~/.terraformrc
 ```
 Put this in your ~/.terraformrc and enjoy:
 
-```
+```hcl
 plugin_cache_dir   = "$HOME/.terraform.d/plugin-cache"
 ```
 Then create the cache directory:
 
-```
+```bash
 mkdir -p $HOME/.terraform.d/plugin-cache
 ```
 
@@ -5470,7 +5470,7 @@ OpenAI compatability
 
 To invoke Ollama’s OpenAI compatible API endpoint, use the same OpenAI format and change the hostname to http://localhost:11434:
 
-```
+```bash
 curl http://localhost:11434/v1/chat/completions \
     -H "Content-Type: application/json" \
     -d '{
@@ -5535,7 +5535,7 @@ node -v
 
 ### movement
 
-```
+```bash
 h: moves cursor 1 character to the left.
 j: moves cursor 1 line above.
 k: moves cursor 1 line below.
@@ -5548,7 +5548,7 @@ f{ -  find the next { character
 
 ### movement - word
 
-```
+```bash
 e - move to end of word
 b - move to beginning of word
 w - move by word
@@ -5556,7 +5556,7 @@ w - move by word
 
 ### editing
 
-```
+```bash
 c - change and insert
 d - delete
 u - indo
@@ -5565,13 +5565,13 @@ mi" - delete inside quotes
 
 ### linting
 
-```
+```bash
 Space + d - open the Diagnostics Picker
 ```
 
 ### copy paste
 
-```
+```bash
 x - select entire line
 2x- select 2 lines
 y - yank to clipboard
@@ -5586,7 +5586,7 @@ control-d - multiselect (my custom)
 
 ### finding
 
-```
+```bash
 / - find in file
 n - next result
 N - backwards result
@@ -5602,7 +5602,7 @@ space j - jump list shows where you were working
 
 ### panes
 
-```
+```bash
 Ctrl-w v - vertical split
 Ctrl-w h/j/k/l - Navigate between splits (left/down/up/right)
 Ctrl-w q - Close the current split
@@ -5648,7 +5648,7 @@ args = ["-logfile=/tmp/gopls.log",  "serve"]
 
 ## Yazi
 
-```
+```bash
 r - rename
 y - copy
 p - paste
